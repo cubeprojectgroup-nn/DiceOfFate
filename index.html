@@ -2,35 +2,113 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Кость Судьбы: Telegram Edition</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* Все стили из твоей последней версии (Bone_of_Destiny_0.0.5.html) */
-        :root { --magic-color: #a29bfe; --sparkle-color: #fff; --bg-color: #090a0f; }
-        body {
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-            min-height: 100vh; margin: 0; padding: 20px;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-            color: white; font-family: 'Segoe UI', sans-serif; text-align: center; overflow-x: hidden;
+        :root {
+            --magic-color: #a29bfe;
+            --bg-color: #090a0f;
+            --friendly-green: #ccffcc;
         }
-        /* ... (остальные стили из твоего файла сохраняются) ... */
-        .controls-row { display: flex; gap: 15px; margin-bottom: 20px; justify-content: center; }
-        .toggle-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--magic-color); text-transform: uppercase; }
-        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+
+        body {
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; margin: 0; padding: 10px;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: white; font-family: 'Segoe UI', sans-serif;
+            text-align: center; overflow: hidden;
+        }
+
+        /* Тонкий скроллбар */
+        .history::-webkit-scrollbar { width: 6px; }
+        .history::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
+        .history::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
+
+        .controls-row { display: flex; justify-content: center; gap: 15px; margin: 20px 0; width: 100%; z-index: 100; }
+        .toggle-item { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--magic-color); text-transform: uppercase; letter-spacing: 1px; }
+        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222; transition: .4s; border-radius: 20px; border: 1px solid var(--magic-color); }
-        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: var(--magic-color); transition: .4s; border-radius: 50%; }
-        input:checked + .slider:before { transform: translateX(20px); }
-        .cube { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; transition: transform 6s cubic-bezier(0.15, 0, 0.15, 1); transform: rotateX(-20deg) rotateY(20deg); }
-        .face { position: absolute; width: 100px; height: 100px; background: rgba(26, 26, 46, 0.95); border: 2px solid var(--magic-color); display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: bold; border-radius: 15px; box-shadow: inset 0 0 20px rgba(162, 155, 254, 0.3); color: white; }
-        .cube.classic-mode .face { background: #fff !important; color: #000 !important; border: 1px solid #ccc !important; }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 2px; bottom: 2px; background-color: var(--magic-color); transition: .4s; border-radius: 50%; }
+        input:checked + .slider:before { transform: translateX(16px); }
+
+        h1 { 
+            font-size: 36px; letter-spacing: 2px; margin: 10px 0; 
+            width: 90%; max-width: 350px;
+            color: var(--magic-color); 
+            text-shadow: 0 0 10px var(--magic-color), 0 0 20px var(--magic-color); 
+            font-weight: bold; text-transform: uppercase; position: relative; z-index: 10;
+        }
+
+        .input-section { margin: 20px 0 10px 0; width: 90%; max-width: 350px; position: relative; z-index: 110; }
+        input[type="text"] {
+            width: 100%; padding: 12px; border-radius: 25px; border: 2px solid var(--magic-color);
+            background: rgba(255, 255, 255, 0.05); color: white; font-size: 16px;
+            outline: none; text-align: center; box-sizing: border-box; transition: 0.3s;
+        }
+
+        #error-msg {
+            height: 25px; font-size: 18px; color: var(--friendly-green);
+            margin-top: 10px; opacity: 0; transition: 0.3s; font-weight: bold; white-space: nowrap;
+        }
+        .error-mode { opacity: 1 !important; animation: pulse-friendly 1.5s infinite ease-in-out; text-shadow: 0 0 8px var(--friendly-green); }
+        @keyframes pulse-friendly { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.02); opacity: 1; } }
+
+        .stage { position: relative; width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; perspective: 1000px; z-index: 50; }
+        .scene { width: 100px; height: 100px; position: relative; }
+        .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 6s cubic-bezier(0.15, 0, 0.15, 1); transform: rotateX(-20deg) rotateY(20deg); z-index: 50; }
+        .face { position: absolute; width: 100px; height: 100px; background: rgba(26, 26, 46, 0.95); border: 2px solid var(--magic-color); display: flex; align-items: center; justify-content: center; font-size: 45px; font-weight: bold; border-radius: 12px; box-shadow: inset 0 0 15px rgba(162, 155, 254, 0.3); color: white; }
+        .cube.classic-mode .face { background: #fff !important; color: #000 !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+
         .f1 { transform: rotateY(0deg) translateZ(50px); } .f2 { transform: rotateX(-90deg) translateZ(50px); }
         .f3 { transform: rotateY(-90deg) translateZ(50px); } .f4 { transform: rotateY(90deg) translateZ(50px); }
         .f5 { transform: rotateX(90deg) translateZ(50px); } .f6 { transform: rotateY(180deg) translateZ(50px); }
-        .sparkle { position: absolute; width: 6px; height: 6px; background-color: #fff; border-radius: 50%; box-shadow: 0 0 10px var(--magic-color); opacity: 0; pointer-events: none; top: 50%; left: 50%; }
+
+        #answer-box { height: 60px; display: flex; align-items: center; justify-content: center; margin: 5px 0; font-weight: bold; transition: all 0.5s ease; position: relative; z-index: 10; }
+        .idle-mode { animation: glow-idle 6s infinite ease-in-out; font-size: 20px; }
+        .waiting-mode { animation: pulse-wait 1.5s infinite ease-in-out, glow-shimmer 3s infinite linear; text-transform: uppercase; letter-spacing: 2px; }
+
+        @keyframes glow-idle { 0%, 100% { color: #ccffcc; text-shadow: 0 0 8px #00ff00; } 50% { color: #ffcccc; text-shadow: 0 0 8px #ff0000; } }
+        @keyframes pulse-wait { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+        @keyframes glow-shimmer { 0%, 100% { color: #ccffcc; text-shadow: 0 0 10px #00ff00; } 50% { color: #ffcccc; text-shadow: 0 0 10px #ff0000; } }
+
+        .btn-roll { padding: 15px 60px; font-size: 18px; background: var(--magic-color); border: none; color: #000; border-radius: 50px; cursor: pointer; font-weight: bold; text-transform: uppercase; z-index: 110; position: relative; box-shadow: 0 0 20px rgba(162, 155, 254, 0.4); }
+        .btn-roll:disabled { background: #333; color: #666; cursor: wait; box-shadow: none; }
+
+        /* --- ИСТОРИЯ ПРЕДСКАЗАНИЙ --- */
+        .history-header { margin-top: 30px; width: 100%; max-width: 400px; border-top: 1px solid rgba(162, 155, 254, 0.2); padding-top: 15px; text-align: left; color: var(--magic-color); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; position: relative; z-index: 10; }
+        .history { width: 100%; max-width: 400px; text-align: left; color: #888; overflow-y: auto; max-height: 150px; padding: 5px; position: relative; z-index: 10; }
+        
+        .history-item { 
+            padding: 10px 0; 
+            font-size: 13px;
+            position: relative;
+        }
+
+        /* Полоска разделитель */
+        .history-item:not(:last-child):after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(162, 155, 254, 0.2), transparent);
+        }
+
+        /* Светящийся знак вопроса */
+        .q-mark {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 0 0 8px #fff, 0 0 15px var(--magic-color);
+            margin-right: 5px;
+            display: inline-block;
+        }
+
+        .sparkle { position: absolute; width: 4px; height: 4px; border-radius: 50%; opacity: 0; pointer-events: none; top: 50%; left: 50%; z-index: 1; }
         @keyframes sparkle-fly { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); } 100% { opacity: 0; transform: translate(var(--fly-x), calc(var(--fly-y) + 150px)) scale(0); } }
-        .btn-roll { padding: 15px 50px; font-size: 18px; background: var(--magic-color); border: none; color: #000; border-radius: 50px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -38,97 +116,129 @@
     <div class="controls-row">
         <div class="toggle-item"><span>Звук</span><label class="switch"><input type="checkbox" id="soundToggle" checked><span class="slider"></span></label></div>
         <div class="toggle-item"><span>Искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked><span class="slider"></span></label></div>
-        <div class="toggle-item"><span>Кость</span><label class="switch"><input type="checkbox" id="cubeStyleToggle" checked onchange="updateCubeStyle()"><span class="slider"></span></label></div>
+        <div class="toggle-item"><span>Кость</span><label class="switch"><input type="checkbox" id="cubeStyleToggle" checked onchange="updateStyle()"><span class="slider"></span></label></div>
     </div>
 
-    <h1>КОСТЬ СУДЬБЫ</h1>
-    <div class="input-section"><input type="text" id="userQuestion" placeholder="Введи вопрос..."></div>
-    <div class="scene" id="scene"><div id="cube" class="cube"><div class="face f1">1</div><div class="face f2">2</div><div class="face f3">3</div><div class="face f4">4</div><div class="face f5">5</div><div class="face f6">6</div></div></div>
-    <div id="answer-box">Оракул ждет...</div>
-    <button class="btn-roll" onclick="askOracle()" id="rollBtn">ИСПЫТАТЬ СУДЬБУ</button>
-    <div id="historyList"></div>
+    <h1>Кость Судьбы</h1>
+    
+    <div class="input-section">
+        <input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off">
+        <div id="error-msg">Сперва задай вопрос оракулу!</div>
+    </div>
+
+    <div class="stage"><div class="scene" id="scene"><div id="cube" class="cube"><div class="face f1">1</div><div class="face f2">2</div><div class="face f3">3</div><div class="face f4">4</div><div class="face f5">5</div><div class="face f6">6</div></div></div></div>
+    
+    <div id="answer-box" class="idle-mode">Оракул ждет вопроса...</div>
+    
+    <button class="btn-roll" onclick="askOracle()" id="rollBtn">Испытать судьбу</button>
+
+    <div class="history-header">История предсказаний:</div>
+    <div class="history"><div id="historyList"></div></div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем приложение в Telegram
+        tg.expand();
 
-        function updateCubeStyle() {
-            const isMagic = document.getElementById('cubeStyleToggle').checked;
-            document.getElementById('cube').classList.toggle('classic-mode', !isMagic);
-        }
+        const cube = document.getElementById('cube');
+        const ans = document.getElementById('answer-box');
+        const rollBtn = document.getElementById('rollBtn');
+        const historyList = document.getElementById('historyList');
+        const userInput = document.getElementById('userQuestion');
+        const errorMsg = document.getElementById('error-msg');
 
-        const MagicAudio = {
+        function updateStyle() { cube.classList.toggle('classic-mode', !document.getElementById('cubeStyleToggle').checked); }
+
+        userInput.addEventListener('focus', () => {
+            if (!rollBtn.disabled) {
+                ans.classList.remove('waiting-mode', 'idle-mode');
+                ans.classList.add('idle-mode');
+                ans.innerText = "Оракул ждет вопроса...";
+                ans.style.color = ""; ans.style.fontSize = "20px"; ans.style.textShadow = "";
+            }
+        });
+
+        userInput.addEventListener('input', () => {
+            errorMsg.classList.remove('error-mode');
+        });
+
+        const AudioSfx = {
             ctx: null,
             init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
-            isEnabled() { return document.getElementById('soundToggle').checked; },
-            playStart() {
-                if (!this.isEnabled()) return; this.init();
-                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
-                osc.type = 'triangle'; osc.frequency.setValueAtTime(150, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.start(); osc.stop(this.ctx.currentTime + 0.5);
-            },
-            playFinish(win) {
-                if (!this.isEnabled()) return; this.init();
-                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
-                osc.frequency.setValueAtTime(win ? 880 : 220, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1);
-                osc.connect(gain); gain.connect(this.ctx.destination);
-                osc.start(); osc.stop(this.ctx.currentTime + 1);
+            play(freq, dur) {
+                if (!document.getElementById('soundToggle').checked) return;
+                this.init();
+                const osc = this.ctx.createOscillator(); const g = this.ctx.createGain();
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + dur);
+                osc.connect(g); g.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + dur);
             }
         };
 
-        let rollCount = 0;
-        const faceRotations = [{x:-10,y:10},{x:80,y:10},{x:-10,y:80},{x:-10,y:-80},{x:-100,y:10},{x:-10,y:170}];
-        const interpretations = {
-            1: { t: "НЕТ. (Слабо)", c: "#ff7675", w: false },
-            2: { t: "ДА... (Неуверенно)", c: "#55efc4", w: true },
-            3: { t: "НЕТ. (Средне)", c: "#fab1a0", w: false },
-            4: { t: "ДА! (Средне)", c: "#00b894", w: true },
-            5: { t: "НЕТ!!! (Максимально)", c: "#d63031", w: false },
-            6: { t: "ДА!!! (Абсолютно)", c: "#00ff88", w: true }
-        };
+        let rolls = 0;
+        const rots = [{x:-10,y:10},{x:80,y:10},{x:-10,y:80},{x:-10,y:-80},{x:-100,y:10},{x:-10,y:170}];
+        const results = [
+            {t:"НЕТ. (Слабо)", c:"#ffcccc", size: "18px", w:false},
+            {t:"ДА... (Неуверенно)", c:"#ccffcc", size: "18px", w:true},
+            {t:"НЕТ. (Средне)", c:"#ff6666", size: "24px", w:false},
+            {t:"ДА! (Средне)", c:"#66ff66", size: "24px", w:true},
+            {t:"НЕТ!!! (Максимально)", c:"#ff0000", size: "30px", w:false},
+            {t:"ДА!!! (Абсолютно)", c:"#00ff00", size: "30px", w:true}
+        ];
+
+        function createSparkle() {
+            const s = document.createElement('div'); s.className = 'sparkle';
+            document.getElementById('scene').appendChild(s);
+            const isGreen = Math.random() > 0.5; const color = isGreen ? '#e0ffe0' : '#ffe0e0'; 
+            s.style.background = color; s.style.boxShadow = `0 0 8px ${isGreen ? '#aaffaa' : '#ffaaaa'}`;
+            const angle = Math.random() * Math.PI * 2; const dist = 100 + Math.random() * 120;
+            s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`);
+            s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`);
+            const duration = 3.5 + Math.random() * 1; 
+            s.style.animation = `sparkle-fly ${duration}s ease-out forwards`;
+            setTimeout(() => s.remove(), duration * 1000);
+        }
 
         function askOracle() {
-            const input = document.getElementById('userQuestion');
-            const q = input.value.trim();
-            if (!q) return;
-
-            document.getElementById('rollBtn').disabled = true;
-            document.getElementById('answer-box').innerText = "Судьба решает...";
-            
-            MagicAudio.playStart();
-            // Вибрация Telegram при начале броска
-            tg.HapticFeedback.impactOccurred('medium');
-
-            if (document.getElementById('sparkleToggle').checked) {
-                for (let i=0; i<30; i++) {
-                    const s = document.createElement('div'); s.className = 'sparkle';
-                    document.getElementById('scene').appendChild(s);
-                    const angle = Math.random() * Math.PI * 2; const dist = 100 + Math.random() * 100;
-                    s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`);
-                    s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`);
-                    s.style.animation = `sparkle-fly ${0.5 + Math.random()}s ease-out forwards`;
-                    setTimeout(() => s.remove(), 1500);
-                }
+            const q = userInput.value.trim();
+            if (!q) { 
+                errorMsg.classList.add('error-mode');
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+                return; 
             }
 
-            rollCount++;
-            const res = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('cube').style.transform = `rotateX(${rollCount*3600 + faceRotations[res-1].x}deg) rotateY(${rollCount*3600 + faceRotations[res-1].y}deg)`;
+            rollBtn.disabled = true;
+            ans.classList.remove('idle-mode'); ans.classList.add('waiting-mode');
+            ans.innerText = "Судьба решает..."; ans.style.fontSize = "22px"; ans.style.textShadow = "";
+
+            AudioSfx.play(150, 0.5);
+            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+
+            if (document.getElementById('sparkleToggle').checked) {
+                for (let i=0; i<90; i++) createSparkle(); 
+            }
+
+            rolls++;
+            const res = Math.floor(Math.random() * 6);
+            cube.style.transform = `rotateX(${rolls*3600 + rots[res].x}deg) rotateY(${rolls*3600 + rots[res].y}deg)`;
 
             setTimeout(() => {
-                const info = interpretations[res];
-                document.getElementById('answer-box').innerText = info.t;
-                document.getElementById('answer-box').style.color = info.color;
-                
-                MagicAudio.playFinish(info.w);
-                // Сильная вибрация Telegram при результате
-                tg.HapticFeedback.notificationOccurred(info.w ? 'success' : 'error');
+                const info = results[res];
+                ans.classList.remove('waiting-mode');
+                ans.innerText = info.t; ans.style.color = info.c; ans.style.fontSize = info.size;
+                ans.style.textShadow = `0 0 10px ${info.c}, 0 0 20px ${info.c}`;
 
-                input.value = '';
-                document.getElementById('rollBtn').disabled = false;
+                AudioSfx.play(info.w ? 880 : 220, 1);
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred(info.w ? 'success' : 'error');
+                
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                // ТУТ ПРАВКА ЗНАКА ВОПРОСА
+                item.innerHTML = `<span class="q-mark">?</span> ${q}<br><span style="color:${info.c};">➔ ${info.t}</span>`;
+                historyList.prepend(item);
+
+                userInput.value = '';
+                rollBtn.disabled = false;
             }, 6000);
         }
     </script>
