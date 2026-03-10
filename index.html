@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кость Судьбы: Telegram Edition</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* Все стили из твоей последней версии (Bone_of_Destiny_0.0.5.html) */
+        :root { --magic-color: #a29bfe; --sparkle-color: #fff; --bg-color: #090a0f; }
+        body {
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            min-height: 100vh; margin: 0; padding: 20px;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: white; font-family: 'Segoe UI', sans-serif; text-align: center; overflow-x: hidden;
+        }
+        /* ... (остальные стили из твоего файла сохраняются) ... */
+        .controls-row { display: flex; gap: 15px; margin-bottom: 20px; justify-content: center; }
+        .toggle-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--magic-color); text-transform: uppercase; }
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222; transition: .4s; border-radius: 20px; border: 1px solid var(--magic-color); }
+        .slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: var(--magic-color); transition: .4s; border-radius: 50%; }
+        input:checked + .slider:before { transform: translateX(20px); }
+        .cube { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; transition: transform 6s cubic-bezier(0.15, 0, 0.15, 1); transform: rotateX(-20deg) rotateY(20deg); }
+        .face { position: absolute; width: 100px; height: 100px; background: rgba(26, 26, 46, 0.95); border: 2px solid var(--magic-color); display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: bold; border-radius: 15px; box-shadow: inset 0 0 20px rgba(162, 155, 254, 0.3); color: white; }
+        .cube.classic-mode .face { background: #fff !important; color: #000 !important; border: 1px solid #ccc !important; }
+        .f1 { transform: rotateY(0deg) translateZ(50px); } .f2 { transform: rotateX(-90deg) translateZ(50px); }
+        .f3 { transform: rotateY(-90deg) translateZ(50px); } .f4 { transform: rotateY(90deg) translateZ(50px); }
+        .f5 { transform: rotateX(90deg) translateZ(50px); } .f6 { transform: rotateY(180deg) translateZ(50px); }
+        .sparkle { position: absolute; width: 6px; height: 6px; background-color: #fff; border-radius: 50%; box-shadow: 0 0 10px var(--magic-color); opacity: 0; pointer-events: none; top: 50%; left: 50%; }
+        @keyframes sparkle-fly { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); } 100% { opacity: 0; transform: translate(var(--fly-x), calc(var(--fly-y) + 150px)) scale(0); } }
+        .btn-roll { padding: 15px 50px; font-size: 18px; background: var(--magic-color); border: none; color: #000; border-radius: 50px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="controls-row">
+        <div class="toggle-item"><span>Звук</span><label class="switch"><input type="checkbox" id="soundToggle" checked><span class="slider"></span></label></div>
+        <div class="toggle-item"><span>Искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked><span class="slider"></span></label></div>
+        <div class="toggle-item"><span>Кость</span><label class="switch"><input type="checkbox" id="cubeStyleToggle" checked onchange="updateCubeStyle()"><span class="slider"></span></label></div>
+    </div>
+
+    <h1>КОСТЬ СУДЬБЫ</h1>
+    <div class="input-section"><input type="text" id="userQuestion" placeholder="Введи вопрос..."></div>
+    <div class="scene" id="scene"><div id="cube" class="cube"><div class="face f1">1</div><div class="face f2">2</div><div class="face f3">3</div><div class="face f4">4</div><div class="face f5">5</div><div class="face f6">6</div></div></div>
+    <div id="answer-box">Оракул ждет...</div>
+    <button class="btn-roll" onclick="askOracle()" id="rollBtn">ИСПЫТАТЬ СУДЬБУ</button>
+    <div id="historyList"></div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачиваем приложение в Telegram
+
+        function updateCubeStyle() {
+            const isMagic = document.getElementById('cubeStyleToggle').checked;
+            document.getElementById('cube').classList.toggle('classic-mode', !isMagic);
+        }
+
+        const MagicAudio = {
+            ctx: null,
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+            isEnabled() { return document.getElementById('soundToggle').checked; },
+            playStart() {
+                if (!this.isEnabled()) return; this.init();
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.5);
+            },
+            playFinish(win) {
+                if (!this.isEnabled()) return; this.init();
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.frequency.setValueAtTime(win ? 880 : 220, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 1);
+            }
+        };
+
+        let rollCount = 0;
+        const faceRotations = [{x:-10,y:10},{x:80,y:10},{x:-10,y:80},{x:-10,y:-80},{x:-100,y:10},{x:-10,y:170}];
+        const interpretations = {
+            1: { t: "НЕТ. (Слабо)", c: "#ff7675", w: false },
+            2: { t: "ДА... (Неуверенно)", c: "#55efc4", w: true },
+            3: { t: "НЕТ. (Средне)", c: "#fab1a0", w: false },
+            4: { t: "ДА! (Средне)", c: "#00b894", w: true },
+            5: { t: "НЕТ!!! (Максимально)", c: "#d63031", w: false },
+            6: { t: "ДА!!! (Абсолютно)", c: "#00ff88", w: true }
+        };
+
+        function askOracle() {
+            const input = document.getElementById('userQuestion');
+            const q = input.value.trim();
+            if (!q) return;
+
+            document.getElementById('rollBtn').disabled = true;
+            document.getElementById('answer-box').innerText = "Судьба решает...";
+            
+            MagicAudio.playStart();
+            // Вибрация Telegram при начале броска
+            tg.HapticFeedback.impactOccurred('medium');
+
+            if (document.getElementById('sparkleToggle').checked) {
+                for (let i=0; i<30; i++) {
+                    const s = document.createElement('div'); s.className = 'sparkle';
+                    document.getElementById('scene').appendChild(s);
+                    const angle = Math.random() * Math.PI * 2; const dist = 100 + Math.random() * 100;
+                    s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`);
+                    s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`);
+                    s.style.animation = `sparkle-fly ${0.5 + Math.random()}s ease-out forwards`;
+                    setTimeout(() => s.remove(), 1500);
+                }
+            }
+
+            rollCount++;
+            const res = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('cube').style.transform = `rotateX(${rollCount*3600 + faceRotations[res-1].x}deg) rotateY(${rollCount*3600 + faceRotations[res-1].y}deg)`;
+
+            setTimeout(() => {
+                const info = interpretations[res];
+                document.getElementById('answer-box').innerText = info.t;
+                document.getElementById('answer-box').style.color = info.color;
+                
+                MagicAudio.playFinish(info.w);
+                // Сильная вибрация Telegram при результате
+                tg.HapticFeedback.notificationOccurred(info.w ? 'success' : 'error');
+
+                input.value = '';
+                document.getElementById('rollBtn').disabled = false;
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
