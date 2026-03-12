@@ -23,7 +23,6 @@
             transition: background 1s ease;
         }
 
-        /* СКРОЛЛБАР */
         .history::-webkit-scrollbar { width: 4px; }
         .history::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         .history::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
@@ -47,7 +46,6 @@
         .error-pulse-active { animation: error-vibe 0.8s infinite; }
         @keyframes error-vibe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        /* v0.7.2: СТИЛИ ОТВЕТА */
         #answer-box { height: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2px 0; font-weight: bold; position: relative; z-index: 100; }
         .idle-mode { font-size: 18px; animation: color-cycle 6s infinite ease-in-out; }
         .answer-main { line-height: 1.1; font-size: 32px; text-transform: uppercase; }
@@ -105,7 +103,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.7.2</div>
+    <div class="version">v0.7.3</div>
     <a href="https://t.me/Antis_Corpus" class="author-link">t.me/Antis_Corpus</a>
 
     <div class="top-bar">
@@ -178,6 +176,14 @@
             errorMsg.classList.remove('error-visible', 'error-pulse-active');
         });
 
+        // v0.7.3: Прячем клавиатуру при нажатии Enter
+        userInput.addEventListener('keypress', (e) => { 
+            if (e.key === 'Enter') { 
+                userInput.blur(); 
+                askOracle();
+            } 
+        });
+
         function updateCubeFaces() {
             const mode = document.getElementById('modeSelect').value, t = translations[currentLang];
             currentFaces = []; const ynOrder = [t.no, t.yes, t.no, t.yes, t.no, t.yes];
@@ -197,12 +203,18 @@
 
         function askOracle() {
             const q = userInput.value.trim(), t = translations[currentLang], dMode = document.getElementById('modeSelect').value;
+            
+            // v0.7.3: Снимаем фокус, чтобы спрятать клавиатуру при клике на кнопку
+            userInput.blur();
+
             if (!isQuestionHidden && !q) {
                 if (errorMsg.classList.contains('error-visible')) errorMsg.classList.add('error-pulse-active');
                 else errorMsg.classList.add('error-visible');
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
                 return;
             }
+            if (rollBtn.disabled) return;
+
             playSoundEffect('click'); rollBtn.disabled = true; rollBtn.innerText = t.waiting; ans.className = ''; ans.innerHTML = "";
             updateCubeFaces();
             const rollDuration = 6000 + Math.random() * 2000;
@@ -222,12 +234,8 @@
                 f.style.color = isSuccess ? "var(--friendly-green)" : "var(--angry-red)";
                 f.style.textShadow = isClassicCube ? "none" : `0 0 15px ${uiColor}`;
                 const localRes = resData[currentLang][rIdx];
-                // ПРИМЕНЕНИЕ СТИЛЕЙ ОТВЕТА
-                if (dMode !== 'yesno') {
-                    ans.innerHTML = `<div class="answer-main">${localRes.t}</div><div class="answer-sub">${localRes.s}</div>`;
-                } else {
-                    ans.innerHTML = `<div class="answer-main">${currentFaces[rIdx]}</div>`;
-                }
+                if (dMode !== 'yesno') ans.innerHTML = `<div class="answer-main">${localRes.t}</div><div class="answer-sub">${localRes.s}</div>`;
+                else ans.innerHTML = `<div class="answer-main">${currentFaces[rIdx]}</div>`;
                 playSoundEffect('result', isSuccess);
                 const item = document.createElement('div'); item.className = 'history-item'; 
                 const hQuestion = isQuestionHidden ? "---" : originalQuestion;
