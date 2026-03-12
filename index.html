@@ -44,7 +44,7 @@
         #error-msg { height: 20px; font-size: 16px; color: var(--friendly-green); margin-top: 5px; opacity: 0; transition: opacity 0.3s; font-weight: bold; pointer-events: none; text-shadow: 0 0 8px var(--friendly-green); }
         .error-visible { opacity: 1 !important; }
         .error-pulse-active { animation: error-vibe 0.8s infinite; }
-        @keyframes error-vibe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes error-vibe { 0%, 100% { transform: scale(1); text-shadow: 0 0 8px var(--friendly-green); } 50% { transform: scale(1.1); text-shadow: 0 0 20px var(--friendly-green); } }
 
         #answer-box { height: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2px 0; font-weight: bold; position: relative; z-index: 100; }
         .idle-mode { font-size: 18px; animation: color-cycle 6s infinite ease-in-out; }
@@ -103,7 +103,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.7.3</div>
+    <div class="version">v0.7.4</div>
     <a href="https://t.me/Antis_Corpus" class="author-link">t.me/Antis_Corpus</a>
 
     <div class="top-bar">
@@ -176,11 +176,10 @@
             errorMsg.classList.remove('error-visible', 'error-pulse-active');
         });
 
-        // v0.7.3: Прячем клавиатуру при нажатии Enter
+        // v0.7.4: ПРЯЧЕМ КЛАВИАТУРУ БЕЗ ЗАПУСКА КУБИКА
         userInput.addEventListener('keypress', (e) => { 
             if (e.key === 'Enter') { 
                 userInput.blur(); 
-                askOracle();
             } 
         });
 
@@ -203,8 +202,6 @@
 
         function askOracle() {
             const q = userInput.value.trim(), t = translations[currentLang], dMode = document.getElementById('modeSelect').value;
-            
-            // v0.7.3: Снимаем фокус, чтобы спрятать клавиатуру при клике на кнопку
             userInput.blur();
 
             if (!isQuestionHidden && !q) {
@@ -260,13 +257,8 @@
             document.getElementById('inputWrapper').classList.toggle('hidden', isQuestionHidden);
             const icon = toggleQuestionBtn.querySelector('i');
             toggleQuestionBtn.classList.toggle('active-magic', isQuestionHidden);
-            if (isQuestionHidden) { 
-                icon.className = 'fas fa-comment-slash'; 
-                ans.innerHTML = translations[currentLang].fateThrow; 
-            } else { 
-                icon.className = 'fas fa-question-circle'; 
-                ans.innerHTML = translations[currentLang].idle; 
-            }
+            if (isQuestionHidden) { icon.className = 'fas fa-comment-slash'; ans.innerHTML = translations[currentLang].fateThrow; }
+            else { icon.className = 'fas fa-question-circle'; ans.innerHTML = translations[currentLang].idle; }
         }
 
         function changeLanguage() {
