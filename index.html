@@ -111,7 +111,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.9.8.0</div>
+    <div class="version">v0.9.8.1</div>
 
     <div class="top-bar">
         <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
@@ -192,13 +192,13 @@
         let velocityX = 0, velocityY = 0;
         let inertiaFrame;
         let lastTapTime = 0;
+        let lastMoveTime = 0;
 
         const stage = document.getElementById('mainStage');
 
         function handlePointerDown(e) {
-            if (rollBtn.disabled) return; // Блокируем свайп во время броска судьбы
+            if (rollBtn.disabled) return; 
             
-            // Логика двойного тапа
             const now = Date.now();
             if (now - lastTapTime < 300) {
                 if (!rollBtn.disabled) askOracle();
@@ -208,7 +208,7 @@
 
             isDragging = true;
             cancelAnimationFrame(inertiaFrame);
-            cube.style.transition = 'none'; // Отключаем CSS-анимацию для мгновенного следования за пальцем
+            cube.style.transition = 'none'; 
 
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -221,7 +221,7 @@
 
         function handlePointerMove(e) {
             if (!isDragging) return;
-            e.preventDefault(); // Запрещаем скролл страницы при вращении
+            e.preventDefault(); 
             
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -229,14 +229,19 @@
             const deltaX = clientX - lastX;
             const deltaY = clientY - lastY;
             
-            // Изменение координат мыши/пальца переходит во вращение осей
-            currentRotY += deltaX * 0.6;
-            currentRotX -= deltaY * 0.6;
+            // Расчет переворота осей (если куб вверх ногами)
+            let normX = currentRotX % 360;
+            if (normX < 0) normX += 360;
+            let isFlipped = (normX > 90 && normX < 270);
+            
+            currentRotY += (isFlipped ? -deltaX : deltaX) * 0.5;
+            currentRotX -= deltaY * 0.5;
             
             cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
             
             velocityX = deltaX;
             velocityY = deltaY;
+            lastMoveTime = Date.now();
             
             lastX = clientX;
             lastY = clientY;
@@ -245,26 +250,36 @@
         function handlePointerUp() {
             if (!isDragging) return;
             isDragging = false;
-            applyInertia(); // Запускаем затухающее вращение
+            
+            // Анти-фриз: если палец задержался перед отпусканием
+            if (Date.now() - lastMoveTime > 100) {
+                velocityX = 0;
+                velocityY = 0;
+            }
+            
+            applyInertia(); 
         }
 
         function applyInertia() {
-            if (Math.abs(velocityX) < 0.1 && Math.abs(velocityY) < 0.1) return;
+            if (Math.abs(velocityX) < 0.05 && Math.abs(velocityY) < 0.05) return;
             
-            currentRotY += velocityX * 0.6;
-            currentRotX -= velocityY * 0.6;
+            let normX = currentRotX % 360;
+            if (normX < 0) normX += 360;
+            let isFlipped = (normX > 90 && normX < 270);
+            
+            currentRotY += (isFlipped ? -velocityX : velocityX) * 0.5;
+            currentRotX -= velocityY * 0.5;
             cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
             
-            // Трение
-            velocityX *= 0.94;
-            velocityY *= 0.94;
+            // Как по маслу (очень низкое трение)
+            velocityX *= 0.98;
+            velocityY *= 0.98;
             
             inertiaFrame = requestAnimationFrame(applyInertia);
         }
 
-        // Подключаем события свайпа
         stage.addEventListener('mousedown', handlePointerDown);
-        document.addEventListener('mousemove', handlePointerMove);
+        document.addEventListener('mousemove', handlePointerMove, {passive: false});
         document.addEventListener('mouseup', handlePointerUp);
         stage.addEventListener('touchstart', handlePointerDown, {passive: false});
         document.addEventListener('touchmove', handlePointerMove, {passive: false});
@@ -356,7 +371,6 @@
             }
             if (rollBtn.disabled) return;
             
-            // Прерываем ручное вращение инерции
             cancelAnimationFrame(inertiaFrame);
 
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -371,15 +385,14 @@
             const targetRots = [{x:0,y:0},{x:90,y:0},{x:0,y:90},{x:0,y:-90},{x:-90,y:0},{x:0,y:180}];
             const offX = (Math.random() * 40 - 20), offY = (Math.random() * 40 - 20);
             
-            // Рассчитываем новую позицию отталкиваясь от текущего положения кубика (чтобы не было рывка)
-            const spins = 3600; // 10 полных оборотов
+            // Расчет броска от текущего угла (чтобы не было рывков)
+            const spins = 3600;
             const baseRotX = Math.round(currentRotX / 360) * 360;
             const baseRotY = Math.round(currentRotY / 360) * 360;
             
             currentRotX = baseRotX + spins + targetRots[rIdx].x + offX;
             currentRotY = baseRotY + spins + targetRots[rIdx].y + offY;
             
-            // ЭФФЕКТ ПОДБРАСЫВАНИЯ 
             const scaleDuration = rollDuration - 1500;
             cube.style.transition = `transform ${rollDuration / 1000}s cubic-bezier(0.15, 0, 0.15, 1), scale ${(scaleDuration / 2) / 1000}s ease-out`;
             cube.style.scale = "1.3";
@@ -391,7 +404,6 @@
 
             cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
             
-            // --- ВИБРАЦИЯ ВРАЩЕНИЯ КУБИКА (ДИНАМИЧЕСКАЯ) ---
             if (tg.HapticFeedback) {
                 const startHapticTime = Date.now();
                 const rollHaptics = () => {
@@ -408,7 +420,6 @@
                 };
                 rollHaptics();
             }
-            // -----------------------------------------------
 
             const originalQuestion = q; if (!isQuestionHidden) userInput.value = ''; 
             if (document.getElementById('sparkleToggle').checked) { for(let i=0;i<150;i++) createSparkle(); }
@@ -444,7 +455,6 @@
                 void ansContent.offsetWidth; ansContent.classList.add('visible');
                 playSoundEffect('result', snd);
 
-                // --- ВИБРАЦИЯ ФИНАЛЬНОГО РЕЗУЛЬТАТА ---
                 if (tg.HapticFeedback) {
                     if (snd === 'scam') {
                         tg.HapticFeedback.notificationOccurred('error');
@@ -456,7 +466,6 @@
                         tg.HapticFeedback.impactOccurred('light'); 
                     }
                 }
-                // --------------------------------------
 
                 const mName = document.getElementById('modeSelect').options[document.getElementById('modeSelect').selectedIndex].text;
                 const item = document.createElement('div'); item.className = 'history-item';
