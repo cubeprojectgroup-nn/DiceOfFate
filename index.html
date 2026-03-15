@@ -107,7 +107,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.9.6.8</div>
+    <div class="version">v0.9.7.0</div>
 
     <div class="top-bar">
         <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
@@ -212,7 +212,19 @@
                         }, t * 1000);
                     });
                 }
-                else if (resultType === 'water') { playNode(1200, 'sine', 0.1, 0.6); }
+                else if (resultType === 'water') { 
+                    [0, 0.2, 0.4].forEach((t) => {
+                        setTimeout(() => {
+                            const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+                            osc.type = 'sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                            osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.15);
+                            g.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                            g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                            osc.connect(g); g.connect(audioCtx.destination);
+                            osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+                        }, t * 1000);
+                    });
+                }
             }
         }
 
@@ -247,7 +259,7 @@
             }
             if (rollBtn.disabled) return;
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            playSoundEffect('click'); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+            playSoundEffect('click'); 
 
             rollBtn.disabled = true; rollBtn.innerText = t.waiting; rollBtn.classList.add('gold-text-active');
             ansContent.classList.remove('visible'); ansStatus.classList.remove('visible');
@@ -259,7 +271,7 @@
             const targetRots = [{x:0,y:0},{x:90,y:0},{x:0,y:90},{x:0,y:-90},{x:-90,y:0},{x:0,y:180}];
             const offX = (Math.random() * 40 - 20), offY = (Math.random() * 40 - 20);
             
-            // ЭФФЕКТ ПОДБРАСЫВАНИЯ (ПЛАВНЫЙ SCALE UP, ЗАТЕМ SCALE DOWN ЗА 1.5 СЕК ДО КОНЦА)
+            // ЭФФЕКТ ПОДБРАСЫВАНИЯ 
             const scaleDuration = rollDuration - 1500;
             cube.style.transition = `transform ${rollDuration / 1000}s cubic-bezier(0.15, 0, 0.15, 1), scale ${(scaleDuration / 2) / 1000}s ease-out`;
             cube.style.scale = "1.3";
@@ -271,6 +283,25 @@
 
             cube.style.transform = `rotateX(${rolls*3600 + targetRots[rIdx].x + offX}deg) rotateY(${rolls*3600 + targetRots[rIdx].y + offY}deg)`;
             
+            // --- ВИБРАЦИЯ ВРАЩЕНИЯ КУБИКА (ДИНАМИЧЕСКАЯ) ---
+            if (tg.HapticFeedback) {
+                const startHapticTime = Date.now();
+                const rollHaptics = () => {
+                    const elapsed = Date.now() - startHapticTime;
+                    if (elapsed >= rollDuration - 200) return; 
+                    const progress = elapsed / rollDuration;
+                    
+                    if (progress < 0.3) tg.HapticFeedback.impactOccurred('heavy');
+                    else if (progress < 0.7) tg.HapticFeedback.impactOccurred('medium');
+                    else tg.HapticFeedback.impactOccurred('light');
+                    
+                    const nextTick = 50 + (progress * 250); 
+                    setTimeout(rollHaptics, nextTick);
+                };
+                rollHaptics();
+            }
+            // -----------------------------------------------
+
             const originalQuestion = q; if (!isQuestionHidden) userInput.value = ''; 
             if (document.getElementById('sparkleToggle').checked) { for(let i=0;i<150;i++) createSparkle(); }
 
@@ -304,7 +335,20 @@
 
                 void ansContent.offsetWidth; ansContent.classList.add('visible');
                 playSoundEffect('result', snd);
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred(snd==='scam'?'error':'success');
+
+                // --- ВИБРАЦИЯ ФИНАЛЬНОГО РЕЗУЛЬТАТА ---
+                if (tg.HapticFeedback) {
+                    if (snd === 'scam') {
+                        tg.HapticFeedback.notificationOccurred('error');
+                    } else if (snd === 'water') {
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 0);
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 200);
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 400);
+                    } else {
+                        tg.HapticFeedback.impactOccurred('light'); 
+                    }
+                }
+                // --------------------------------------
 
                 const mName = document.getElementById('modeSelect').options[document.getElementById('modeSelect').selectedIndex].text;
                 const item = document.createElement('div'); item.className = 'history-item';
