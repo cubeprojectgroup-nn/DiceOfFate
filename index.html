@@ -107,7 +107,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.9.6.6</div>
+    <div class="version">v0.9.6.7</div>
 
     <div class="top-bar">
         <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
@@ -304,7 +304,7 @@
 
                 void ansContent.offsetWidth; ansContent.classList.add('visible');
                 playSoundEffect('result', snd);
-                if (tg.HapticFeedback) { if(snd==='scam') tg.HapticFeedback.notificationOccurred('error'); else tg.HapticFeedback.impactOccurred('light'); }
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred(snd==='scam'?'error':'success');
 
                 const mName = document.getElementById('modeSelect').options[document.getElementById('modeSelect').selectedIndex].text;
                 const item = document.createElement('div'); item.className = 'history-item';
