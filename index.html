@@ -45,7 +45,23 @@
         
         .input-section { width: 90%; max-width: 350px; position: relative; z-index: 110; transition: all 0.5s ease; max-height: 100px; opacity: 1; margin: 10px 0 0 0; overflow: hidden; }
         .input-section.hidden { max-height: 0; opacity: 0; margin: 0; pointer-events: none; }
-        input[type="text"] { width: 100%; padding: 12px; border-radius: 25px; border: 2px solid var(--magic-color); background: rgba(255, 255, 255, 0.05); color: white; font-size: 16px; outline: none; text-align: center; box-sizing: border-box; }
+        
+        /* ИСПРАВЛЕНИЕ ДЛЯ iOS (APPLE SAFARI) */
+        input[type="text"] { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 25px; 
+            border: 2px solid var(--magic-color); 
+            background: rgba(255, 255, 255, 0.05); 
+            color: #ffffff; 
+            font-size: 16px; 
+            outline: none; 
+            text-align: center; 
+            box-sizing: border-box;
+            -webkit-appearance: none; 
+            appearance: none;
+            line-height: normal;
+        }
 
         #error-msg { height: 20px; font-size: 16px; color: var(--friendly-green); margin-top: 5px; opacity: 0; transition: opacity 0.3s; font-weight: bold; pointer-events: none; text-shadow: 0 0 8px var(--friendly-green); }
         .error-visible { opacity: 1 !important; }
@@ -111,7 +127,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.9.8.2</div>
+    <div class="version">v0.9.8.3</div>
 
     <div class="top-bar">
         <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
@@ -174,14 +190,13 @@
         // Состояние вращения куба
         let currentRotX = -20;
         let currentRotY = 20;
-        let currentRotZ = 0; // Добавили Z для правильной 3D-математики
+        let currentRotZ = 0; 
 
         // === [ МОДУЛЬ: АВТООПРЕДЕЛЕНИЕ ЯЗЫКА ] ===
-        // Читаем язык из Telegram (или из браузера)
         const userLang = (tg.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase();
         currentLang = userLang.startsWith('ru') ? 'ru' : 'en';
-        document.documentElement.lang = currentLang; // Ставим lang в тег html
-        document.getElementById('langSelect').value = currentLang; // Синхронизируем селект
+        document.documentElement.lang = currentLang; 
+        document.getElementById('langSelect').value = currentLang; 
 
         // === [ МОДУЛЬ: ДАННЫЕ И ЛОКАЛИЗАЦИЯ ] ===
         const translations = {
@@ -237,7 +252,6 @@
             const deltaX = clientX - lastX;
             const deltaY = clientY - lastY;
             
-            // Расчет с учетом Gimbal Lock (синус и косинус для X)
             let radX = currentRotX * Math.PI / 180;
             currentRotY += deltaX * Math.cos(radX) * 0.5;
             currentRotZ -= deltaX * Math.sin(radX) * 0.5;
@@ -274,7 +288,6 @@
             currentRotX -= velocityY * 0.5;
             cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) rotateZ(${currentRotZ}deg)`;
             
-            // Как по маслу (очень низкое трение)
             velocityX *= 0.98;
             velocityY *= 0.98;
             
@@ -388,11 +401,10 @@
             const targetRots = [{x:0,y:0},{x:90,y:0},{x:0,y:90},{x:0,y:-90},{x:-90,y:0},{x:0,y:180}];
             const offX = (Math.random() * 40 - 20), offY = (Math.random() * 40 - 20);
             
-            // Расчет новой позиции с учетом того, где мы оставили кубик пальцем
             const spins = 3600;
             const baseRotX = Math.round(currentRotX / 360) * 360;
             const baseRotY = Math.round(currentRotY / 360) * 360;
-            const baseRotZ = Math.round(currentRotZ / 360) * 360; // Сбрасываем Z на ближайший ровный оборот
+            const baseRotZ = Math.round(currentRotZ / 360) * 360; 
             
             currentRotX = baseRotX + spins + targetRots[rIdx].x + offX;
             currentRotY = baseRotY + spins + targetRots[rIdx].y + offY;
@@ -409,7 +421,6 @@
 
             cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) rotateZ(${currentRotZ}deg)`;
             
-            // --- ВИБРАЦИЯ ВРАЩЕНИЯ КУБИКА (ДИНАМИЧЕСКАЯ) ---
             if (tg.HapticFeedback) {
                 const startHapticTime = Date.now();
                 const rollHaptics = () => {
@@ -461,7 +472,6 @@
                 void ansContent.offsetWidth; ansContent.classList.add('visible');
                 playSoundEffect('result', snd);
 
-                // --- ВИБРАЦИЯ ФИНАЛЬНОГО РЕЗУЛЬТАТА ---
                 if (tg.HapticFeedback) {
                     if (snd === 'scam') {
                         tg.HapticFeedback.notificationOccurred('error');
@@ -552,6 +562,7 @@
         
         function changeLanguage() { 
             currentLang = document.getElementById('langSelect').value; const t = translations[currentLang];
+            document.documentElement.lang = currentLang;
             document.getElementById('ui-title').innerText = t.title; userInput.placeholder = t.placeholder;
             document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose;
             document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg;
@@ -561,8 +572,7 @@
             fillModeOptions(); fillBgOptions(); updateCubeFaces(); updateModeDisplay();
         }
         
-        // --- ПЕРВИЧНАЯ НАСТРОЙКА ПРИ ЗАПУСКЕ ---
-        changeLanguage(); // Применяем автоопределенный язык
+        changeLanguage(); 
         changeBackground(); 
         ansStatus.classList.add('visible');
     </script>
