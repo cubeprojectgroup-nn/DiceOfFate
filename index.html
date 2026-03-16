@@ -47,7 +47,6 @@
         .title-animating { animation: title-fade 0.2s ease-in-out; }
         @keyframes title-fade { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0; transform: scale(0.9); } }
 
-        /* Классы для ААА-анимации перехода между режимами */
         .fade-out { opacity: 0 !important; transition: opacity 0.15s ease !important; pointer-events: none !important; }
         .fade-in { animation: popInFade 0.2s ease forwards !important; }
         @keyframes popInFade { 0% { opacity: 0; } 100% { opacity: 1; } }
@@ -55,33 +54,48 @@
         .subtitle-row { display: flex; justify-content: space-between; width: 100%; margin-top: -2px; padding: 0 2px; box-sizing: border-box; }
         .subtitle-row a, .subtitle-row span { font-size: 10px; color: rgba(162, 155, 254, 0.6); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
         
+        .roulette-mode-active #current-mode-display { display: none !important; }
+
         .input-section { width: 90%; max-width: 350px; position: relative; z-index: 110; transition: all 0.5s ease; max-height: 100px; opacity: 1; margin: 10px 0 0 0; overflow: hidden; }
         .input-section.hidden { max-height: 0; opacity: 0; margin: 0; pointer-events: none; }
         input[type="text"] { width: 100%; padding: 12px; border-radius: 25px; border: 2px solid var(--magic-color); background: rgba(255, 255, 255, 0.05); color: #ffffff; font-size: 16px; outline: none; text-align: center; box-sizing: border-box; -webkit-appearance: none; appearance: none; line-height: normal; }
 
-        /* Ошибка: плавная пульсация 0.8s, висит пока не исправишь */
         #error-msg { height: 20px; font-size: 16px; color: var(--friendly-green); margin-top: 5px; margin-bottom: 5px; opacity: 0; transition: opacity 0.3s; font-weight: bold; pointer-events: none; text-shadow: 0 0 8px var(--friendly-green); z-index: 110; position: relative; }
         .error-visible { opacity: 1 !important; }
         .error-pulse-active { animation: error-vibe 0.8s infinite ease-in-out; }
         @keyframes error-vibe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* === [ CSS: ОТРИСОВКА РЕЗУЛЬТАТОВ ] === */
+        /* === [ CSS: ОТРИСОВКА РЕЗУЛЬТАТОВ И АНИМАЦИИ ] === */
         #answer-box { min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; font-weight: bold; position: relative; z-index: 100; overflow: visible; width: 100%; }
         #res-content { opacity: 0; transform: translateY(10px) scale(0.9); transition: opacity 0.5s ease, transform 0.5s ease, text-shadow 0.5s ease; width: 100%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
         #res-content.visible { opacity: 1 !important; transform: translateY(0) scale(1); }
         
         .answer-main { display: block; line-height: 1.1; font-size: 32px; text-transform: uppercase; margin-bottom: 2px; text-align: center; } 
-        .answer-sub { font-size: 46px; margin: 0; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .answer-sub { font-size: 46px; margin: 0; display: flex; align-items: center; justify-content: center; transition: 0.3s; position: relative; }
         .answer-desc { display: block; font-size: 16px; margin-top: 2px; font-weight: normal; text-align: center;}
 
         .roulette-mode-active .answer-main, .roulette-mode-active .answer-desc { display: none !important; }
-        .roulette-mode-active .answer-sub { font-size: 70px; }
+        .roulette-mode-active .answer-sub { font-size: 70px; margin-top: 40px; } 
+
+        .heart-pulse { animation: heartbeat-double-pulse 0.7s ease-in-out; }
+        @keyframes heartbeat-double-pulse { 
+            0% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 20% { transform: scale(1.2); filter: drop-shadow(0 0 45px #ffffff); } 40% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 60% { transform: scale(1.15); filter: drop-shadow(0 0 40px #ffffff); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 
+        }
+
+        .skull-aura { animation: aura-shot-pulse 0.8s ease-out; }
+        @keyframes aura-shot-pulse { 
+            0% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } 40% { transform: scale(1.25); filter: drop-shadow(0 0 70px red); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } 
+        }
+
+        body.yesno-mode-active #res-main, body.yesno-mode-active #res-desc { display: none !important; }
 
         .idle-mode { font-size: 18px; animation: color-cycle 6s infinite ease-in-out; opacity: 0; transform: translateY(5px); transition: opacity 0.8s ease, transform 0.8s ease; margin-top: 10px; pointer-events: none; }
         .idle-mode.visible { opacity: 1; transform: translateY(0); }
         @keyframes color-cycle { 0%, 100% { color: var(--friendly-green); text-shadow: 0 0 8px var(--friendly-green); } 50% { color: var(--angry-red); text-shadow: 0 0 8px var(--angry-red); } }
         
-        body.roulette-mode-active #res-status { margin-top: 20px; margin-bottom: 15px; }
+        body.roulette-mode-active #rouletteStage { height: 180px; margin-top: 15px; margin-bottom: 0px; } 
+        body.roulette-mode-active #res-status { margin-top: 5px; margin-bottom: 5px; }
+        body.roulette-mode-active #bulletStash { margin-bottom: 15px; }
 
         /* === [ CSS: КУБ И АНИМАЦИИ ] === */
         .stage { position: relative; width: 100%; height: 240px; display: flex; justify-content: center; align-items: center; perspective: 1200px; z-index: 50; margin: 2px 0 5px 0; touch-action: none; transition: opacity 0.4s; }
@@ -96,7 +110,7 @@
         .dot { background: currentColor; border-radius: 50%; width: 18px; height: 18px; align-self: center; justify-self: center; }
 
         /* === [ CSS: РЕЖИМ РУЛЕТКИ ] === */
-        #rouletteStage { display: none; position: relative; width: 100%; height: 240px; justify-content: center; align-items: center; z-index: 50; margin: 2px 0 5px 0; perspective: 1000px; touch-action: none; }
+        #rouletteStage { display: none; position: relative; width: 100%; height: 240px; justify-content: center; align-items: center; z-index: 50; margin: 2px 0 5px 0; perspective: 1000px; touch-action: none; transition: opacity 0.4s, height 0.3s ease; }
         
         .drum-wrapper { width: 180px; height: 180px; position: relative; color: var(--magic-color); filter: drop-shadow(0 0 15px var(--magic-color)); transition: color 0.8s ease, filter 0.8s ease; transform-style: preserve-3d; }
         .drum-wrapper.classic { color: #ffffff; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
@@ -106,13 +120,12 @@
         
         .drum-svg, .bullets-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
         
-        .target-marker { position: absolute; top: 0px; left: 50%; transform: translateX(-50%); color: var(--angry-red); font-size: 32px; filter: drop-shadow(0 0 8px var(--angry-red)); z-index: 60; }
+        .target-marker { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); color: var(--angry-red); font-size: 26px; filter: drop-shadow(0 0 8px var(--angry-red)); z-index: 60; }
 
         .survival-counter { position: absolute; top: 15px; left: calc(50% + 75px); color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
         .survival-counter.visible { opacity: 1; animation: pop-in 0.3s ease-out; }
         @keyframes pop-in { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        /* Пули с капсюлями */
         .chamber-slot { opacity: 0; transition: opacity 0.3s ease, filter 0.3s ease; }
         .chamber-slot.filled { opacity: 1; }
         
@@ -128,7 +141,7 @@
 
         .hole-num { pointer-events: none; transform-origin: center center; transition: none; }
 
-        #bulletStash { display: none; justify-content: center; gap: 12px; margin: 0 0 10px 0; height: 35px; }
+        #bulletStash { display: none; justify-content: center; gap: 12px; margin: 0 0 10px 0; height: 35px; transition: opacity 0.4s; }
         .stash-bullet { width: 18px; height: 35px; cursor: pointer; color: var(--sun-gold); transition: color 0.8s ease, transform 0.2s, opacity 0.3s; filter: drop-shadow(0 0 5px var(--sun-gold)); }
         body.classic-mode-active .stash-bullet { color: var(--angry-red); filter: drop-shadow(0 0 6px var(--angry-red)); }
         .stash-bullet:active { transform: scale(0.8); }
@@ -140,9 +153,10 @@
         .btn-roll, .btn-mini-roll { 
             background: var(--magic-color); border: none; color: #000; font-weight: bold; cursor: pointer; transition: 0.4s; z-index: 110; 
             box-shadow: 0 0 15px rgba(162, 155, 254, 0.3); 
+            touch-action: manipulation; 
         }
         .btn-roll { padding: 12px 0; width: 100%; font-size: 16px; border-radius: 50px; text-transform: uppercase; flex-grow: 1; }
-        .btn-mini-roll { width: 48px; height: 48px; border-radius: 50%; display: none; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; color: inherit; }
+        .btn-mini-roll { width: 48px; height: 48px; border-radius: 50%; display: none; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; color: inherit; transition: opacity 0.4s; }
         
         .btn-roll:disabled, .btn-mini-roll:disabled { background: #4a457e !important; animation: pulse-btn 1.5s infinite ease-in-out !important; color: rgba(255, 255, 255, 0.5) !important; pointer-events: none; }
         .gold-text-active { animation: text-gold-pulse 1.5s infinite ease-in-out !important; color: #ffffff !important; }
@@ -158,13 +172,18 @@
         .debug-btn:active { background: var(--magic-color); color: #000; transform: scale(0.9); }
 
         .history-header { margin-top: 15px; width: 100%; max-width: 350px; border-top: 1px solid rgba(162, 155, 254, 0.2); padding-top: 10px; text-align: center; color: var(--magic-color); font-size: 11px; text-transform: uppercase; font-weight: bold; transition: opacity 0.2s ease; }
-        .history { width: 100%; max-width: 350px; text-align: center; color: #888; overflow-y: auto; max-height: 120px; padding: 5px; flex-grow: 1; }
+        .history { width: 100%; max-width: 350px; text-align: center; color: #888; overflow-y: auto; max-height: 120px; padding: 5px; flex-grow: 1; transition: opacity 0.4s; }
         .history-item { padding: 10px 0; font-size: 12px; position: relative; line-height: 1.4; border-bottom: 1px solid rgba(162, 155, 254, 0.1); }
 
-        .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .settings-modal { background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.2); padding: 25px; border-radius: 30px; width: 85%; max-width: 320px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); }
+        /* === [ CSS: ОКНА НАСТРОЕК И ПРАВИЛ ] === */
+        .settings-overlay, .rules-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .settings-overlay { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); }
+        .rules-overlay { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
+        
+        .settings-modal { background: rgba(5, 8, 15, 0.95); border: 1px solid rgba(162, 155, 254, 0.3); padding: 25px; border-radius: 30px; width: 85%; max-width: 320px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); }
+        
         .setting-item { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; font-weight: bold; font-size: 15px; text-align: left; }
-        .st-select { background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--magic-color); border-radius: 10px; padding: 5px; outline: none; width: 140px; font-family: inherit; }
+        .st-select { background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--magic-color); border-radius: 10px; padding: 5px; outline: none; width: 140px; font-family: inherit; font-size: 14px; }
         .switch { position: relative; display: inline-block; width: 44px; height: 22px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.4); transition: .4s; border-radius: 34px; border: 1px solid var(--magic-color); }
@@ -172,23 +191,34 @@
         input:checked + .slider { background-color: var(--magic-color); }
         input:checked + .slider:before { transform: translateX(20px); background-color: #fff; }
         .close-btn { margin-top: 15px; background: var(--magic-color); border: none; color: #000; padding: 10px 30px; border-radius: 20px; font-weight: bold; text-transform: uppercase; width: 100%; cursor: pointer; }
+        
+        .rules-content { text-align: left; font-size: 13px; line-height: 1.5; padding: 0 5px; max-height: 60vh; overflow-y: auto; }
+        .rules-content::-webkit-scrollbar { width: 4px; }
+        .rules-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+        .rules-content::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
+
         .version { position: fixed; bottom: 5px; right: 8px; font-size: 10px; color: rgba(255, 255, 255, 0.15); pointer-events: none; z-index: 200; }
     </style>
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v1.3.1</div>
+    <div class="version">v0.7.0.2</div>
 
     <div class="top-bar">
         <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
         <button class="icon-btn" id="cubeBtn" onclick="toggleCubeStyle()"><i class="fas fa-dice-d6"></i></button>
         <button class="icon-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
         <button class="icon-btn" id="modeToggleBtn" onclick="toggleGameMode()">
-            <svg viewBox="0 0 20 50" style="height: 19px; width: auto; transform: translateY(1px);" fill="currentColor">
+            <svg viewBox="0 0 20 50" style="height: 16px; width: auto; transform: translateY(1px);" fill="currentColor">
                 <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z"/>
             </svg>
         </button>
         <button class="icon-btn" onclick="toggleSettings(true)"><i class="fas fa-cog"></i></button>
+        <button class="icon-btn" onclick="toggleRules(true)">
+            <svg viewBox="0 0 24 24" style="height: 18px; width: auto; transform: translateY(1px);" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
+            </svg>
+        </button>
     </div>
 
     <div class="header-wrapper">
@@ -237,6 +267,7 @@
                     </defs>
                     <circle cx="100" cy="100" r="96" mask="url(#main-drum-mask)" fill="currentColor"/>
                 </svg>
+                
                 <svg class="bullets-svg" viewBox="0 0 200 200" style="overflow: visible;">
                     <text x="100" y="34" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 28px;">3</text>
                     <text x="162.35" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 64px;">4</text>
@@ -307,7 +338,7 @@
                 </defs>
                 <circle cx="100" cy="100" r="96" mask="url(#mini-drum-mask)" fill="currentColor"/>
             </svg>
-            </button>
+        </button>
         <button class="btn-roll" id="rollBtn" onclick="askOracle()">Испытать судьбу</button>
     </div>
 
@@ -322,9 +353,9 @@
     </div>
 
     <div class="settings-overlay" id="settingsOverlay">
-        <div class="settings-modal">
+        <div class="settings-modal" id="settingsModalInside">
             <h2 id="st-title-h2" style="margin-top:0; color:var(--magic-color)">Настройки</h2>
-            <div class="setting-item"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="updateModeDisplay()"></select></div>
+            <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="updateModeDisplay()"></select></div>
             <div class="setting-item"><span id="st-label-bg">Фон</span><select class="st-select" id="bgSelect" onchange="changeBackground()"></select></div>
             <div class="setting-item"><span id="st-label-sparkles">Магические искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked><span class="slider"></span></label></div>
             <div class="setting-item"><span id="st-label-debug">Отладка</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="toggleDebug()"><span class="slider"></span></label></div>
@@ -333,36 +364,124 @@
         </div>
     </div>
 
+    <div class="rules-overlay" id="rulesOverlay">
+        <div class="settings-modal" id="rulesModalInside">
+            <h2 id="rules-title-h2" style="margin-top:0; color:var(--magic-color)">Правила Игры</h2>
+            <div id="rulesContentText"></div>
+            <button class="close-btn" id="ru-btn-close" onclick="toggleRules(false)">Закрыть</button>
+        </div>
+    </div>
+
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
         const cube = document.getElementById('cube'), cubeScene = document.getElementById('cubeScene'), ansStatus = document.getElementById('res-status'), ansContent = document.getElementById('res-content'), rollBtn = document.getElementById('rollBtn'), miniDrumBtn = document.getElementById('rouletteStatusBtn'), drumWrapper = document.getElementById('drumWrapper'), errorMsg = document.getElementById('error-msg');
         const resMain = document.getElementById('res-main'), resSub = document.getElementById('res-sub'), resDesc = document.getElementById('res-desc');
         const userInput = document.getElementById('userQuestion'), debugPanel = document.getElementById('debugPanel');
+        const rulesContentText = document.getElementById('rulesContentText');
         
         let isSoundEnabled = true, isClassicCube = false, currentLang = 'ru', currentFaces = [], isQuestionHidden = false;
         let audioCtx = null;
-        
-        // ГЛОБАЛЬНЫЙ РУБИЛЬНИК ИГРЫ
         let isRouletteMode = false;
         let errorTimeout;
 
-        // ПЕРЕМЕННЫЕ КУБИКА
         let isDraggingCube = false, lastCubeX = 0, lastCubeY = 0, velocityCubeX = 0, velocityCubeY = 0, inertiaFrameCube, lastCubeTapTime = 0, lastCubeMoveTime = 0, lastCubeTick = 0;
         let currentRotX = -20, currentRotY = 20, currentRotZ = 0; 
 
-        // ПЕРЕМЕННЫЕ БАРАБАНА
         let isDraggingDrum = false, drumCenterX = 0, drumCenterY = 0, lastDrumAngle = 0, velocityDrum = 0, inertiaFrameDrum, lastDrumTapTime = 0, lastDrumMoveTime = 0, lastDrumTick = 0, lastTickPlayTime = 0, lastTickedHole = 0;
         let loadedBullets = 0, drumRotation = 0, chamberState = [false, false, false, false, false, false], isDrumSpinning = false, survivalCount = 0; 
+        
         const chamberMap = [4, 5, 0, 1, 2];
+        const debugToChamberMap = [4, 5, 0, 1, 2, 3]; 
 
-        // === [ ЛОКАЛИЗАЦИЯ ] ===
         const userLang = (tg.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase();
         currentLang = userLang.startsWith('ru') ? 'ru' : 'en';
         document.documentElement.lang = currentLang; document.getElementById('langSelect').value = currentLang; 
 
+        const rulesDiceRU = `
+        <div class="rules-content">
+            <div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">
+                🔮 Кость Судьбы
+            </div>
+            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Задай вопрос Оракулу, брось кубик и позволь случаю всё решить!</div>
+            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Точки:</b> Магический 6-гранный кубик оракула! Чем выше выпало число, тем энергетически «мощнее» ответ ДА или НЕТ. Выпало четное число? Это ДА. Кость показала нечет? Не повезло, перед вами - НЕТ.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Числа:</b> Правила те же, но Оракул решил заменить точки на магию цифр!</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Да / Нет:</b> Застрял на распутье? Задай свой вопрос и получи четкий ответ Вселенной.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Трейдер:</b> Волк с Уолл-стрит на связи. ПАМП, ДАМП или жесткий СКАМ? Проверь удачу перед сделкой (не является инвест-рекомендацией!).</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Алконавт:</b> Спасение для вечеринок. Пивко, коктейль или сегодня только водичка? Пусть решает кубик Оракула судьбы!</li>
+            </ul>
+        </div>`;
+
+        const rulesRouletteRU = `
+        <div class="rules-content">
+            <div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">
+                💀 Роковая Пуля
+            </div>
+            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Режим для тех, кто любит пощекотать нервы. Русская рулетка в твоем кармане.</div>
+            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Зарядка:</b> Тапай по патронам внизу, чтобы зарядить в барабан от 1 до 5 пуль.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Вращение:</b> Нажми левую кнопку с иконкой барабана для сильной раскрутки или плавно крути барабан пальцем по экрану.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Стрик:</b> Жми «Испытать судьбу» и проверь свою удачу. Посмотрим, сколько ты сможешь протянуть, прежде чем отправишь себе пулю в лоб! 🪦</li>
+            </ul>
+        </div>`;
+
+        const rulesDiceEN = `
+        <div class="rules-content">
+            <div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">
+                🔮 Dice of Fate
+            </div>
+            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Ask the Oracle a question, roll the dice and let chance decide everything!</div>
+            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Dots:</b> Magic 6-sided oracle dice! High number = "stronger" response. Even number? That's a YES. Odd? No luck, it's a NO.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Numbers:</b> Same rules, but Oracle replaces dots with number magic!</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Yes / No:</b> Stuck? Ask your question and get a clear answer from Universe.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Trader:</b> Wolf of Wall Street. PUMP, DUMP, or hard SCAM? Test luck before trade.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Alconaut:</b> Party savior. Beer, cocktail, or water? Let the Oracle dice decide!</li>
+            </ul>
+        </div>`;
+
+        const rulesRouletteEN = `
+        <div class="rules-content">
+            <div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">
+                💀 Destiny Shot
+            </div>
+            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">A mode for those who like to tickle their nerves. Russian roulette in your pocket.</div>
+            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Loading:</b> Tap the cartridges at bottom to load 1-5 bullets in cylinder.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Spinning:</b> Press left button for strong spin, or smoothly spin cylinder with finger.</li>
+                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Streak:</b> Hit "Try fate" and check luck. Let's see how long you last before shot in head! 🪦</li>
+            </ul>
+        </div>`;
+
         const translations = {
-            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] },
-            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", yn: ["NO", "YES", "NO", "YES", "NO", "YES"] }
+            ru: { 
+                title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", 
+                error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", 
+                idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", 
+                rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", 
+                ruTitleRules: "Правила Игры", rulesTextDice: rulesDiceRU, rulesTextRoulette: rulesRouletteRU,
+                bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", 
+                traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], 
+                stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", 
+                modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт",
+                histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний",
+                clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ",
+                yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] 
+            },
+            en: { 
+                title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", 
+                error: "Ask the oracle first!", errBullet: "Load at least one bullet!", 
+                idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", 
+                rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", 
+                ruTitleRules: "Game Rules", rulesTextDice: rulesDiceEN, rulesTextRoulette: rulesRouletteEN,
+                bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", 
+                traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], 
+                stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", 
+                modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut",
+                histSurvHead: "Survival Log", histDiceHead: "Prediction History",
+                clickMsg: "LUCK", shotMsg: "SHOT",
+                yn: ["NO", "YES", "NO", "YES", "NO", "YES"] 
+            }
         };
 
         const traderIcons = ['<i class="fas fa-rocket"></i>', '<i class="fas fa-arrow-trend-down"></i>', '<i class="fas fa-chart-line"></i>', '<i class="fas fa-chart-area" style="transform: scaleY(-1)"></i>', '<i class="fas fa-arrows-left-right"></i>', '<i class="fas fa-skull"></i>'];
@@ -370,7 +489,9 @@
         const resData = { ru: [ {t:"НЕТ...", s:"Слабо"}, {t:"ДА...", s:"Неуверенно"}, {t:"НЕТ.", s:"Средне"}, {t:"ДА!", s:"Средне"}, {t:"НЕТ!!!", s:"Максимально"}, {t:"ДА!!!", s:"Абсолютно"} ], en: [ {t:"NO...", s:"Weakly"}, {t:"YES...", s:"Unsure"}, {t:"NO.", s:"Medium"}, {t:"YES!", s:"Medium"}, {t:"NO!!!", s:"Absolutely"}, {t:"YES!!!", s:"Absolutely"} ] };
         const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)", stars: true }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)", stars: false }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)", stars: false }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)", stars: false }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)", stars: false } };
 
-        // === [ УПРАВЛЕНИЕ ОШИБКАМИ ] ===
+        document.getElementById('settingsOverlay').addEventListener('click', function(e) { if (e.target === this) toggleSettings(false); });
+        document.getElementById('rulesOverlay').addEventListener('click', function(e) { if (e.target === this) toggleRules(false); });
+
         function showError(msg) {
             clearTimeout(errorTimeout);
             errorMsg.innerText = msg;
@@ -384,14 +505,10 @@
             errorMsg.classList.remove('error-visible', 'error-pulse-active');
         }
 
-        // === [ ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ ИГРЫ ] ===
         function toggleGameMode() {
             if (rollBtn.disabled || isDrumSpinning || isDraggingCube || isDraggingDrum) return;
-            
             isRouletteMode = !isRouletteMode;
-            
-            isDraggingCube = false;
-            isDraggingDrum = false;
+            isDraggingCube = false; isDraggingDrum = false;
             hideError(); 
             
             const titleEl = document.getElementById('ui-title');
@@ -401,26 +518,27 @@
             
             const modeBtn = document.getElementById('modeToggleBtn');
             modeBtn.classList.toggle('active-magic', isRouletteMode);
+            
+            updateStyleBtnIcon();
 
             const allDynamicEls = [
-                document.getElementById('mainStage'), 
-                document.getElementById('rouletteStage'), 
-                document.getElementById('bulletStash'), 
-                document.getElementById('rouletteStatusBtn'), 
-                document.getElementById('historyBlock')
+                document.getElementById('mainStage'), document.getElementById('rouletteStage'), 
+                document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), 
+                document.getElementById('historyBlock'), document.getElementById('debugPanel')
             ];
 
-            allDynamicEls.forEach(el => {
-                if (el) {
-                    el.style.transition = 'opacity 0.15s ease';
-                    el.classList.add('fade-out');
-                }
-            });
+            allDynamicEls.forEach(el => { if(el) el.classList.add('fade-out'); });
 
             setTimeout(() => {
+                const t = translations[currentLang];
+                
+                ansContent.classList.remove('visible');
+                ansStatus.innerText = isQuestionHidden ? t.idleNoQ : t.idle;
+                ansStatus.classList.add('visible');
+
                 if (isRouletteMode) {
-                    titleEl.innerText = translations[currentLang].titleRoulette;
-                    document.getElementById('st-hist-head').innerText = currentLang === 'ru' ? "Хроника выживания" : "Survival Log";
+                    titleEl.innerText = t.titleRoulette;
+                    document.getElementById('st-hist-head').innerText = t.histSurvHead;
                     
                     document.getElementById('mainStage').style.display = 'none';
                     document.getElementById('rouletteStage').style.display = 'flex';
@@ -431,49 +549,37 @@
                     document.getElementById('historyListDice').style.display = 'none';
                     document.getElementById('historyListRoulette').style.display = 'block';
                     
+                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+
                     resetRoulette();
                     if (!isQuestionHidden) toggleQuestionField(); 
                 } else {
-                    titleEl.innerText = translations[currentLang].title;
-                    document.getElementById('st-hist-head').innerText = translations[currentLang].stHist;
+                    titleEl.innerText = t.title;
+                    document.getElementById('st-hist-head').innerText = t.histDiceHead;
                     
-                    document.getElementById('mainStage').style.display = 'flex';
                     document.getElementById('rouletteStage').style.display = 'none';
                     document.getElementById('bulletStash').style.display = 'none';
                     document.getElementById('rouletteStatusBtn').style.display = 'none';
+                    document.getElementById('mainStage').style.display = 'flex';
                     
                     document.body.classList.remove('roulette-mode-active');
                     document.getElementById('historyListDice').style.display = 'block';
                     document.getElementById('historyListRoulette').style.display = 'none';
                     
+                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                    
                     updateModeDisplay(); 
-                    if (isQuestionHidden) toggleQuestionField();
+                    if (isQuestionHidden) toggleQuestionField(); 
                 }
                 
-                allDynamicEls.forEach(el => { if(el) void el.offsetWidth; });
-
-                allDynamicEls.forEach(el => {
-                    if (el) {
-                        el.classList.remove('fade-out');
-                        el.classList.add('fade-in');
-                    }
-                });
-
-                setTimeout(() => {
-                    allDynamicEls.forEach(el => {
-                        if(el) {
-                            el.style.transition = '';
-                            el.classList.remove('fade-in');
-                        }
-                    });
-                }, 200);
+                allDynamicEls.forEach(el => { if(el) { el.classList.remove('fade-out'); el.classList.add('fade-in'); } });
+                setTimeout(() => { allDynamicEls.forEach(el => { if(el) el.classList.remove('fade-in'); }); }, 200);
 
             }, 150); 
             
             if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
-        // === [ ФИЗИКА КУБИКА ] ===
         function handleCubePointerDown(e) {
             if (rollBtn.disabled || isRouletteMode) return; 
             const now = Date.now();
@@ -497,7 +603,6 @@
                 if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
                 lastCubeTick = currentCubeTotalRot;
             }
-
             velocityCubeX = deltaX; velocityCubeY = deltaY; lastCubeMoveTime = Date.now(); lastCubeX = clientX; lastCubeY = clientY;
         }
 
@@ -518,11 +623,8 @@
         document.getElementById('mainStage').addEventListener('mousedown', handleCubePointerDown); document.addEventListener('mousemove', handleCubePointerMove, {passive: false}); document.addEventListener('mouseup', handleCubePointerUp);
         document.getElementById('mainStage').addEventListener('touchstart', handleCubePointerDown, {passive: false}); document.addEventListener('touchmove', handleCubePointerMove, {passive: false}); document.addEventListener('touchend', handleCubePointerUp);
 
-        // === [ ФИЗИКА БАРАБАНА ] ===
         function updateDrumNumbers() {
-            document.querySelectorAll('.hole-num').forEach(num => {
-                num.style.transform = `rotate(${-drumRotation}deg)`;
-            });
+            document.querySelectorAll('.hole-num').forEach(num => { num.style.transform = `rotate(${-drumRotation}deg)`; });
         }
 
         function handleDrumPointerDown(e) {
@@ -588,6 +690,7 @@
                 if (Math.abs(drumRotation - targetRot) > 0.5) {
                     animateDrum(targetRot, 400, () => { if (isDrumSpinning) isDrumSpinning = false; });
                 } else {
+                    drumRotation = targetRot; drumRotator.style.transform = `rotate(${drumRotation}deg)`; updateDrumNumbers();
                     if (isDrumSpinning) isDrumSpinning = false; 
                 }
                 return; 
@@ -610,7 +713,7 @@
                 }
             }
 
-            velocityDrum *= 0.95; inertiaFrameDrum = requestAnimationFrame(applyDrumInertia);
+            velocityDrum *= 0.988; inertiaFrameDrum = requestAnimationFrame(applyDrumInertia);
         }
         
         function resetDrumSwipe() {
@@ -653,6 +756,8 @@
                 if (elapsed < duration) {
                     requestAnimationFrame(step);
                 } else {
+                    drumRotation = targetAngle; 
+                    drumRotator.style.transform = `rotate(${drumRotation}deg)`; updateDrumNumbers();
                     if (Math.abs(changeInAngle) > 1 && lastTickedHole !== nearestHole) {
                          playSoundEffect('tick');
                          if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
@@ -666,9 +771,8 @@
 
         const drumRotator = document.getElementById('drumRotator');
         drumWrapper.addEventListener('mousedown', handleDrumPointerDown); document.addEventListener('mousemove', handleDrumPointerMove, {passive: false}); document.addEventListener('mouseup', handleDrumPointerUp);
-        drumWrapper.addEventListener('touchstart', handleDrumPointerDown, {passive: false}); document.addEventListener('touchmove', handleDrumPointerMove, {passive: false}); document.addEventListener('touchend', handleDrumPointerUp);
+        drumWrapper.addEventListener('touchstart', handleDrumPointerDown, {passive: false}); document.addEventListener('touchmove', handleDrumPointerMove, {passive: false}); document.addEventListener('touchmove', handleDrumPointerMove, {passive: false}); document.addEventListener('touchend', handleDrumPointerUp);
 
-        // === [ МОДУЛЬ: ЗВУКИ ] ===
         async function playSoundEffect(type, resultType = 'positive') {
             if (!isSoundEnabled) return;
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -713,7 +817,6 @@
             }
         }
 
-        // === [ МОДУЛЬ: ЛОГИКА РУЛЕТКИ ] ===
         function loadBullet(el, idx) {
             if (rollBtn.disabled || isDrumSpinning || isDraggingDrum || !isRouletteMode) return;
             if (el.classList.contains('loaded')) return; 
@@ -741,6 +844,8 @@
             document.querySelectorAll('.chamber-slot').forEach(c => {
                 c.classList.remove('filled');
                 c.classList.remove('fired'); 
+                c.classList.remove('heart-pulse');
+                c.classList.remove('skull-aura');
             });
         }
 
@@ -780,7 +885,6 @@
             });
         }
 
-        // === [ МОДУЛЬ: ЛОГИКА ОРАКУЛА И ИНТЕРФЕЙСА ] ===
         userInput.addEventListener('input', hideError);
         userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') userInput.blur(); });
 
@@ -846,13 +950,26 @@
                 const spinDur = 3800; 
                 const extraSpins = 1440; 
                 const currentSnap = Math.round(drumRotation / 60) * 60;
-                const finalTargetRot = currentSnap + extraSpins + (forcedIdx !== null ? (forcedIdx * 60) : Math.floor(Math.random() * 6) * 60);
+                let finalTargetRot;
                 
-                const steps = Math.round(finalTargetRot / 60);
-                let normalizedSteps = steps % 6; 
-                if(normalizedSteps < 0) normalizedSteps += 6;
-                topChamberIdx = (6 - normalizedSteps) % 6;
-                isGunshotResult = chamberState[topChamberIdx];
+                if (forcedIdx !== null) {
+                    topChamberIdx = debugToChamberMap[forcedIdx];
+                    let baseTargetAngle = (-topChamberIdx * 60);
+                    let normalizedBaseTargetAngle = (baseTargetAngle % 360); if (normalizedBaseTargetAngle < 0) normalizedBaseTargetAngle += 360;
+                    let currentSnapMod360 = (currentSnap % 360); if (currentSnapMod360 < 0) currentSnapMod360 += 360;
+                    let angleDiffToTargetNormalized = normalizedBaseTargetAngle - currentSnapMod360;
+                    if (angleDiffToTargetNormalized > 180) angleDiffToTargetNormalized -= 360;
+                    else if (angleDiffToTargetNormalized <= -180) angleDiffToTargetNormalized += 360;
+                    finalTargetRot = currentSnap + extraSpins + angleDiffToTargetNormalized;
+                    isGunshotResult = chamberState[topChamberIdx];
+                } else {
+                    const randomSteps = Math.floor(Math.random() * 6);
+                    finalTargetRot = currentSnap + extraSpins + (randomSteps * 60);
+                    const steps = Math.round(finalTargetRot / 60);
+                    let normalizedSteps = steps % 6; if(normalizedSteps < 0) normalizedSteps += 6;
+                    topChamberIdx = (6 - normalizedSteps) % 6; 
+                    isGunshotResult = chamberState[topChamberIdx];
+                }
 
                 animateDrum(finalTargetRot, spinDur, () => {
                     showResults();
@@ -895,78 +1012,79 @@
 
             function showResults() {
                 let isSuccess = (rIdx % 2 !== 0), uiColor = isSuccess ? "#ccffcc" : "#ff6666", snd = 'positive';
-                let resT = "", resD = "", subI = "";
+                let resT = "", resD = "", subI = "", histDispTxt = "", mTag = "";
+
+                resSub.classList.remove('heart-pulse', 'skull-aura');
 
                 if (isRouletteMode) {
                     isDrumSpinning = false; 
                     if (isGunshotResult) { 
                         document.getElementById(`ch-${topChamberIdx}`).classList.add('fired');
-                        
+                        resSub.classList.add('skull-aura'); 
                         uiColor = "#ff0000"; snd = 'gunshot'; subI = '<i class="fas fa-skull-crossbones"></i>'; 
                         document.body.classList.add('flash-red'); setTimeout(()=>document.body.classList.remove('flash-red'), 500); 
-                        if (tg.HapticFeedback) { tg.HapticFeedback.notificationOccurred('error'); setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 100); } 
                         
-                        survivalCount = 0;
-                        document.getElementById('survivalCounter').classList.remove('visible');
-
+                        // ХАРДКОРНАЯ ВИБРАЦИЯ СМЕРТИ
+                        if (tg.HapticFeedback) { 
+                            tg.HapticFeedback.notificationOccurred('error'); 
+                            setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 50); 
+                            setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 150); 
+                            setTimeout(() => tg.HapticFeedback.impactOccurred('rigid'), 300); 
+                        } 
+                        survivalCount = 0; document.getElementById('survivalCounter').classList.remove('visible');
+                        histDispTxt = t.shotMsg;
                     } else { 
+                        resSub.classList.add('heart-pulse'); 
                         uiColor = "#ccffcc"; snd = 'safe_click'; subI = '<i class="fas fa-heart"></i>'; 
-                        if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success'); 
                         
-                        survivalCount++;
-                        const counterEl = document.getElementById('survivalCounter');
-                        counterEl.innerText = '+' + survivalCount;
-                        counterEl.classList.remove('visible');
-                        void counterEl.offsetWidth; 
-                        counterEl.classList.add('visible');
+                        // ДВОЙНОЙ ПУЛЬС СЕРДЦА
+                        if (tg.HapticFeedback) { 
+                            tg.HapticFeedback.notificationOccurred('success'); 
+                            setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 140);
+                            setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 420);
+                        } 
+                        survivalCount++; const counterEl = document.getElementById('survivalCounter'); counterEl.innerText = '+' + survivalCount; counterEl.classList.remove('visible'); void counterEl.offsetWidth; counterEl.classList.add('visible');
+                        histDispTxt = t.clickMsg;
                     }
+                    mTag = "";
                 } else {
-                    if (dMode === 'trader') {
+                    const selHistory = document.getElementById('modeSelect');
+                    const curModeText = selHistory.options[selHistory.selectedIndex].text;
+                    let histModeStrengthHistory = `[${curModeText}]`;
+
+                    if (dMode === 'trader') { 
                         uiColor = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? "#ccffcc" : "#ff6666"; 
                         if (rIdx === 4) uiColor = "#ffffff"; 
-                        if (rIdx === 5) { uiColor = "#ff0000"; snd = 'scam'; } else snd = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? 'positive' : 'negative';
-                        subI = traderIcons[rIdx];
+                        if (rIdx === 5) { uiColor = "#ff0000"; snd = 'scam'; } else snd = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? 'positive' : 'negative'; 
+                        subI = traderIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.traderFaces[rIdx]; 
                     } 
-                    else if (dMode === 'alco') {
-                        uiColor = ["#ff5e62", "#ffbd69", "#d4fc79", "#f9f586", "#96fbc4", "#a29bfe"][rIdx]; 
-                        snd = (rIdx === 5) ? 'water' : 'alco';
-                        subI = alcoIcons[rIdx];
+                    else if (dMode === 'alco') { 
+                        uiColor = ["#ff5e62", "#ffbd69", "#d4fc79", "#f9f586", "#96fbc4", "#a29bfe"][rIdx]; snd = (rIdx === 5) ? 'water' : 'alco'; subI = alcoIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.alcoFaces[rIdx]; 
                     } 
-                    else if (dMode === 'yesno') {
-                        snd = isSuccess ? 'positive' : 'negative';
-                        subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; 
-                        resT = resData[currentLang][rIdx].t; 
-                        resD = resData[currentLang][rIdx].s;
-                    } else {
-                        snd = isSuccess ? 'positive' : 'negative';
-                        resT = resData[currentLang][rIdx].t; 
-                        resD = resData[currentLang][rIdx].s;
+                    else if (dMode === 'yesno') { 
+                        snd = isSuccess ? 'positive' : 'negative'; subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; resT = resData[currentLang][rIdx].t; resD = resData[currentLang][rIdx].s; histDispTxt = currentFaces[rIdx]; 
+                        histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${resData[currentLang][rIdx].s}</span>]`; 
+                    } else { 
+                        snd = isSuccess ? 'positive' : 'negative'; resT = resData[currentLang][rIdx].t; resD = resData[currentLang][rIdx].s; 
+                        histDispTxt = `${resData[currentLang][rIdx].t} (<span style="color:${uiColor};">${resData[currentLang][rIdx].s}</span>)`; 
+                        histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${currentFaces[rIdx]}</span>]`; 
                     }
                     
+                    mTag = ` <span style="color:#aaa; font-size:9px;">${histModeStrengthHistory}</span>`;
+                    
                     const f = document.getElementById(`face${rIdx + 1}`); f.style.color = uiColor; f.style.textShadow = `0 0 20px ${uiColor}`;
-                    if (tg.HapticFeedback) { if (snd === 'scam') { tg.HapticFeedback.notificationOccurred('error'); } else if (snd === 'water') { setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 0); setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 200); setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 400); } else { tg.HapticFeedback.impactOccurred('light'); } }
+                    if (tg.HapticFeedback) { if (snd === 'scam') { tg.HapticFeedback.notificationOccurred('error'); } else if (snd === 'water') { [0,200,400].forEach(delay=>setTimeout(()=>tg.HapticFeedback.impactOccurred('medium'),delay)); } else { tg.HapticFeedback.impactOccurred('light'); } }
                 }
 
-                resMain.innerHTML = resT; 
-                resSub.innerHTML = subI; 
-                resDesc.innerHTML = resD;
-                
+                resMain.innerHTML = resT; resSub.innerHTML = subI; resDesc.innerHTML = resD;
                 resSub.style.color = uiColor; resSub.style.textShadow = `0 0 25px ${uiColor}`;
                 ansContent.style.color = uiColor; ansContent.style.textShadow = `0 0 15px ${uiColor}`;
                 void ansContent.offsetWidth; ansContent.classList.add('visible');
                 playSoundEffect('result', snd);
 
-                const mName = isRouletteMode ? translations[currentLang].modeRoulette : document.getElementById('modeSelect').options[document.getElementById('modeSelect').selectedIndex].text;
                 const item = document.createElement('div'); item.className = 'history-item';
-                let hDisp = "";
-                if(isRouletteMode) hDisp = `${subI} ${isGunshotResult ? (currentLang==='ru'?"ВЫСТРЕЛ":"BANG") : (currentLang==='ru'?"ОСЕЧКА":"CLICK")}`;
-                else if(dMode==='trader') hDisp = `${traderIcons[rIdx]} ${t.traderFaces[rIdx]}`;
-                else if(dMode==='alco') hDisp = `${alcoIcons[rIdx]} ${t.alcoFaces[rIdx]}`;
-                else if(dMode==='yesno') hDisp = `${(isSuccess?'✅':'❌')} ${currentFaces[rIdx]}`;
-                else if(dMode==='numbers') hDisp = `${(rIdx+1)} ➔ ${resData[currentLang][rIdx].t} (${resData[currentLang][rIdx].s})`;
-                else hDisp = `${resData[currentLang][rIdx].t} (${resData[currentLang][rIdx].s})`;
-
-                item.innerHTML = `<span style="color:#fff; font-weight:bold;">?</span> ${isQuestionHidden?'---':originalQuestion} <span style="color:#aaa; font-size:11px;">[${mName}]</span><br><span style="color:${uiColor};">➔ ${hDisp}</span>`;
+                const qMark = `<span style="color:#fff; font-weight:bold; text-shadow: 0 0 8px #fff, 0 0 15px var(--magic-color);">?</span>`;
+                item.innerHTML = `${qMark} ${isQuestionHidden?'---':originalQuestion}${mTag}<br><span style="color:${uiColor};">➔ ${subI} ${histDispTxt}</span>`;
                 
                 if (isRouletteMode) {
                     document.getElementById('historyListRoulette').prepend(item);
@@ -974,18 +1092,33 @@
                     document.getElementById('historyListDice').prepend(item);
                 }
 
-                if (isRouletteMode && isGunshotResult) { setTimeout(()=>resetRoulette(), 3000); } 
-
-                rollBtn.disabled = false; rollBtn.innerText = translations[currentLang].rollBtn; rollBtn.classList.remove('gold-text-active');
-                miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
-                
-                setTimeout(() => { if(!rollBtn.disabled) { ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; ansStatus.classList.add('visible'); } }, 3000);
+                // ЗАЩИТА ОТ МИССКЛИКА ПРИ СМЕРТИ
+                if (isRouletteMode && isGunshotResult) {
+                    setTimeout(() => {
+                        resetRoulette();
+                        rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
+                        miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
+                        ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; 
+                        ansStatus.classList.add('visible');
+                    }, 3000);
+                } else {
+                    rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
+                    miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
+                    
+                    const idleTimeout = (isRouletteMode) ? 4000 : 3000; 
+                    setTimeout(() => { 
+                        if(!rollBtn.disabled) { 
+                            ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; 
+                            ansStatus.classList.add('visible'); 
+                        } 
+                    }, idleTimeout);
+                }
             }
         }
 
-        // === [ МОДУЛЬ: ЭФФЕКТЫ И УПРАВЛЕНИЕ ] ===
-        function createSparkle() { const s = document.createElement('div'); s.className = 'sparkle'; mainStage.appendChild(s); const angle = Math.random() * Math.PI * 2, dist = 130 + Math.random() * 120; s.style.background = Math.random() > 0.5 ? '#e0ffe0' : '#ffe0e0'; s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`); s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`); const dur = 4.0 + Math.random() * 2.0; s.style.animation = `sparkle-fly ${dur}s ease-out forwards`; setTimeout(() => s.remove(), dur * 1000); }
-        function toggleDebug() { document.getElementById('debugPanel').style.display = document.getElementById('debugToggle').checked ? 'flex' : 'none'; }
+        // === [ ЭФФЕКТЫ И УПРАВЛЕНИЕ ] ===
+        function createSparkle() { const s = document.createElement('div'); s.className = 'sparkle'; mainStage.appendChild(s); const angle = Math.random() * Math.PI * 2, dist = 120 + Math.random() * 100; s.style.background = Math.random() > 0.5 ? '#e0ffe0' : '#ffe0e0'; s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`); s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`); const dur = 3.0 + Math.random() * 2.0; s.style.animation = `sparkle-fly ${dur}s ease-out forwards`; setTimeout(() => s.remove(), dur * 1000); }
+        function toggleDebug() { const d=document.getElementById('debugPanel'); d.style.display = document.getElementById('debugToggle').checked ? 'flex' : 'none'; if(isRouletteMode) resetRoulette(); } 
         
         function toggleQuestionField() { 
             isQuestionHidden = !isQuestionHidden; 
@@ -993,9 +1126,7 @@
             const btn = document.getElementById('toggleQuestionBtn'); 
             btn.classList.toggle('active-magic', isQuestionHidden); 
             btn.innerHTML = isQuestionHidden ? '<i class="fas fa-comment-slash"></i>' : '<i class="fas fa-question-circle"></i>'; 
-            
             hideError(); 
-            
             ansContent.classList.remove('visible'); ansStatus.classList.remove('visible'); 
             document.getElementById('res-status').innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle;
             setTimeout(() => ansStatus.classList.add('visible'), 50); 
@@ -1007,56 +1138,62 @@
         function updateModeDisplay() {
             if (isRouletteMode) return;
             const sel = document.getElementById('modeSelect'); const disp = document.getElementById('current-mode-display');
+            
+            document.body.classList.toggle('yesno-mode-active', sel.value === 'yesno');
+            
             if (sel && disp && sel.options[sel.selectedIndex]) { disp.innerText = sel.options[sel.selectedIndex].text; }
-            updateCubeFaces();
-            hideError();
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            updateCubeFaces(); hideError(); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
         function toggleCubeStyle() { 
             isClassicCube = !isClassicCube; 
-            cube.classList.toggle('classic-mode', isClassicCube); 
-            drumWrapper.classList.toggle('classic', isClassicCube);
-            document.body.classList.toggle('classic-mode-active', isClassicCube);
-            
-            const btn = document.getElementById('cubeBtn'); 
-            btn.classList.toggle('active-magic', isClassicCube); 
-            btn.innerHTML = isClassicCube ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>'; 
+            cube.classList.toggle('classic-mode', isClassicCube); drumWrapper.classList.toggle('classic', isClassicCube); document.body.classList.toggle('classic-mode-active', isClassicCube);
+            const btn = document.getElementById('cubeBtn'); btn.classList.toggle('active-magic', isClassicCube); btn.innerHTML = isClassicCube ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>'; 
+            updateStyleBtnIcon();
+            updateCubeFaces(); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+        }
 
-            if (isClassicCube) {
-                miniDrumBtn.style.color = '#000000'; 
+        function updateStyleBtnIcon() {
+            const btn = document.getElementById('cubeBtn');
+            if (isRouletteMode) {
+                btn.innerHTML = `<svg viewBox="0 0 200 200" style="height: 18px; width: auto;" fill="currentColor"><path fill-rule="evenodd" d="M 100,4 A 96,96 0 1,1 100,196 A 96,96 0 1,1 100,4 Z M 100,86 A 14,14 0 1,0 100,114 A 14,14 0 1,0 100,86 Z M 100,6 A 22,22 0 1,0 100,50 A 22,22 0 1,0 100,6 Z M 162.35,42 A 22,22 0 1,0 162.35,86 A 22,22 0 1,0 162.35,42 Z M 162.35,114 A 22,22 0 1,0 162.35,158 A 22,22 0 1,0 162.35,114 Z M 100,150 A 22,22 0 1,0 100,194 A 22,22 0 1,0 100,150 Z M 37.65,114 A 22,22 0 1,0 37.65,158 A 22,22 0 1,0 37.65,114 Z M 37.65,42 A 22,22 0 1,0 37.65,86 A 22,22 0 1,0 37.65,42 Z"></path></svg>`;
             } else {
-                miniDrumBtn.style.color = 'inherit'; 
+                btn.innerHTML = isClassicCube ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>';
             }
-            
-            updateCubeFaces(); 
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
         }
 
         function fillBgOptions() { const sel = document.getElementById('bgSelect'); const cur = sel.value; sel.innerHTML = ''; for(let i=1; i<=5; i++) { const opt = document.createElement('option'); opt.value = 'bg' + i; opt.innerText = translations[currentLang]['bg' + i]; if(opt.value === cur) opt.selected = true; sel.appendChild(opt); } }
-        function fillModeOptions() { 
-            const sel = document.getElementById('modeSelect'); const val = sel.value; 
-            sel.innerHTML = `<option value="dots">${translations[currentLang].modeDots}</option><option value="numbers">${translations[currentLang].modeNums}</option><option value="yesno">${translations[currentLang].modeYN}</option><option value="trader">${translations[currentLang].modeTrader}</option><option value="alco">${translations[currentLang].modeAlco}</option>`; 
-            if(val && val !== 'roulette') sel.value = val; 
-        }
+        function fillModeOptions() { const sel = document.getElementById('modeSelect'); const val = sel.value; sel.innerHTML = `<option value="dots">${translations[currentLang].modeDots}</option><option value="numbers">${translations[currentLang].modeNums}</option><option value="yesno">${translations[currentLang].modeYN}</option><option value="trader">${translations[currentLang].modeTrader}</option><option value="alco">${translations[currentLang].modeAlco}</option>`; if(val && val !== 'roulette') sel.value = val; }
         function changeBackground() { const theme = bgThemes[document.getElementById('bgSelect').value || 'bg1']; document.body.style.background = theme.grad; }
-        function toggleSettings(show) { document.getElementById('settingsOverlay').style.display = show ? 'flex' : 'none'; if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
+        
+        function toggleSettings(show) { 
+            document.getElementById('settingsOverlay').style.display = show ? 'flex' : 'none'; 
+            document.getElementById('st-mode-row').style.display = isRouletteMode ? 'none' : 'flex'; 
+            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+        }
+
+        function toggleRules(show) { 
+            if (show) {
+                rulesContentText.innerHTML = isRouletteMode ? translations[currentLang].rulesTextRoulette : translations[currentLang].rulesTextDice;
+                document.getElementById('rulesOverlay').style.display = 'flex'; 
+            } else {
+                document.getElementById('rulesOverlay').style.display = 'none'; 
+            }
+            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+        }
         
         function changeLanguage() { 
             currentLang = document.getElementById('langSelect').value; const t = translations[currentLang]; document.documentElement.lang = currentLang;
-            
-            const titleEl = document.getElementById('ui-title');
-            titleEl.innerText = isRouletteMode ? t.titleRoulette : t.title;
-            
-            userInput.placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = isRouletteMode ? (currentLang === 'ru' ? "Хроника выживания" : "Survival Log") : t.stHist;
+            const titleEl = document.getElementById('ui-title'); titleEl.innerText = isRouletteMode ? t.titleRoulette : t.title;
+            userInput.placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = isRouletteMode ? t.histSurvHead : t.histDiceHead;
+            document.getElementById('rules-title-h2').innerText = t.ruTitleRules; document.getElementById('ru-btn-close').innerText = t.stClose;
             if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
             if(!ansContent.classList.contains('visible')) ansStatus.innerText = isQuestionHidden ? t.idleNoQ : t.idle;
             fillModeOptions(); fillBgOptions(); updateModeDisplay();
         }
         
         changeLanguage(); changeBackground(); 
-        ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle;
-        ansStatus.classList.add('visible');
+        ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; ansStatus.classList.add('visible');
     </script>
 </body>
 </html>
