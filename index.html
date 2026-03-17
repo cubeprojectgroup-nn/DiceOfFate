@@ -36,6 +36,35 @@
         .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none; opacity: 0; transition: opacity 1s ease; z-index: -100; }
         .stars-active { opacity: 1; background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; }
 
+        /* === [ CSS: ГЛАВНОЕ МЕНЮ (СТАРТОВЫЙ ЭКРАН) ] === */
+        #mainMenuOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; transition: opacity 0.8s ease; }
+        .menu-title-main { font-size: 38px; color: var(--angry-red); text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: opacity 0.5s ease; }
+        .cards-container { display: flex; gap: 20px; width: 90%; max-width: 380px; justify-content: center; transition: opacity 0.5s ease; }
+        .game-card { flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); border-radius: 20px; padding: 25px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); position: relative; }
+        .game-card#card-roulette { border-color: var(--angry-red); box-shadow: 0 0 15px rgba(255, 102, 102, 0.2); }
+        .game-card:active { transform: scale(0.95); }
+        .card-icon { font-size: 55px; color: white; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; height: 60px; pointer-events: none; }
+        .card-title { font-size: 16px; color: white; font-weight: bold; text-align: center; pointer-events: none; }
+        
+        /* Анимации выбора режима */
+        .card-selected { animation: select-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; z-index: 10; }
+        .card-discarded { animation: discard-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; }
+        .title-fade-out { opacity: 0 !important; }
+
+        @keyframes select-card {
+            0% { transform: scale(1); opacity: 1; }
+            30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); }
+            100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); }
+        }
+        @keyframes discard-card {
+            0% { transform: scale(1); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); }
+        }
+
+        /* === [ CSS: ИНТЕРФЕЙС ИГРЫ (СКРЫТ ПО УМОЛЧАНИЮ) ] === */
+        #gameUI { display: flex; flex-direction: column; align-items: center; width: 100%; flex-grow: 1; opacity: 0; pointer-events: none; transition: opacity 1s ease; }
+        #gameUI.game-ui-visible { opacity: 1; pointer-events: auto; }
+
         /* === [ CSS: ИНТЕРФЕЙС И КНОПКИ ВЕРХНЕЙ ПАНЕЛИ ] === */
         .top-bar { display: flex; justify-content: center; gap: 15px; margin: 5px 0 0 0; z-index: 100; }
         .icon-btn { background: rgba(162, 155, 254, 0.1); border: none; color: var(--magic-color); font-size: 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
@@ -75,7 +104,6 @@
         .answer-desc { display: block; font-size: 16px; margin-top: 2px; font-weight: normal; text-align: center;}
 
         .roulette-mode-active .answer-main, .roulette-mode-active .answer-desc { display: none !important; }
-        /* Символ (сердце/череп) поднят ближе к барабану */
         .roulette-mode-active .answer-sub { font-size: 70px; margin-top: 10px; } 
 
         .heart-pulse { animation: heartbeat-double-pulse 0.7s ease-in-out; }
@@ -94,8 +122,7 @@
         .idle-mode.visible { opacity: 1; transform: translateY(0); }
         @keyframes color-cycle { 0%, 100% { color: var(--friendly-green); text-shadow: 0 0 8px var(--friendly-green); } 50% { color: var(--angry-red); text-shadow: 0 0 8px var(--angry-red); } }
         
-        body.roulette-mode-active #rouletteStage { height: 180px; margin-top: 15px; margin-bottom: 0px; } 
-        /* Текст ответа поднят выше */
+        body.roulette-mode-active #rouletteStage { height: 180px; margin-top: 25px; margin-bottom: 0px; } 
         body.roulette-mode-active #res-status { margin-top: 2px; margin-bottom: 10px; }
         body.roulette-mode-active #bulletStash { margin-bottom: 15px; }
 
@@ -143,7 +170,6 @@
 
         .hole-num { pointer-events: none; transform-origin: center center; transition: none; }
 
-        /* УВЕЛИЧЕННЫЕ И РАЗДВИНУТЫЕ ПАТРОНЫ */
         #bulletStash { display: none; justify-content: center; gap: 24px; margin: 0 0 12px 0; height: 48px; transition: opacity 0.4s; }
         .stash-bullet { width: 24px; height: 48px; cursor: pointer; color: var(--sun-gold); transition: color 0.8s ease, transform 0.2s, opacity 0.3s; filter: drop-shadow(0 0 5px var(--sun-gold)); }
         body.classic-mode-active .stash-bullet { color: var(--angry-red); filter: drop-shadow(0 0 6px var(--angry-red)); }
@@ -195,7 +221,6 @@
         input:checked + .slider:before { transform: translateX(20px); background-color: #fff; }
         .close-btn { margin-top: 15px; background: var(--magic-color); border: none; color: #000; padding: 10px 30px; border-radius: 20px; font-weight: bold; text-transform: uppercase; width: 100%; cursor: pointer; }
         
-        /* УВЕЛИЧЕННЫЙ ШРИФТ ПРАВИЛ (15px) */
         .rules-content { text-align: left; font-size: 15px; line-height: 1.5; padding: 0 5px; max-height: 60vh; overflow-y: auto; }
         .rules-content::-webkit-scrollbar { width: 4px; }
         .rules-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
@@ -206,53 +231,143 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.7.0.3</div>
+    <div class="version">v0.7.0.4</div>
 
-    <div class="top-bar">
-        <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
-        <button class="icon-btn" id="cubeBtn" onclick="toggleCubeStyle()"><i class="fas fa-dice-d6"></i></button>
-        <button class="icon-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
-        <button class="icon-btn" id="modeToggleBtn" onclick="toggleGameMode()">
-            <svg viewBox="0 0 20 50" style="height: 16px; width: auto; transform: translateY(1px);" fill="currentColor">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z"/>
-            </svg>
-        </button>
-        <button class="icon-btn" onclick="toggleSettings(true)"><i class="fas fa-cog"></i></button>
-        <button class="icon-btn" onclick="toggleRules(true)">
-            <svg viewBox="0 0 24 24" style="height: 18px; width: auto; transform: translateY(1px);" fill="currentColor">
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
-            </svg>
-        </button>
-    </div>
-
-    <div class="header-wrapper">
-        <h1 id="ui-title">Кость Судьбы</h1>
-        <div class="subtitle-row">
-            <a href="https://t.me/Antis_Corpus">t.me/Antis_Corpus</a>
-            <span id="current-mode-display">ТОЧКИ</span>
-        </div>
-    </div>
-
-    <div class="input-section" id="inputWrapper"><input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off"></div>
-    <div id="error-msg">Сперва задай вопрос оракулу!</div>
-
-    <div class="stage" id="mainStage">
-        <div class="scene" id="cubeScene">
-            <div id="cube" class="cube">
-                <div class="face f1" id="face1"></div><div class="face f2" id="face2"></div><div class="face f3" id="face3"></div>
-                <div class="face f4" id="face4"></div><div class="face f5" id="face5"></div><div class="face f6" id="face6"></div>
+    <div id="mainMenuOverlay">
+        <div id="mainMenuTitle" class="menu-title-main">Игры Судьбы</div>
+        <div id="mainMenuCards" class="cards-container">
+            <div class="game-card" id="card-dice" onclick="selectGameModeFromMenu('dice')">
+                <div class="card-icon"><i class="fas fa-dice-d6"></i></div>
+                <div class="card-title" id="menu-card-title-dice">Кость Судьбы</div>
+            </div>
+            <div class="game-card" id="card-roulette" onclick="selectGameModeFromMenu('roulette')">
+                <div class="card-icon">
+                    <svg viewBox="0 0 200 200" style="height: 55px; width: auto;" fill="currentColor">
+                        <path fill-rule="evenodd" d="M 100,4 A 96,96 0 1,1 100,196 A 96,96 0 1,1 100,4 Z M 100,86 A 14,14 0 1,0 100,114 A 14,14 0 1,0 100,86 Z M 100,6 A 22,22 0 1,0 100,50 A 22,22 0 1,0 100,6 Z M 162.35,42 A 22,22 0 1,0 162.35,86 A 22,22 0 1,0 162.35,42 Z M 162.35,114 A 22,22 0 1,0 162.35,158 A 22,22 0 1,0 162.35,114 Z M 100,150 A 22,22 0 1,0 100,194 A 22,22 0 1,0 100,150 Z M 37.65,114 A 22,22 0 1,0 37.65,158 A 22,22 0 1,0 37.65,114 Z M 37.65,42 A 22,22 0 1,0 37.65,86 A 22,22 0 1,0 37.65,42 Z"></path>
+                    </svg>
+                </div>
+                <div class="card-title" id="menu-card-title-roulette">Роковая Пуля</div>
             </div>
         </div>
     </div>
 
-    <div id="rouletteStage">
-        <div class="target-marker"><i class="fas fa-caret-down"></i></div>
-        <div class="survival-counter" id="survivalCounter"></div>
-        <div class="drum-wrapper" id="drumWrapper">
-            <div class="drum-rotator" id="drumRotator">
-                <svg class="drum-svg" viewBox="0 0 200 200" style="overflow: visible;">
+    <div id="gameUI">
+        <div class="top-bar">
+            <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
+            <button class="icon-btn" id="cubeBtn" onclick="toggleCubeStyle()"><i class="fas fa-dice-d6"></i></button>
+            <button class="icon-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
+            <button class="icon-btn" id="modeToggleBtn" onclick="toggleGameMode()">
+                <svg viewBox="0 0 20 50" style="height: 16px; width: auto; transform: translateY(1px);" fill="currentColor">
+                    <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z"/>
+                </svg>
+            </button>
+            <button class="icon-btn" onclick="toggleSettings(true)"><i class="fas fa-cog"></i></button>
+            <button class="icon-btn" onclick="toggleRules(true)">
+                <svg viewBox="0 0 24 24" style="height: 18px; width: auto; transform: translateY(1px);" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="header-wrapper">
+            <h1 id="ui-title">Кость Судьбы</h1>
+            <div class="subtitle-row">
+                <a href="https://t.me/Antis_Corpus">t.me/Antis_Corpus</a>
+                <span id="current-mode-display">ТОЧКИ</span>
+            </div>
+        </div>
+
+        <div class="input-section" id="inputWrapper"><input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off"></div>
+        <div id="error-msg">Сперва задай вопрос оракулу!</div>
+
+        <div class="stage" id="mainStage">
+            <div class="scene" id="cubeScene">
+                <div id="cube" class="cube">
+                    <div class="face f1" id="face1"></div><div class="face f2" id="face2"></div><div class="face f3" id="face3"></div>
+                    <div class="face f4" id="face4"></div><div class="face f5" id="face5"></div><div class="face f6" id="face6"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rouletteStage">
+            <div class="target-marker"><i class="fas fa-caret-down"></i></div>
+            <div class="survival-counter" id="survivalCounter"></div>
+            <div class="drum-wrapper" id="drumWrapper">
+                <div class="drum-rotator" id="drumRotator">
+                    <svg class="drum-svg" viewBox="0 0 200 200" style="overflow: visible;">
+                        <defs>
+                            <mask id="main-drum-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="400" height="400">
+                                <rect x="-100" y="-100" width="400" height="400" fill="white" />
+                                <circle cx="100" cy="100" r="14" fill="black" />
+                                <circle cx="100" cy="28" r="22" fill="black" />
+                                <circle cx="162.35" cy="64" r="22" fill="black" />
+                                <circle cx="162.35" cy="136" r="22" fill="black" />
+                                <circle cx="100" cy="172" r="22" fill="black" />
+                                <circle cx="37.65" cy="136" r="22" fill="black" />
+                                <circle cx="37.65" cy="64" r="22" fill="black" />
+                                <circle cx="150" cy="13.4" r="18" fill="black" />
+                                <circle cx="200" cy="100" r="18" fill="black" />
+                                <circle cx="150" cy="186.6" r="18" fill="black" />
+                                <circle cx="50" cy="186.6" r="18" fill="black" />
+                                <circle cx="0" cy="100" r="18" fill="black" />
+                                <circle cx="50" cy="13.4" r="18" fill="black" />
+                            </mask>
+                        </defs>
+                        <circle cx="100" cy="100" r="96" mask="url(#main-drum-mask)" fill="currentColor"/>
+                    </svg>
+                    
+                    <svg class="bullets-svg" viewBox="0 0 200 200" style="overflow: visible;">
+                        <text x="100" y="34" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 28px;">3</text>
+                        <text x="162.35" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 64px;">4</text>
+                        <text x="162.35" y="142" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 136px;">5</text>
+                        <text x="100" y="178" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 172px;">6</text>
+                        <text x="37.65" y="142" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 136px;">1</text>
+                        <text x="37.65" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 64px;">2</text>
+
+                        <g class="chamber-slot" id="ch-0"><circle cx="100" cy="28" r="18" class="bullet-outer"/><circle cx="100" cy="28" r="6" class="bullet-inner"/></g>
+                        <g class="chamber-slot" id="ch-1"><circle cx="162.35" cy="64" r="18" class="bullet-outer"/><circle cx="162.35" cy="64" r="6" class="bullet-inner"/></g>
+                        <g class="chamber-slot" id="ch-2"><circle cx="162.35" cy="136" r="18" class="bullet-outer"/><circle cx="162.35" cy="136" r="6" class="bullet-inner"/></g>
+                        <g class="chamber-slot" id="ch-3"><circle cx="100" cy="172" r="18" class="bullet-outer"/><circle cx="100" cy="172" r="6" class="bullet-inner"/></g>
+                        <g class="chamber-slot" id="ch-4"><circle cx="37.65" cy="136" r="18" class="bullet-outer"/><circle cx="37.65" cy="136" r="6" class="bullet-inner"/></g>
+                        <g class="chamber-slot" id="ch-5"><circle cx="37.65" cy="64" r="18" class="bullet-outer"/><circle cx="37.65" cy="64" r="6" class="bullet-inner"/></g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <div id="answer-box">
+            <div id="res-content"><div id="res-main" class="answer-main"></div><div id="res-sub" class="answer-sub"></div><div id="res-desc" class="answer-desc"></div></div>
+            <div id="res-status" class="idle-mode visible">Оракул ожидает вопроса...</div>
+        </div>
+
+        <div id="bulletStash">
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 0)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
+                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">1</text>
+            </svg>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 1)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
+                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">2</text>
+            </svg>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 2)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
+                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">3</text>
+            </svg>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 3)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
+                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">4</text>
+            </svg>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 4)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
+                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">5</text>
+            </svg>
+        </div>
+
+        <div class="action-row">
+            <button id="rouletteStatusBtn" class="btn-mini-roll" onclick="spinDrumRandomly()">
+                <svg viewBox="0 0 200 200" style="width: 100%; height: 100%; overflow: visible;">
                     <defs>
-                        <mask id="main-drum-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="400" height="400">
+                        <mask id="mini-drum-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="400" height="400">
                             <rect x="-100" y="-100" width="400" height="400" fill="white" />
                             <circle cx="100" cy="100" r="14" fill="black" />
                             <circle cx="100" cy="28" r="22" fill="black" />
@@ -269,94 +384,22 @@
                             <circle cx="50" cy="13.4" r="18" fill="black" />
                         </mask>
                     </defs>
-                    <circle cx="100" cy="100" r="96" mask="url(#main-drum-mask)" fill="currentColor"/>
+                    <circle cx="100" cy="100" r="96" mask="url(#mini-drum-mask)" fill="currentColor"/>
                 </svg>
-                
-                <svg class="bullets-svg" viewBox="0 0 200 200" style="overflow: visible;">
-                    <text x="100" y="34" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 28px;">3</text>
-                    <text x="162.35" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 64px;">4</text>
-                    <text x="162.35" y="142" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 136px;">5</text>
-                    <text x="100" y="178" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 172px;">6</text>
-                    <text x="37.65" y="142" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 136px;">1</text>
-                    <text x="37.65" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 64px;">2</text>
-
-                    <g class="chamber-slot" id="ch-0"><circle cx="100" cy="28" r="18" class="bullet-outer"/><circle cx="100" cy="28" r="6" class="bullet-inner"/></g>
-                    <g class="chamber-slot" id="ch-1"><circle cx="162.35" cy="64" r="18" class="bullet-outer"/><circle cx="162.35" cy="64" r="6" class="bullet-inner"/></g>
-                    <g class="chamber-slot" id="ch-2"><circle cx="162.35" cy="136" r="18" class="bullet-outer"/><circle cx="162.35" cy="136" r="6" class="bullet-inner"/></g>
-                    <g class="chamber-slot" id="ch-3"><circle cx="100" cy="172" r="18" class="bullet-outer"/><circle cx="100" cy="172" r="6" class="bullet-inner"/></g>
-                    <g class="chamber-slot" id="ch-4"><circle cx="37.65" cy="136" r="18" class="bullet-outer"/><circle cx="37.65" cy="136" r="6" class="bullet-inner"/></g>
-                    <g class="chamber-slot" id="ch-5"><circle cx="37.65" cy="64" r="18" class="bullet-outer"/><circle cx="37.65" cy="64" r="6" class="bullet-inner"/></g>
-                </svg>
-            </div>
+            </button>
+            <button class="btn-roll" id="rollBtn" onclick="askOracle()">Испытать судьбу</button>
         </div>
-    </div>
-    
-    <div id="answer-box">
-        <div id="res-content"><div id="res-main" class="answer-main"></div><div id="res-sub" class="answer-sub"></div><div id="res-desc" class="answer-desc"></div></div>
-        <div id="res-status" class="idle-mode visible">Оракул ожидает вопроса...</div>
-    </div>
 
-    <div id="bulletStash">
-        <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 0)">
-            <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-            <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">1</text>
-        </svg>
-        <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 1)">
-            <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-            <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">2</text>
-        </svg>
-        <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 2)">
-            <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-            <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">3</text>
-        </svg>
-        <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 3)">
-            <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-            <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">4</text>
-        </svg>
-        <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 4)">
-            <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-            <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">5</text>
-        </svg>
-    </div>
+        <div class="debug-panel" id="debugPanel">
+            <button class="debug-btn" onclick="askOracle(0)">1</button><button class="debug-btn" onclick="askOracle(1)">2</button><button class="debug-btn" onclick="askOracle(2)">3</button><button class="debug-btn" onclick="askOracle(3)">4</button><button class="debug-btn" onclick="askOracle(4)">5</button><button class="debug-btn" onclick="askOracle(5)">6</button>
+        </div>
 
-    <div class="action-row">
-        <button id="rouletteStatusBtn" class="btn-mini-roll" onclick="spinDrumRandomly()">
-            <svg viewBox="0 0 200 200" style="width: 100%; height: 100%; overflow: visible;">
-                <defs>
-                    <mask id="mini-drum-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="400" height="400">
-                        <rect x="-100" y="-100" width="400" height="400" fill="white" />
-                        <circle cx="100" cy="100" r="14" fill="black" />
-                        <circle cx="100" cy="28" r="22" fill="black" />
-                        <circle cx="162.35" cy="64" r="22" fill="black" />
-                        <circle cx="162.35" cy="136" r="22" fill="black" />
-                        <circle cx="100" cy="172" r="22" fill="black" />
-                        <circle cx="37.65" cy="136" r="22" fill="black" />
-                        <circle cx="37.65" cy="64" r="22" fill="black" />
-                        <circle cx="150" cy="13.4" r="18" fill="black" />
-                        <circle cx="200" cy="100" r="18" fill="black" />
-                        <circle cx="150" cy="186.6" r="18" fill="black" />
-                        <circle cx="50" cy="186.6" r="18" fill="black" />
-                        <circle cx="0" cy="100" r="18" fill="black" />
-                        <circle cx="50" cy="13.4" r="18" fill="black" />
-                    </mask>
-                </defs>
-                <circle cx="100" cy="100" r="96" mask="url(#mini-drum-mask)" fill="currentColor"/>
-            </svg>
-        </button>
-        <button class="btn-roll" id="rollBtn" onclick="askOracle()">Испытать судьбу</button>
-    </div>
-
-    <div class="debug-panel" id="debugPanel">
-        <button class="debug-btn" onclick="askOracle(0)">1</button><button class="debug-btn" onclick="askOracle(1)">2</button><button class="debug-btn" onclick="askOracle(2)">3</button><button class="debug-btn" onclick="askOracle(3)">4</button><button class="debug-btn" onclick="askOracle(4)">5</button><button class="debug-btn" onclick="askOracle(5)">6</button>
-    </div>
-
-    <div class="history-header" id="st-hist-head">История предсказаний</div>
-    <div class="history" id="historyBlock">
-        <div id="historyListDice"></div>
-        <div id="historyListRoulette" style="display: none;"></div>
-    </div>
-
-    <div class="settings-overlay" id="settingsOverlay">
+        <div class="history-header" id="st-hist-head">История предсказаний</div>
+        <div class="history" id="historyBlock">
+            <div id="historyListDice"></div>
+            <div id="historyListRoulette" style="display: none;"></div>
+        </div>
+    </div> <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal" id="settingsModalInside">
             <h2 id="st-title-h2" style="margin-top:0; color:var(--magic-color)">Настройки</h2>
             <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="updateModeDisplay()"></select></div>
@@ -464,6 +507,7 @@
                 idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", 
                 rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", 
                 ruTitleRules: "Правила Игры", rulesTextDice: rulesDiceRU, rulesTextRoulette: rulesRouletteRU,
+                menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля",
                 bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", 
                 traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], 
                 stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", 
@@ -478,6 +522,7 @@
                 idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", 
                 rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", 
                 ruTitleRules: "Game Rules", rulesTextDice: rulesDiceEN, rulesTextRoulette: rulesRouletteEN,
+                menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot",
                 bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", 
                 traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], 
                 stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", 
@@ -492,6 +537,65 @@
         const alcoIcons = ['<i class="fas fa-wine-glass-alt"></i>', '<i class="fas fa-beer-mug-empty"></i>', '<i class="fas fa-glass-martini-alt"></i>', '<i class="fas fa-whiskey-glass"></i>', '<i class="fas fa-vial"></i>', '<i class="fas fa-droplet"></i>'];
         const resData = { ru: [ {t:"НЕТ...", s:"Слабо"}, {t:"ДА...", s:"Неуверенно"}, {t:"НЕТ.", s:"Средне"}, {t:"ДА!", s:"Средне"}, {t:"НЕТ!!!", s:"Максимально"}, {t:"ДА!!!", s:"Абсолютно"} ], en: [ {t:"NO...", s:"Weakly"}, {t:"YES...", s:"Unsure"}, {t:"NO.", s:"Medium"}, {t:"YES!", s:"Medium"}, {t:"NO!!!", s:"Absolutely"}, {t:"YES!!!", s:"Absolutely"} ] };
         const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)", stars: true }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)", stars: false }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)", stars: false }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)", stars: false }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)", stars: false } };
+
+        // === [ ЛОГИКА ГЛАВНОГО МЕНЮ ] ===
+        function selectGameModeFromMenu(mode) {
+            document.querySelectorAll('.game-card').forEach(c => c.style.pointerEvents = 'none');
+            const menuTitle = document.getElementById('mainMenuTitle');
+            const diceCard = document.getElementById('card-dice');
+            const rouletteCard = document.getElementById('card-roulette');
+            
+            menuTitle.classList.add('title-fade-out');
+
+            if (mode === 'dice') {
+                diceCard.classList.add('card-selected');
+                rouletteCard.classList.add('card-discarded');
+                isRouletteMode = false;
+            } else {
+                rouletteCard.classList.add('card-selected');
+                diceCard.classList.add('card-discarded');
+                isRouletteMode = true;
+            }
+
+            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+
+            setTimeout(() => {
+                document.getElementById('mainMenuOverlay').style.display = 'none';
+                setupInitialUI(mode);
+                document.getElementById('gameUI').classList.add('game-ui-visible');
+            }, 800);
+        }
+
+        function setupInitialUI(mode) {
+            const titleEl = document.getElementById('ui-title');
+            const modeBtn = document.getElementById('modeToggleBtn');
+            const t = translations[currentLang];
+            
+            if (mode === 'roulette') {
+                modeBtn.classList.add('active-magic');
+                titleEl.innerText = t.titleRoulette;
+                document.getElementById('st-hist-head').innerText = t.histSurvHead;
+                
+                document.getElementById('mainStage').style.display = 'none';
+                document.getElementById('rouletteStage').style.display = 'flex';
+                document.getElementById('bulletStash').style.display = 'flex';
+                document.getElementById('rouletteStatusBtn').style.display = 'flex';
+                
+                document.body.classList.add('roulette-mode-active');
+                document.getElementById('historyListDice').style.display = 'none';
+                document.getElementById('historyListRoulette').style.display = 'block';
+                
+                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                resetRoulette();
+            } else {
+                modeBtn.classList.remove('active-magic');
+                titleEl.innerText = t.title;
+                document.getElementById('st-hist-head').innerText = t.histDiceHead;
+                updateModeDisplay(); 
+            }
+            updateStyleBtnIcon();
+            if (isQuestionHidden) toggleQuestionField(); 
+        }
 
         document.getElementById('settingsOverlay').addEventListener('click', function(e) { if (e.target === this) toggleSettings(false); });
         document.getElementById('rulesOverlay').addEventListener('click', function(e) { if (e.target === this) toggleRules(false); });
@@ -511,8 +615,8 @@
 
         function toggleGameMode() {
             if (rollBtn.disabled || isDrumSpinning || isDraggingCube || isDraggingDrum) return;
-            
             isRouletteMode = !isRouletteMode;
+            isDraggingCube = false; isDraggingDrum = false;
             hideError(); 
             
             const titleEl = document.getElementById('ui-title');
@@ -528,7 +632,7 @@
             const allDynamicEls = [
                 document.getElementById('mainStage'), document.getElementById('rouletteStage'), 
                 document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), 
-                document.getElementById('historyBlock')
+                document.getElementById('historyBlock'), document.getElementById('debugPanel')
             ];
 
             allDynamicEls.forEach(el => { if(el) el.classList.add('fade-out'); });
@@ -553,6 +657,8 @@
                     document.getElementById('historyListDice').style.display = 'none';
                     document.getElementById('historyListRoulette').style.display = 'block';
                     
+                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+
                     resetRoulette();
                     if (!isQuestionHidden) toggleQuestionField(); 
                 } else {
@@ -568,17 +674,14 @@
                     document.getElementById('historyListDice').style.display = 'block';
                     document.getElementById('historyListRoulette').style.display = 'none';
                     
+                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                    
                     updateModeDisplay(); 
                     if (isQuestionHidden) toggleQuestionField(); 
                 }
                 
-                allDynamicEls.forEach(el => { 
-                    if(el) { el.classList.remove('fade-out'); el.classList.add('fade-in'); } 
-                });
-
-                setTimeout(() => {
-                    allDynamicEls.forEach(el => { if(el) el.classList.remove('fade-in'); });
-                }, 200);
+                allDynamicEls.forEach(el => { if(el) { el.classList.remove('fade-out'); el.classList.add('fade-in'); } });
+                setTimeout(() => { allDynamicEls.forEach(el => { if(el) el.classList.remove('fade-in'); }); }, 200);
 
             }, 150); 
             
@@ -608,7 +711,6 @@
                 if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
                 lastCubeTick = currentCubeTotalRot;
             }
-
             velocityCubeX = deltaX; velocityCubeY = deltaY; lastCubeMoveTime = Date.now(); lastCubeX = clientX; lastCubeY = clientY;
         }
 
@@ -630,9 +732,7 @@
         document.getElementById('mainStage').addEventListener('touchstart', handleCubePointerDown, {passive: false}); document.addEventListener('touchmove', handleCubePointerMove, {passive: false}); document.addEventListener('touchend', handleCubePointerUp);
 
         function updateDrumNumbers() {
-            document.querySelectorAll('.hole-num').forEach(num => {
-                num.style.transform = `rotate(${-drumRotation}deg)`;
-            });
+            document.querySelectorAll('.hole-num').forEach(num => { num.style.transform = `rotate(${-drumRotation}deg)`; });
         }
 
         function handleDrumPointerDown(e) {
@@ -1189,6 +1289,7 @@
         function changeLanguage() { 
             currentLang = document.getElementById('langSelect').value; const t = translations[currentLang]; document.documentElement.lang = currentLang;
             const titleEl = document.getElementById('ui-title'); titleEl.innerText = isRouletteMode ? t.titleRoulette : t.title;
+            document.getElementById('menu-card-title-dice').innerText = t.menuDice; document.getElementById('menu-card-title-roulette').innerText = t.menuRoulette; document.getElementById('mainMenuTitle').innerText = t.menuTitle;
             userInput.placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = isRouletteMode ? t.histSurvHead : t.histDiceHead;
             document.getElementById('rules-title-h2').innerText = t.ruTitleRules; document.getElementById('ru-btn-close').innerText = t.stClose;
             if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
