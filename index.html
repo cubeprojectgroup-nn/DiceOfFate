@@ -32,40 +32,46 @@
         .history::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         .history::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
 
-        /* === [ CSS: ФОН И ЗВЕЗДЫ ] === */
-        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none; opacity: 0; transition: opacity 1s ease; z-index: -100; }
-        .stars-active { opacity: 1; background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; }
+        /* === [ CSS: ФОН И УМНЫЕ ЗВЕЗДЫ ] === */
+        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none; opacity: 0; transition: opacity 1s ease, background-image 1s ease; z-index: -100; background-repeat: repeat; background-size: 200px 200px; }
+        .stars-active { opacity: 1; }
+        
+        .bg1-stars { background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #fff, rgba(0,0,0,0)); }
+        .bg2-stars { background-image: radial-gradient(1px 1px at 20px 30px, #ccffcc, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #55ff55, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #99ff99, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #aaffaa, rgba(0,0,0,0)); }
+        .bg3-stars { background-image: radial-gradient(1px 1px at 20px 30px, #e6ccff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #aa55ff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #cc99ff, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #d4aaff, rgba(0,0,0,0)); }
+        .bg4-stars { background-image: radial-gradient(1px 1px at 20px 30px, #cce6ff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #55aaff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #99ccff, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #aaccff, rgba(0,0,0,0)); }
+        .bg5-stars { background-image: radial-gradient(1px 1px at 20px 30px, #ffcccc, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #ff5555, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ff9999, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #ffaaaa, rgba(0,0,0,0)); }
 
         /* === [ CSS: ГЛАВНОЕ МЕНЮ (СТАРТОВЫЙ ЭКРАН) ] === */
         #mainMenuOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; transition: opacity 0.8s ease; }
         .menu-title-main { font-size: 38px; color: var(--angry-red); text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: opacity 0.5s ease; }
         .cards-container { display: flex; gap: 20px; width: 90%; max-width: 380px; justify-content: center; transition: opacity 0.5s ease; }
-        .game-card { flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); border-radius: 20px; padding: 25px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); position: relative; }
+        .game-card { flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); border-radius: 20px; padding: 25px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); position: relative; transition: transform 0.2s, box-shadow 0.2s; }
         .game-card#card-roulette { border-color: var(--angry-red); box-shadow: 0 0 15px rgba(255, 102, 102, 0.2); }
         .game-card:active { transform: scale(0.95); }
         .card-icon { font-size: 55px; color: white; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; height: 60px; pointer-events: none; }
         .card-title { font-size: 16px; color: white; font-weight: bold; text-align: center; pointer-events: none; }
         
-        /* Анимации выбора режима */
         .card-selected { animation: select-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; z-index: 10; }
         .card-discarded { animation: discard-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; }
         .title-fade-out { opacity: 0 !important; }
 
-        @keyframes select-card {
-            0% { transform: scale(1); opacity: 1; }
-            30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); }
-            100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); }
-        }
-        @keyframes discard-card {
-            0% { transform: scale(1); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); }
-        }
+        @keyframes select-card { 0% { transform: scale(1); opacity: 1; } 30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); } 100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); } }
+        @keyframes discard-card { 0% { transform: scale(1); opacity: 1; filter: blur(0px); } 100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); } }
 
-        /* === [ CSS: ИНТЕРФЕЙС ИГРЫ (СКРЫТ ПО УМОЛЧАНИЮ) ] === */
+        /* === [ CSS: МЕНЮ: ЭЛЕМЕНТЫ (ЯЗЫК, TG, ВЕРСИЯ) ] === */
+        .menu-top-bar { position: absolute; top: 10px; right: 10px; display: flex; gap: 10px; z-index: 410; }
+        .menu-icon-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; transition: 0.3s; padding: 5px; opacity: 0.8; }
+        .menu-icon-btn:hover { color: var(--magic-color); opacity: 1; }
+        .menu-footer-row { position: absolute; bottom: 10px; left: 0; width: 100%; display: flex; justify-content: center; z-index: 410; }
+        .menu-subtitle-row { display: flex; justify-content: space-between; width: 90%; max-width: 380px; margin-top: -2px; padding: 0 2px; box-sizing: border-box; }
+        .menu-subtitle-row a, .menu-version { font-size: 10px; color: rgba(162, 155, 254, 0.6); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
+        .menu-subtitle-row a:hover { color: var(--magic-color); }
+
+        /* === [ CSS: ИНТЕРФЕЙС ИГРЫ (ОБЕРТКА) ] === */
         #gameUI { display: flex; flex-direction: column; align-items: center; width: 100%; flex-grow: 1; opacity: 0; pointer-events: none; transition: opacity 1s ease; }
         #gameUI.game-ui-visible { opacity: 1; pointer-events: auto; }
 
-        /* === [ CSS: ИНТЕРФЕЙС И КНОПКИ ВЕРХНЕЙ ПАНЕЛИ ] === */
         .top-bar { display: flex; justify-content: center; gap: 15px; margin: 5px 0 0 0; z-index: 100; }
         .icon-btn { background: rgba(162, 155, 254, 0.1); border: none; color: var(--magic-color); font-size: 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
         .icon-btn.active-magic { color: #ffffff !important; text-shadow: 0 0 10px white; background: rgba(162, 155, 254, 0.3); }
@@ -82,7 +88,6 @@
 
         .subtitle-row { display: flex; justify-content: space-between; width: 100%; margin-top: -2px; padding: 0 2px; box-sizing: border-box; }
         .subtitle-row a, .subtitle-row span { font-size: 10px; color: rgba(162, 155, 254, 0.6); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
-        
         .roulette-mode-active #current-mode-display { display: none !important; }
 
         .input-section { width: 90%; max-width: 350px; position: relative; z-index: 110; transition: all 0.5s ease; max-height: 100px; opacity: 1; margin: 10px 0 0 0; overflow: hidden; }
@@ -94,7 +99,6 @@
         .error-pulse-active { animation: error-vibe 0.8s infinite ease-in-out; }
         @keyframes error-vibe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* === [ CSS: ОТРИСОВКА РЕЗУЛЬТАТОВ И АНИМАЦИИ ] === */
         #answer-box { min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; font-weight: bold; position: relative; z-index: 100; overflow: visible; width: 100%; }
         #res-content { opacity: 0; transform: translateY(10px) scale(0.9); transition: opacity 0.5s ease, transform 0.5s ease, text-shadow 0.5s ease; width: 100%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
         #res-content.visible { opacity: 1 !important; transform: translateY(0) scale(1); }
@@ -107,14 +111,9 @@
         .roulette-mode-active .answer-sub { font-size: 70px; margin-top: 10px; } 
 
         .heart-pulse { animation: heartbeat-double-pulse 0.7s ease-in-out; }
-        @keyframes heartbeat-double-pulse { 
-            0% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 20% { transform: scale(1.2); filter: drop-shadow(0 0 45px #ffffff); } 40% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 60% { transform: scale(1.15); filter: drop-shadow(0 0 40px #ffffff); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 
-        }
-
+        @keyframes heartbeat-double-pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 20% { transform: scale(1.2); filter: drop-shadow(0 0 45px #ffffff); } 40% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } 60% { transform: scale(1.15); filter: drop-shadow(0 0 40px #ffffff); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px #ccffcc); } }
         .skull-aura { animation: aura-shot-pulse 0.8s ease-out; }
-        @keyframes aura-shot-pulse { 
-            0% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } 40% { transform: scale(1.25); filter: drop-shadow(0 0 70px red); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } 
-        }
+        @keyframes aura-shot-pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } 40% { transform: scale(1.25); filter: drop-shadow(0 0 70px red); } 100% { transform: scale(1); filter: drop-shadow(0 0 25px var(--angry-red)); } }
 
         body.yesno-mode-active #res-main, body.yesno-mode-active #res-desc { display: none !important; }
 
@@ -126,7 +125,7 @@
         body.roulette-mode-active #res-status { margin-top: 2px; margin-bottom: 10px; }
         body.roulette-mode-active #bulletStash { margin-bottom: 15px; }
 
-        /* === [ CSS: КУБ И АНИМАЦИИ ] === */
+        /* === [ ПЛАГИН 1 (КУБ) ] === */
         .stage { position: relative; width: 100%; height: 240px; display: flex; justify-content: center; align-items: center; perspective: 1200px; z-index: 50; margin: 2px 0 5px 0; touch-action: none; transition: opacity 0.4s; }
         .scene { width: 120px; height: 120px; position: relative; z-index: 60; transform-style: preserve-3d; }
         .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(20deg); }
@@ -138,10 +137,10 @@
         .dot-container { display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); width: 80%; height: 80%; padding: 5px; }
         .dot { background: currentColor; border-radius: 50%; width: 18px; height: 18px; align-self: center; justify-self: center; }
 
-        /* === [ CSS: РЕЖИМ РУЛЕТКИ ] === */
+        /* === [ ПЛАГИН 2 (БАРАБАН) ] === */
         #rouletteStage { display: none; position: relative; width: 100%; height: 240px; justify-content: center; align-items: center; z-index: 50; margin: 2px 0 5px 0; perspective: 1000px; touch-action: none; transition: opacity 0.4s, height 0.3s ease; }
         
-        .drum-wrapper { width: 180px; height: 180px; position: relative; color: var(--magic-color); filter: drop-shadow(0 0 15px var(--magic-color)); transition: color 0.8s ease, filter 0.8s ease; transform-style: preserve-3d; }
+        .drum-wrapper { width: 180px; height: 180px; position: relative; color: var(--magic-color); filter: drop-shadow(0 0 15px var(--magic-color)); transition: color 0.8s ease, filter 0.8s ease; transform-style: preserve-3d; z-index: 20; }
         .drum-wrapper.classic { color: #ffffff; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
         
         .drum-rotator { width: 100%; height: 100%; position: relative; transform-origin: center center; cursor: grab; transform-style: preserve-3d; }
@@ -150,24 +149,19 @@
         .drum-svg, .bullets-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
         
         .target-marker { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); color: var(--angry-red); font-size: 28px; filter: drop-shadow(0 0 8px var(--angry-red)); z-index: 60; }
-
         .survival-counter { position: absolute; top: 15px; left: calc(50% + 75px); color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
         .survival-counter.visible { opacity: 1; animation: pop-in 0.3s ease-out; }
-        @keyframes pop-in { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
+        
         .chamber-slot { opacity: 0; transition: opacity 0.3s ease, filter 0.3s ease; }
         .chamber-slot.filled { opacity: 1; }
-        
         .drum-wrapper:not(.classic) .chamber-slot.filled { filter: drop-shadow(0 0 10px #ffffff); }
         .drum-wrapper:not(.classic) .bullet-outer { fill: #ffffff; }
         .drum-wrapper:not(.classic) .bullet-inner { fill: #111b27; transition: fill 0.3s ease; } 
         .drum-wrapper:not(.classic) .chamber-slot.fired .bullet-inner { fill: #ffffff; } 
-
         .drum-wrapper.classic .chamber-slot.filled { filter: drop-shadow(0 0 8px var(--angry-red)); }
         .drum-wrapper.classic .bullet-outer { fill: var(--angry-red); }
         .drum-wrapper.classic .bullet-inner { fill: #ffffff; transition: fill 0.3s ease; }
         .drum-wrapper.classic .chamber-slot.fired .bullet-inner { fill: var(--angry-red); } 
-
         .hole-num { pointer-events: none; transform-origin: center center; transition: none; }
 
         #bulletStash { display: none; justify-content: center; gap: 24px; margin: 0 0 12px 0; height: 48px; transition: opacity 0.4s; }
@@ -176,26 +170,24 @@
         .stash-bullet:active { transform: scale(0.8); }
         .stash-bullet.loaded { opacity: 0; pointer-events: none; transform: translateY(-20px) scale(0.5); }
 
-        /* === [ CSS: ГЛАВНЫЕ КНОПКИ ДЕЙСТВИЯ ] === */
+        /* === [ КНОПКИ ДЕЙСТВИЯ И ЭФФЕКТЫ ] === */
         .action-row { display: flex; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 350px; margin: 2px 0 10px 0; }
-        
-        .btn-roll, .btn-mini-roll { 
-            background: var(--magic-color); border: none; color: #000; font-weight: bold; cursor: pointer; transition: 0.4s; z-index: 110; 
-            box-shadow: 0 0 15px rgba(162, 155, 254, 0.3); 
-            touch-action: manipulation; 
-        }
-        .btn-roll { padding: 12px 0; width: 100%; font-size: 16px; border-radius: 50px; text-transform: uppercase; flex-grow: 1; }
+        .btn-roll, .btn-mini-roll { background: var(--magic-color); border: none; color: #000; font-weight: bold; cursor: pointer; transition: 0.4s; z-index: 110; box-shadow: 0 0 15px rgba(162, 155, 254, 0.3); touch-action: manipulation; }
+        .btn-roll { padding: 12px 0; width: 100%; font-size: 16px; border-radius: 50px; text-transform: uppercase; flex-grow: 1; transition: color 0.3s, text-shadow 0.3s, background-color 0.4s; }
         .btn-mini-roll { width: 48px; height: 48px; border-radius: 50%; display: none; align-items: center; justify-content: center; flex-shrink: 0; padding: 10px; color: inherit; transition: opacity 0.4s; }
-        
         .btn-roll:disabled, .btn-mini-roll:disabled { background: #4a457e !important; animation: pulse-btn 1.5s infinite ease-in-out !important; color: rgba(255, 255, 255, 0.5) !important; pointer-events: none; }
         .gold-text-active { animation: text-gold-pulse 1.5s infinite ease-in-out !important; color: #ffffff !important; }
+        
+        /* КЛАСС ДЛЯ ОШИБКИ КНОПКИ ("ПЫНЬ") */
+        .text-error-flash { color: var(--angry-red) !important; text-shadow: 0 0 12px var(--angry-red) !important; }
 
         @keyframes pulse-btn { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         @keyframes text-gold-pulse { 0%, 100% { color: #ffffff; } 50% { color: var(--sun-gold); text-shadow: 0 0 12px var(--sun-gold); } }
 
-        .sparkle { position: absolute; width: 5.3px; height: 5.3px; border-radius: 50%; opacity: 0; pointer-events: none; top: 50%; left: 50%; z-index: 10; }
+        .sparkle { position: absolute; width: 5.3px; height: 5.3px; border-radius: 50%; opacity: 0; pointer-events: none; left: 50%; z-index: 10; }
         @keyframes sparkle-fly { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(var(--fly-x), var(--fly-y)) scale(0); } }
 
+        /* === [ ОТЛАДКА И ИСТОРИЯ ] === */
         .debug-panel { display: none; justify-content: center; gap: 8px; margin: 5px 0 10px 0; width: 100%; max-width: 350px; }
         .debug-btn { width: 35px; height: 35px; border-radius: 50%; background: rgba(162, 155, 254, 0.1); border: 1px solid var(--magic-color); font-size: 14px; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
         .debug-btn:active { background: var(--magic-color); color: #000; transform: scale(0.9); }
@@ -204,13 +196,11 @@
         .history { width: 100%; max-width: 350px; text-align: center; color: #888; overflow-y: auto; max-height: 120px; padding: 5px; flex-grow: 1; transition: opacity 0.4s; }
         .history-item { padding: 10px 0; font-size: 12px; position: relative; line-height: 1.4; border-bottom: 1px solid rgba(162, 155, 254, 0.1); }
 
-        /* === [ CSS: ОКНА НАСТРОЕК И ПРАВИЛ ] === */
+        /* === [ ОКНА НАСТРОЕК И ПРАВИЛ ] === */
         .settings-overlay, .rules-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 1000; }
         .settings-overlay { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); }
         .rules-overlay { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
-        
         .settings-modal { background: rgba(5, 8, 15, 0.95); border: 1px solid rgba(162, 155, 254, 0.3); padding: 25px; border-radius: 30px; width: 85%; max-width: 320px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); }
-        
         .setting-item { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; font-weight: bold; font-size: 15px; text-align: left; }
         .st-select { background: rgba(0,0,0,0.5); color: white; border: 1px solid var(--magic-color); border-radius: 10px; padding: 5px; outline: none; width: 140px; font-family: inherit; font-size: 14px; }
         .switch { position: relative; display: inline-block; width: 44px; height: 22px; flex-shrink: 0; }
@@ -230,17 +220,20 @@
     </style>
 </head>
 <body>
-    <div id="stars" class="stars-layer stars-active"></div>
-    <div class="version">v0.7.0.4</div>
+    <div id="stars" class="stars-layer stars-active bg1-stars"></div>
+    <div class="version">v0.8.6.2</div>
 
     <div id="mainMenuOverlay">
+        <div class="menu-top-bar">
+            <button class="menu-icon-btn" id="langSwitchBtn" onclick="App.toggleLanguage()"><i class="fas fa-globe"></i></button>
+        </div>
         <div id="mainMenuTitle" class="menu-title-main">Игры Судьбы</div>
         <div id="mainMenuCards" class="cards-container">
-            <div class="game-card" id="card-dice" onclick="selectGameModeFromMenu('dice')">
+            <div class="game-card" id="card-dice" onclick="App.selectGameMode('dice')">
                 <div class="card-icon"><i class="fas fa-dice-d6"></i></div>
                 <div class="card-title" id="menu-card-title-dice">Кость Судьбы</div>
             </div>
-            <div class="game-card" id="card-roulette" onclick="selectGameModeFromMenu('roulette')">
+            <div class="game-card" id="card-roulette" onclick="App.selectGameMode('roulette')">
                 <div class="card-icon">
                     <svg viewBox="0 0 200 200" style="height: 55px; width: auto;" fill="currentColor">
                         <path fill-rule="evenodd" d="M 100,4 A 96,96 0 1,1 100,196 A 96,96 0 1,1 100,4 Z M 100,86 A 14,14 0 1,0 100,114 A 14,14 0 1,0 100,86 Z M 100,6 A 22,22 0 1,0 100,50 A 22,22 0 1,0 100,6 Z M 162.35,42 A 22,22 0 1,0 162.35,86 A 22,22 0 1,0 162.35,42 Z M 162.35,114 A 22,22 0 1,0 162.35,158 A 22,22 0 1,0 162.35,114 Z M 100,150 A 22,22 0 1,0 100,194 A 22,22 0 1,0 100,150 Z M 37.65,114 A 22,22 0 1,0 37.65,158 A 22,22 0 1,0 37.65,114 Z M 37.65,42 A 22,22 0 1,0 37.65,86 A 22,22 0 1,0 37.65,42 Z"></path>
@@ -249,23 +242,25 @@
                 <div class="card-title" id="menu-card-title-roulette">Роковая Пуля</div>
             </div>
         </div>
+        <div class="menu-footer-row">
+            <div class="menu-subtitle-row">
+                <a href="https://t.me/Antis_Corpus">t.me/Antis_Corpus</a>
+                <span class="menu-version">v0.8.6.2</span>
+            </div>
+        </div>
     </div>
 
     <div id="gameUI">
         <div class="top-bar">
-            <button class="icon-btn" id="toggleQuestionBtn" onclick="toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
-            <button class="icon-btn" id="cubeBtn" onclick="toggleCubeStyle()"><i class="fas fa-dice-d6"></i></button>
-            <button class="icon-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-up"></i></button>
-            <button class="icon-btn" id="modeToggleBtn" onclick="toggleGameMode()">
-                <svg viewBox="0 0 20 50" style="height: 16px; width: auto; transform: translateY(1px);" fill="currentColor">
-                    <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z"/>
-                </svg>
+            <button class="icon-btn" id="toggleQuestionBtn" onclick="App.toggleQuestionField()"><i class="fas fa-question-circle"></i></button>
+            <button class="icon-btn" id="cubeBtn" onclick="App.toggleCubeStyle()"><i class="fas fa-dice-d6"></i></button>
+            <button class="icon-btn" id="soundBtn" onclick="App.toggleSound()"><i class="fas fa-volume-up"></i></button>
+            <button class="icon-btn" id="modeToggleBtn" onclick="App.toggleGameMode()">
+                <svg viewBox="0 0 20 50" style="height: 16px; width: auto; transform: translateY(1px);" fill="currentColor"><path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z"/></svg>
             </button>
-            <button class="icon-btn" onclick="toggleSettings(true)"><i class="fas fa-cog"></i></button>
-            <button class="icon-btn" onclick="toggleRules(true)">
-                <svg viewBox="0 0 24 24" style="height: 18px; width: auto; transform: translateY(1px);" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
-                </svg>
+            <button class="icon-btn" onclick="App.toggleSettings(true)"><i class="fas fa-cog"></i></button>
+            <button class="icon-btn" onclick="App.toggleRules(true)">
+                <svg viewBox="0 0 24 24" style="height: 18px; width: auto; transform: translateY(1px);" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/></svg>
             </button>
         </div>
 
@@ -315,7 +310,6 @@
                         </defs>
                         <circle cx="100" cy="100" r="96" mask="url(#main-drum-mask)" fill="currentColor"/>
                     </svg>
-                    
                     <svg class="bullets-svg" viewBox="0 0 200 200" style="overflow: visible;">
                         <text x="100" y="34" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 28px;">3</text>
                         <text x="162.35" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 162.35px 64px;">4</text>
@@ -323,7 +317,6 @@
                         <text x="100" y="178" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 100px 172px;">6</text>
                         <text x="37.65" y="142" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 136px;">1</text>
                         <text x="37.65" y="70" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-weight="bold" class="hole-num" style="transform-origin: 37.65px 64px;">2</text>
-
                         <g class="chamber-slot" id="ch-0"><circle cx="100" cy="28" r="18" class="bullet-outer"/><circle cx="100" cy="28" r="6" class="bullet-inner"/></g>
                         <g class="chamber-slot" id="ch-1"><circle cx="162.35" cy="64" r="18" class="bullet-outer"/><circle cx="162.35" cy="64" r="6" class="bullet-inner"/></g>
                         <g class="chamber-slot" id="ch-2"><circle cx="162.35" cy="136" r="18" class="bullet-outer"/><circle cx="162.35" cy="136" r="6" class="bullet-inner"/></g>
@@ -334,37 +327,32 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="answer-box">
             <div id="res-content"><div id="res-main" class="answer-main"></div><div id="res-sub" class="answer-sub"></div><div id="res-desc" class="answer-desc"></div></div>
             <div id="res-status" class="idle-mode visible">Оракул ожидает вопроса...</div>
         </div>
 
         <div id="bulletStash">
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 0)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">1</text>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 0)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">1</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 1)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">2</text>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 1)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">2</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 2)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">3</text>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 2)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">3</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 3)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">4</text>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 3)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">4</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="loadBullet(this, 4)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/>
-                <text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">5</text>
+            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 4)">
+                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">5</text>
             </svg>
         </div>
 
         <div class="action-row">
-            <button id="rouletteStatusBtn" class="btn-mini-roll" onclick="spinDrumRandomly()">
+            <button id="rouletteStatusBtn" class="btn-mini-roll" onclick="RouletteGame.spinRandomly()">
                 <svg viewBox="0 0 200 200" style="width: 100%; height: 100%; overflow: visible;">
                     <defs>
                         <mask id="mini-drum-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="400" height="400">
@@ -387,11 +375,11 @@
                     <circle cx="100" cy="100" r="96" mask="url(#mini-drum-mask)" fill="currentColor"/>
                 </svg>
             </button>
-            <button class="btn-roll" id="rollBtn" onclick="askOracle()">Испытать судьбу</button>
+            <button class="btn-roll" id="rollBtn" onclick="App.askOracle()">Испытать судьбу</button>
         </div>
 
         <div class="debug-panel" id="debugPanel">
-            <button class="debug-btn" onclick="askOracle(0)">1</button><button class="debug-btn" onclick="askOracle(1)">2</button><button class="debug-btn" onclick="askOracle(2)">3</button><button class="debug-btn" onclick="askOracle(3)">4</button><button class="debug-btn" onclick="askOracle(4)">5</button><button class="debug-btn" onclick="askOracle(5)">6</button>
+            <button class="debug-btn" onclick="App.askOracle(0)">1</button><button class="debug-btn" onclick="App.askOracle(1)">2</button><button class="debug-btn" onclick="App.askOracle(2)">3</button><button class="debug-btn" onclick="App.askOracle(3)">4</button><button class="debug-btn" onclick="App.askOracle(4)">5</button><button class="debug-btn" onclick="App.askOracle(5)">6</button>
         </div>
 
         <div class="history-header" id="st-hist-head">История предсказаний</div>
@@ -402,695 +390,521 @@
     </div> <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal" id="settingsModalInside">
             <h2 id="st-title-h2" style="margin-top:0; color:var(--magic-color)">Настройки</h2>
-            <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="updateModeDisplay()"></select></div>
-            <div class="setting-item"><span id="st-label-bg">Фон</span><select class="st-select" id="bgSelect" onchange="changeBackground()"></select></div>
+            <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="App.updateModeDisplay()"></select></div>
+            <div class="setting-item"><span id="st-label-bg">Фон</span><select class="st-select" id="bgSelect" onchange="App.changeBackground()"></select></div>
             <div class="setting-item"><span id="st-label-sparkles">Магические искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked><span class="slider"></span></label></div>
-            <div class="setting-item"><span id="st-label-debug">Отладка</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="toggleDebug()"><span class="slider"></span></label></div>
-            <div class="setting-item"><span id="st-label-lang">Язык</span><select class="st-select" id="langSelect" onchange="changeLanguage()"><option value="ru">Русский</option><option value="en">English</option></select></div>
-            <button class="close-btn" id="st-btn-close" onclick="toggleSettings(false)">Закрыть</button>
+            <div class="setting-item"><span id="st-label-debug">Отладка</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="App.toggleDebug()"><span class="slider"></span></label></div>
+            <div class="setting-item"><span id="st-label-lang">Язык</span><select class="st-select" id="langSelect" onchange="App.changeLanguage()"><option value="ru">Русский</option><option value="en">English</option></select></div>
+            <button class="close-btn" id="st-btn-close" onclick="App.toggleSettings(false)">Закрыть</button>
         </div>
     </div>
 
     <div class="rules-overlay" id="rulesOverlay">
         <div class="settings-modal" id="rulesModalInside">
-            <h2 id="rules-title-h2" style="margin-top:0; color:var(--magic-color)">Правила Игры</h2>
+            <h2 id="rules-title-h2" style="margin-top:0; color:var(--magic-color); text-align: center;">Правила Игры</h2>
             <div id="rulesContentText"></div>
-            <button class="close-btn" id="ru-btn-close" onclick="toggleRules(false)">Закрыть</button>
+            <button class="close-btn" id="ru-btn-close" onclick="App.toggleRules(false)">Закрыть</button>
         </div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
-        const cube = document.getElementById('cube'), cubeScene = document.getElementById('cubeScene'), ansStatus = document.getElementById('res-status'), ansContent = document.getElementById('res-content'), rollBtn = document.getElementById('rollBtn'), miniDrumBtn = document.getElementById('rouletteStatusBtn'), drumWrapper = document.getElementById('drumWrapper'), errorMsg = document.getElementById('error-msg');
-        const resMain = document.getElementById('res-main'), resSub = document.getElementById('res-sub'), resDesc = document.getElementById('res-desc');
-        const userInput = document.getElementById('userQuestion'), debugPanel = document.getElementById('debugPanel');
-        const rulesContentText = document.getElementById('rulesContentText');
-        
-        let isSoundEnabled = true, isClassicCube = false, currentLang = 'ru', currentFaces = [], isQuestionHidden = false;
-        let audioCtx = null;
-        let isRouletteMode = false;
-        let errorTimeout;
 
-        let isDraggingCube = false, lastCubeX = 0, lastCubeY = 0, velocityCubeX = 0, velocityCubeY = 0, inertiaFrameCube, lastCubeTapTime = 0, lastCubeMoveTime = 0, lastCubeTick = 0;
-        let currentRotX = -20, currentRotY = 20, currentRotZ = 0; 
+        // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
+        const GameState = {
+            lang: (tg.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase().startsWith('ru') ? 'ru' : 'en',
+            sound: true,
+            isQuestionHidden: false,
+            isClassic: false,
+            mode: 'dice', 
+            errorTimeout: null
+        };
 
-        let isDraggingDrum = false, drumCenterX = 0, drumCenterY = 0, lastDrumAngle = 0, velocityDrum = 0, inertiaFrameDrum, lastDrumTapTime = 0, lastDrumMoveTime = 0, lastDrumTick = 0, lastTickPlayTime = 0, lastTickedHole = 0;
-        let loadedBullets = 0, drumRotation = 0, chamberState = [false, false, false, false, false, false], isDrumSpinning = false, survivalCount = 0; 
-        
-        const chamberMap = [4, 5, 0, 1, 2];
-        const debugToChamberMap = [4, 5, 0, 1, 2, 3]; 
+        const LANG_DATA = {
+            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", ruTitleRules: "Правила Игры", menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний", clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] },
+            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", ruTitleRules: "Game Rules", menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", histSurvHead: "Survival Log", histDiceHead: "Prediction History", clickMsg: "LUCK", shotMsg: "SHOT", yn: ["NO", "YES", "NO", "YES", "NO", "YES"] }
+        };
 
-        const userLang = (tg.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase();
-        currentLang = userLang.startsWith('ru') ? 'ru' : 'en';
-        document.documentElement.lang = currentLang; document.getElementById('langSelect').value = currentLang; 
-
-        const rulesDiceRU = `
-        <div class="rules-content">
-            <div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">
-                🔮 Кость Судьбы
-            </div>
-            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Задай вопрос Оракулу, брось кубик и позволь случаю всё решить!</div>
-            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Точки:</b> Магический 6-гранный кубик оракула! Чем выше выпало число, тем энергетически «мощнее» ответ ДА или НЕТ. Выпало четное число? Это ДА. Кость показала нечет? Не повезло, перед вами - НЕТ.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Числа:</b> Правила те же, но Оракул решил заменить точки на магию цифр!</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Да / Нет:</b> Застрял на распутье? Задай свой вопрос и получи четкий ответ Вселенной.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Трейдер:</b> Волк с Уолл-стрит на связи. ПАМП, ДАМП или жесткий СКАМ? Проверь удачу перед сделкой (не является инвест-рекомендацией!).</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Алконавт:</b> Спасение для вечеринок. Пивко, коктейль или сегодня только водичка? Пусть решает кубик Оракула судьбы!</li>
-            </ul>
-        </div>`;
-
-        const rulesRouletteRU = `
-        <div class="rules-content">
-            <div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">
-                💀 Роковая Пуля
-            </div>
-            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Режим для тех, кто любит пощекотать нервы. Русская рулетка в твоем кармане.</div>
-            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Зарядка:</b> Тапай по патронам внизу, чтобы зарядить в барабан от 1 до 5 пуль.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Вращение:</b> Нажми левую кнопку с иконкой барабана для сильной раскрутки или плавно крути барабан пальцем по экрану.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Стрик:</b> Жми «Испытать судьбу» и проверь свою удачу. Посмотрим, сколько ты сможешь протянуть, прежде чем отправишь себе пулю в лоб! 🪦</li>
-            </ul>
-        </div>`;
-
-        const rulesDiceEN = `
-        <div class="rules-content">
-            <div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">
-                🔮 Dice of Fate
-            </div>
-            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Ask the Oracle a question, roll the dice and let chance decide everything!</div>
-            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Dots:</b> Magic 6-sided oracle dice! High number = "stronger" response. Even number? That's a YES. Odd? No luck, it's a NO.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Numbers:</b> Same rules, but Oracle replaces dots with number magic!</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Yes / No:</b> Stuck? Ask your question and get a clear answer from Universe.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Trader:</b> Wolf of Wall Street. PUMP, DUMP, or hard SCAM? Test luck before trade.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Alconaut:</b> Party savior. Beer, cocktail, or water? Let the Oracle dice decide!</li>
-            </ul>
-        </div>`;
-
-        const rulesRouletteEN = `
-        <div class="rules-content">
-            <div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">
-                💀 Destiny Shot
-            </div>
-            <div style="margin-bottom: 12px; font-style: italic; color: #ccc;">A mode for those who like to tickle their nerves. Russian roulette in your pocket.</div>
-            <ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;">
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Loading:</b> Tap the cartridges at bottom to load 1-5 bullets in cylinder.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Spinning:</b> Press left button for strong spin, or smoothly spin cylinder with finger.</li>
-                <li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Streak:</b> Hit "Try fate" and check luck. Let's see how long you last before shot in head! 🪦</li>
-            </ul>
-        </div>`;
-
-        const translations = {
-            ru: { 
-                title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", 
-                error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", 
-                idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", 
-                rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", 
-                ruTitleRules: "Правила Игры", rulesTextDice: rulesDiceRU, rulesTextRoulette: rulesRouletteRU,
-                menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля",
-                bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", 
-                traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], 
-                stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", 
-                modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт",
-                histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний",
-                clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ",
-                yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] 
+        const RULES_HTML = {
+            dice: {
+                ru: `<div class="rules-content"><div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">🔮 Кость Судьбы</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Задай вопрос Оракулу, брось кубик и позволь случаю всё решить!</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Точки:</b> Магический 6-гранный кубик оракула! Чем выше выпало число, тем энергетически «мощнее» ответ ДА или НЕТ. Выпало четное число? Это ДА. Кость показала нечет? Не повезло, перед вами - НЕТ.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Числа:</b> Правила те же, но Оракул решил заменить точки на магию цифр!</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Да / Нет:</b> Застрял на распутье? Задай свой вопрос и получи четкий ответ Вселенной.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Трейдер:</b> Волк с Уолл-стрит на связи. ПАМП, ДАМП или жесткий СКАМ? Проверь удачу перед сделкой (не является инвест-рекомендацией!).</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Алконавт:</b> Спасение для вечеринок. Пивко, коктейль или сегодня только водичка? Пусть решает кубик Оракула судьбы!</li></ul></div>`,
+                en: `<div class="rules-content"><div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">🔮 Dice of Fate</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Ask the Oracle a question, roll the dice and let chance decide everything!</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Dots:</b> Magic 6-sided oracle dice! High number = "stronger" response. Even number? That's a YES. Odd? No luck, it's a NO.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Numbers:</b> Same rules, but Oracle replaces dots with number magic!</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Yes / No:</b> Stuck? Ask your question and get a clear answer from Universe.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Trader:</b> Wolf of Wall Street. PUMP, DUMP, or hard SCAM? Test luck before trade.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Alconaut:</b> Party savior. Beer, cocktail, or water? Let the Oracle dice decide!</li></ul></div>`
             },
-            en: { 
-                title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", 
-                error: "Ask the oracle first!", errBullet: "Load at least one bullet!", 
-                idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", 
-                rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", 
-                ruTitleRules: "Game Rules", rulesTextDice: rulesDiceEN, rulesTextRoulette: rulesRouletteEN,
-                menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot",
-                bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", 
-                traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], 
-                stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", 
-                modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut",
-                histSurvHead: "Survival Log", histDiceHead: "Prediction History",
-                clickMsg: "LUCK", shotMsg: "SHOT",
-                yn: ["NO", "YES", "NO", "YES", "NO", "YES"] 
+            roulette: {
+                ru: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Роковая Пуля</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Режим для тех, кто любит пощекотать нервы. Русская рулетка в твоем кармане.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Зарядка:</b> Тапай по патронам внизу, чтобы зарядить в барабан от 1 до 5 пуль.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Вращение:</b> Нажми левую кнопку с иконкой барабана для сильной раскрутки или плавно крути барабан пальцем по экрану.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Стрик:</b> Жми «Испытать судьбу» и проверь свою удачу. Посмотрим, сколько ты сможешь протянуть, прежде чем отправишь себе пулю в лоб! 🪦</li></ul></div>`,
+                en: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Destiny Shot</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">A mode for those who like to tickle their nerves. Russian roulette in your pocket.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Loading:</b> Tap the cartridges at bottom to load 1-5 bullets in cylinder.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Spinning:</b> Press left button for strong spin, or smoothly spin cylinder with finger.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Streak:</b> Hit "Try fate" and check luck. Let's see how long you last before shot in head! 🪦</li></ul></div>`
             }
         };
 
         const traderIcons = ['<i class="fas fa-rocket"></i>', '<i class="fas fa-arrow-trend-down"></i>', '<i class="fas fa-chart-line"></i>', '<i class="fas fa-chart-area" style="transform: scaleY(-1)"></i>', '<i class="fas fa-arrows-left-right"></i>', '<i class="fas fa-skull"></i>'];
         const alcoIcons = ['<i class="fas fa-wine-glass-alt"></i>', '<i class="fas fa-beer-mug-empty"></i>', '<i class="fas fa-glass-martini-alt"></i>', '<i class="fas fa-whiskey-glass"></i>', '<i class="fas fa-vial"></i>', '<i class="fas fa-droplet"></i>'];
         const resData = { ru: [ {t:"НЕТ...", s:"Слабо"}, {t:"ДА...", s:"Неуверенно"}, {t:"НЕТ.", s:"Средне"}, {t:"ДА!", s:"Средне"}, {t:"НЕТ!!!", s:"Максимально"}, {t:"ДА!!!", s:"Абсолютно"} ], en: [ {t:"NO...", s:"Weakly"}, {t:"YES...", s:"Unsure"}, {t:"NO.", s:"Medium"}, {t:"YES!", s:"Medium"}, {t:"NO!!!", s:"Absolutely"}, {t:"YES!!!", s:"Absolutely"} ] };
-        const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)", stars: true }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)", stars: false }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)", stars: false }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)", stars: false }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)", stars: false } };
+        const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)" }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)" }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)" }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)" }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)" } };
 
-        // === [ ЛОГИКА ГЛАВНОГО МЕНЮ ] ===
-        function selectGameModeFromMenu(mode) {
-            document.querySelectorAll('.game-card').forEach(c => c.style.pointerEvents = 'none');
-            const menuTitle = document.getElementById('mainMenuTitle');
-            const diceCard = document.getElementById('card-dice');
-            const rouletteCard = document.getElementById('card-roulette');
-            
-            menuTitle.classList.add('title-fade-out');
+        let audioCtx = null;
 
-            if (mode === 'dice') {
-                diceCard.classList.add('card-selected');
-                rouletteCard.classList.add('card-discarded');
-                isRouletteMode = false;
-            } else {
-                rouletteCard.classList.add('card-selected');
-                diceCard.classList.add('card-discarded');
-                isRouletteMode = true;
+        // ==============================================
+        // ⚙️ МОДУЛЬ ЯДРА (CORE APP)
+        // ==============================================
+        const App = (function() {
+            function init() {
+                document.documentElement.lang = GameState.lang; 
+                document.getElementById('langSelect').value = GameState.lang; 
+                
+                document.getElementById('settingsOverlay').addEventListener('click', function(e) { if (e.target === this) toggleSettings(false); });
+                document.getElementById('rulesOverlay').addEventListener('click', function(e) { if (e.target === this) toggleRules(false); });
+                
+                const uInput = document.getElementById('userQuestion');
+                uInput.addEventListener('input', hideError);
+                uInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') uInput.blur(); });
+
+                fillModeOptions(); 
+                fillBgOptions(); 
+                changeLanguage(); 
+                changeBackground(); 
+
+                DiceGame.init();
+                RouletteGame.init();
             }
 
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
-
-            setTimeout(() => {
-                document.getElementById('mainMenuOverlay').style.display = 'none';
-                setupInitialUI(mode);
-                document.getElementById('gameUI').classList.add('game-ui-visible');
-            }, 800);
-        }
-
-        function setupInitialUI(mode) {
-            const titleEl = document.getElementById('ui-title');
-            const modeBtn = document.getElementById('modeToggleBtn');
-            const t = translations[currentLang];
-            
-            if (mode === 'roulette') {
-                modeBtn.classList.add('active-magic');
-                titleEl.innerText = t.titleRoulette;
-                document.getElementById('st-hist-head').innerText = t.histSurvHead;
-                
-                document.getElementById('mainStage').style.display = 'none';
-                document.getElementById('rouletteStage').style.display = 'flex';
-                document.getElementById('bulletStash').style.display = 'flex';
-                document.getElementById('rouletteStatusBtn').style.display = 'flex';
-                
-                document.body.classList.add('roulette-mode-active');
-                document.getElementById('historyListDice').style.display = 'none';
-                document.getElementById('historyListRoulette').style.display = 'block';
-                
-                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
-                resetRoulette();
-            } else {
-                modeBtn.classList.remove('active-magic');
-                titleEl.innerText = t.title;
-                document.getElementById('st-hist-head').innerText = t.histDiceHead;
-                updateModeDisplay(); 
+            function setQuestionState(hide) {
+                if (GameState.isQuestionHidden === hide) return;
+                GameState.isQuestionHidden = hide;
+                document.getElementById('inputWrapper').classList.toggle('hidden', GameState.isQuestionHidden); 
+                const btn = document.getElementById('toggleQuestionBtn'); 
+                btn.classList.toggle('active-magic', GameState.isQuestionHidden); 
+                btn.innerHTML = GameState.isQuestionHidden ? '<i class="fas fa-comment-slash"></i>' : '<i class="fas fa-question-circle"></i>'; 
+                hideError(); 
+                document.getElementById('res-content').classList.remove('visible'); 
+                document.getElementById('res-status').classList.remove('visible'); 
+                document.getElementById('res-status').innerText = GameState.isQuestionHidden ? LANG_DATA[GameState.lang].idleNoQ : LANG_DATA[GameState.lang].idle;
+                setTimeout(() => document.getElementById('res-status').classList.add('visible'), 50); 
             }
-            updateStyleBtnIcon();
-            if (isQuestionHidden) toggleQuestionField(); 
-        }
 
-        document.getElementById('settingsOverlay').addEventListener('click', function(e) { if (e.target === this) toggleSettings(false); });
-        document.getElementById('rulesOverlay').addEventListener('click', function(e) { if (e.target === this) toggleRules(false); });
+            function toggleQuestionField() { 
+                setQuestionState(!GameState.isQuestionHidden);
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            }
 
-        function showError(msg) {
-            clearTimeout(errorTimeout);
-            errorMsg.innerText = msg;
-            errorMsg.classList.remove('error-visible', 'error-pulse-active');
-            void errorMsg.offsetWidth; 
-            errorMsg.classList.add('error-visible', 'error-pulse-active');
-            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
-        }
-        function hideError() {
-            clearTimeout(errorTimeout);
-            errorMsg.classList.remove('error-visible', 'error-pulse-active');
-        }
+            function selectGameMode(mode) {
+                // Звук и тактильный отклик при выборе карточки (The Feedback Update)
+                playSoundEffect('tick');
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
 
-        function toggleGameMode() {
-            if (rollBtn.disabled || isDrumSpinning || isDraggingCube || isDraggingDrum) return;
-            isRouletteMode = !isRouletteMode;
-            isDraggingCube = false; isDraggingDrum = false;
-            hideError(); 
-            
-            const titleEl = document.getElementById('ui-title');
-            titleEl.classList.remove('title-animating');
-            void titleEl.offsetWidth; 
-            titleEl.classList.add('title-animating');
-            
-            const modeBtn = document.getElementById('modeToggleBtn');
-            modeBtn.classList.toggle('active-magic', isRouletteMode);
-            
-            updateStyleBtnIcon();
+                document.querySelectorAll('.game-card').forEach(c => c.style.pointerEvents = 'none');
+                document.getElementById('mainMenuTitle').classList.add('title-fade-out');
 
-            const allDynamicEls = [
-                document.getElementById('mainStage'), document.getElementById('rouletteStage'), 
-                document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), 
-                document.getElementById('historyBlock'), document.getElementById('debugPanel')
-            ];
+                if (mode === 'dice') {
+                    document.getElementById('card-dice').classList.add('card-selected');
+                    document.getElementById('card-roulette').classList.add('card-discarded');
+                    GameState.mode = 'dice';
+                } else {
+                    document.getElementById('card-roulette').classList.add('card-selected');
+                    document.getElementById('card-dice').classList.add('card-discarded');
+                    GameState.mode = 'roulette';
+                }
 
-            allDynamicEls.forEach(el => { if(el) el.classList.add('fade-out'); });
+                setTimeout(() => {
+                    document.getElementById('mainMenuOverlay').style.display = 'none';
+                    mountActiveGame();
+                    document.getElementById('gameUI').classList.add('game-ui-visible');
+                }, 800);
+            }
 
-            setTimeout(() => {
-                const t = translations[currentLang];
+            function mountActiveGame() {
+                const titleEl = document.getElementById('ui-title');
+                const modeBtn = document.getElementById('modeToggleBtn');
+                const t = LANG_DATA[GameState.lang];
                 
-                ansContent.classList.remove('visible');
-                ansStatus.innerText = isQuestionHidden ? t.idleNoQ : t.idle;
-                ansStatus.classList.add('visible');
-
-                if (isRouletteMode) {
+                if (GameState.mode === 'roulette') {
+                    modeBtn.classList.add('active-magic');
                     titleEl.innerText = t.titleRoulette;
                     document.getElementById('st-hist-head').innerText = t.histSurvHead;
-                    
-                    document.getElementById('mainStage').style.display = 'none';
-                    document.getElementById('rouletteStage').style.display = 'flex';
-                    document.getElementById('bulletStash').style.display = 'flex';
-                    document.getElementById('rouletteStatusBtn').style.display = 'flex';
-                    
-                    document.body.classList.add('roulette-mode-active');
-                    document.getElementById('historyListDice').style.display = 'none';
-                    document.getElementById('historyListRoulette').style.display = 'block';
-                    
-                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
-
-                    resetRoulette();
-                    if (!isQuestionHidden) toggleQuestionField(); 
+                    DiceGame.unmount();
+                    RouletteGame.mount();
+                    setQuestionState(true); 
                 } else {
+                    modeBtn.classList.remove('active-magic');
                     titleEl.innerText = t.title;
                     document.getElementById('st-hist-head').innerText = t.histDiceHead;
-                    
-                    document.getElementById('rouletteStage').style.display = 'none';
-                    document.getElementById('bulletStash').style.display = 'none';
-                    document.getElementById('rouletteStatusBtn').style.display = 'none';
-                    document.getElementById('mainStage').style.display = 'flex';
-                    
-                    document.body.classList.remove('roulette-mode-active');
-                    document.getElementById('historyListDice').style.display = 'block';
-                    document.getElementById('historyListRoulette').style.display = 'none';
-                    
-                    if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
-                    
-                    updateModeDisplay(); 
-                    if (isQuestionHidden) toggleQuestionField(); 
+                    RouletteGame.unmount();
+                    DiceGame.mount();
+                    setQuestionState(false); 
                 }
+                updateStyleBtnIcon();
+            }
+
+            function toggleGameMode() {
+                const rollBtn = document.getElementById('rollBtn');
+                if (rollBtn.disabled || RouletteGame.isSpinning() || DiceGame.isDragging() || RouletteGame.isDragging()) return;
                 
-                allDynamicEls.forEach(el => { if(el) { el.classList.remove('fade-out'); el.classList.add('fade-in'); } });
-                setTimeout(() => { allDynamicEls.forEach(el => { if(el) el.classList.remove('fade-in'); }); }, 200);
+                GameState.mode = (GameState.mode === 'dice') ? 'roulette' : 'dice';
+                hideError(); 
+                
+                const titleEl = document.getElementById('ui-title');
+                titleEl.classList.remove('title-animating');
+                void titleEl.offsetWidth; 
+                titleEl.classList.add('title-animating');
+                
+                document.getElementById('modeToggleBtn').classList.toggle('active-magic', GameState.mode === 'roulette');
+                updateStyleBtnIcon();
 
-            }, 150); 
-            
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
+                const allDynamicEls = [
+                    document.getElementById('mainStage'), document.getElementById('rouletteStage'), 
+                    document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), 
+                    document.getElementById('historyBlock'), document.getElementById('debugPanel')
+                ];
 
-        function handleCubePointerDown(e) {
-            if (rollBtn.disabled || isRouletteMode) return; 
-            const now = Date.now();
-            if (now - lastCubeTapTime < 400) { if (!rollBtn.disabled) askOracle(); return; }
-            lastCubeTapTime = now; isDraggingCube = true; cancelAnimationFrame(inertiaFrameCube); cube.style.transition = 'none'; 
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            lastCubeX = clientX; lastCubeY = clientY; velocityCubeX = 0; velocityCubeY = 0;
-            lastCubeTick = currentRotX + currentRotY;
-        }
+                allDynamicEls.forEach(el => { if(el) el.classList.add('fade-out'); });
 
-        function handleCubePointerMove(e) {
-            if (!isDraggingCube) return; e.preventDefault(); 
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const deltaX = clientX - lastCubeX; const deltaY = clientY - lastCubeY;
-            let radX = currentRotX * Math.PI / 180;
-            currentRotY += deltaX * Math.cos(radX) * 0.5; currentRotZ -= deltaX * Math.sin(radX) * 0.5; currentRotX -= deltaY * 0.5;
-            cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) rotateZ(${currentRotZ}deg)`;
-            
-            let currentCubeTotalRot = currentRotX + currentRotY;
-            if (Math.abs(currentCubeTotalRot - lastCubeTick) >= 40) {
-                if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
-                lastCubeTick = currentCubeTotalRot;
-            }
-            velocityCubeX = deltaX; velocityCubeY = deltaY; lastCubeMoveTime = Date.now(); lastCubeX = clientX; lastCubeY = clientY;
-        }
+                setTimeout(() => {
+                    const t = LANG_DATA[GameState.lang];
+                    document.getElementById('res-content').classList.remove('visible');
+                    document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle;
+                    document.getElementById('res-status').classList.add('visible');
 
-        function handleCubePointerUp() {
-            if (!isDraggingCube) return; isDraggingCube = false;
-            if (Date.now() - lastCubeMoveTime > 100) { velocityCubeX = 0; velocityCubeY = 0; }
-            applyCubeInertia(); 
-        }
-
-        function applyCubeInertia() {
-            if (Math.abs(velocityCubeX) < 0.05 && Math.abs(velocityCubeY) < 0.05) return;
-            let radX = currentRotX * Math.PI / 180;
-            currentRotY += velocityCubeX * Math.cos(radX) * 0.5; currentRotZ -= velocityCubeX * Math.sin(radX) * 0.5; currentRotX -= velocityCubeY * 0.5;
-            cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) rotateZ(${currentRotZ}deg)`;
-            velocityCubeX *= 0.98; velocityCubeY *= 0.98; inertiaFrameCube = requestAnimationFrame(applyCubeInertia);
-        }
-
-        document.getElementById('mainStage').addEventListener('mousedown', handleCubePointerDown); document.addEventListener('mousemove', handleCubePointerMove, {passive: false}); document.addEventListener('mouseup', handleCubePointerUp);
-        document.getElementById('mainStage').addEventListener('touchstart', handleCubePointerDown, {passive: false}); document.addEventListener('touchmove', handleCubePointerMove, {passive: false}); document.addEventListener('touchend', handleCubePointerUp);
-
-        function updateDrumNumbers() {
-            document.querySelectorAll('.hole-num').forEach(num => { num.style.transform = `rotate(${-drumRotation}deg)`; });
-        }
-
-        function handleDrumPointerDown(e) {
-            if (rollBtn.disabled || isDrumSpinning || !isRouletteMode) return; 
-            const now = Date.now();
-            if (now - lastDrumTapTime < 300) { if (!rollBtn.disabled) askOracle(); return; }
-            lastDrumTapTime = now; isDraggingDrum = true; cancelAnimationFrame(inertiaFrameDrum); 
-            
-            drumRotator.style.transition = 'none'; 
-            document.querySelectorAll('.hole-num').forEach(n => n.style.transition = 'none');
-            
-            const rect = drumRotator.getBoundingClientRect();
-            drumCenterX = rect.left + rect.width / 2;
-            drumCenterY = rect.top + rect.height / 2;
-            
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX; 
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            
-            lastDrumAngle = Math.atan2(clientY - drumCenterY, clientX - drumCenterX) * 180 / Math.PI;
-            velocityDrum = 0; lastDrumTick = Math.floor((drumRotation + 30) / 60);
-        }
-
-        function handleDrumPointerMove(e) {
-            if (!isDraggingDrum) return; e.preventDefault(); 
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            
-            let currentAngle = Math.atan2(clientY - drumCenterY, clientX - drumCenterX) * 180 / Math.PI;
-            let deltaAngle = currentAngle - lastDrumAngle;
-            
-            if (deltaAngle > 180) deltaAngle -= 360;
-            if (deltaAngle < -180) deltaAngle += 360;
-            
-            drumRotation += deltaAngle; 
-            drumRotator.style.transform = `rotate(${drumRotation}deg)`;
-            updateDrumNumbers();
-            
-            let nearestHole = Math.round(drumRotation / 60) * 60;
-            if (Math.abs(drumRotation - nearestHole) < 15) {
-                if (lastTickedHole !== nearestHole) {
-                    const now = Date.now();
-                    if (now - lastTickPlayTime > 60) {
-                        playSoundEffect('tick');
-                        if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
-                        lastTickPlayTime = now;
-                    }
-                    lastTickedHole = nearestHole;
-                }
+                    mountActiveGame();
+                    
+                    allDynamicEls.forEach(el => { if(el) { el.classList.remove('fade-out'); el.classList.add('fade-in'); } });
+                    setTimeout(() => { allDynamicEls.forEach(el => { if(el) el.classList.remove('fade-in'); }); }, 200);
+                }, 150); 
+                
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
             }
 
-            velocityDrum = deltaAngle; lastDrumMoveTime = Date.now(); lastDrumAngle = currentAngle;
-        }
-
-        function handleDrumPointerUp() {
-            if (!isDraggingDrum) return; isDraggingDrum = false;
-            if (Date.now() - lastDrumMoveTime > 100) { velocityDrum = 0; }
-            applyDrumInertia(); 
-        }
-
-        function applyDrumInertia() {
-            if (Math.abs(velocityDrum) < 0.7) { 
-                const targetRot = Math.round(drumRotation / 60) * 60; 
-                if (Math.abs(drumRotation - targetRot) > 0.5) {
-                    animateDrum(targetRot, 400, () => { if (isDrumSpinning) isDrumSpinning = false; });
+            async function askOracle(forcedIdx = null) {
+                if (GameState.mode === 'dice') {
+                    DiceGame.play(forcedIdx);
                 } else {
-                    drumRotation = targetRot; drumRotator.style.transform = `rotate(${drumRotation}deg)`; updateDrumNumbers();
-                    if (isDrumSpinning) isDrumSpinning = false; 
-                }
-                return; 
-            }
-            
-            drumRotation += velocityDrum; 
-            drumRotator.style.transform = `rotate(${drumRotation}deg)`;
-            updateDrumNumbers();
-            
-            let nearestHole = Math.round(drumRotation / 60) * 60;
-            if (Math.abs(drumRotation - nearestHole) < 15) {
-                if (lastTickedHole !== nearestHole) {
-                    const now = Date.now();
-                    if (now - lastTickPlayTime > 60) {
-                        playSoundEffect('tick');
-                        if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
-                        lastTickPlayTime = now;
-                    }
-                    lastTickedHole = nearestHole;
+                    RouletteGame.play(forcedIdx);
                 }
             }
 
-            velocityDrum *= 0.988; inertiaFrameDrum = requestAnimationFrame(applyDrumInertia);
-        }
-        
-        function resetDrumSwipe() {
-            isDraggingDrum = false; cancelAnimationFrame(inertiaFrameDrum);
-            let targetRot = Math.round(drumRotation / 60) * 60; 
-            if(Math.abs(drumRotation - targetRot) > 0.1) animateDrum(targetRot, 200); 
-        }
+            function showError(msg) {
+                clearTimeout(GameState.errorTimeout);
+                const errorMsg = document.getElementById('error-msg');
+                errorMsg.innerText = msg;
+                errorMsg.classList.remove('error-visible', 'error-pulse-active');
+                void errorMsg.offsetWidth; 
+                errorMsg.classList.add('error-visible', 'error-pulse-active');
+            }
 
-        function animateDrum(targetAngle, duration, callback) {
-            const startAngle = drumRotation;
-            const changeInAngle = targetAngle - startAngle;
-            const startTime = performance.now();
-            
-            drumRotator.style.transition = 'none';
-            document.querySelectorAll('.hole-num').forEach(n => n.style.transition = 'none');
-            
-            function step(currentTime) {
-                let elapsed = currentTime - startTime;
-                if (elapsed > duration) elapsed = duration;
-                
-                let progress = elapsed / duration;
-                let easeProgress = 1 - Math.pow(1 - progress, 3.5); 
-                
-                drumRotation = startAngle + changeInAngle * easeProgress;
-                drumRotator.style.transform = `rotate(${drumRotation}deg)`;
-                updateDrumNumbers();
-                
-                let nearestHole = Math.round(drumRotation / 60) * 60;
-                if (Math.abs(drumRotation - nearestHole) < 15) {
-                    if (lastTickedHole !== nearestHole) {
-                        if (elapsed > 250 && (Date.now() - lastTickPlayTime > 60)) { 
-                            playSoundEffect('tick');
-                            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-                            lastTickPlayTime = Date.now();
-                        }
-                        lastTickedHole = nearestHole;
-                    }
+            function triggerButtonError() {
+                const btn = document.getElementById('rollBtn');
+                btn.classList.add('text-error-flash');
+                playSoundEffect('error_pyn');
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                setTimeout(() => {
+                    btn.classList.remove('text-error-flash');
+                }, 1000);
+            }
+
+            function hideError() {
+                clearTimeout(GameState.errorTimeout);
+                document.getElementById('error-msg').classList.remove('error-visible', 'error-pulse-active');
+            }
+
+            async function playSoundEffect(type, resultType = 'positive') {
+                if (!GameState.sound) return;
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+                const playNode = (freq, typeNode, gainVal, dur) => {
+                    const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+                    osc.type = typeNode; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    g.gain.setValueAtTime(gainVal, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+                    osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + dur);
+                };
+
+                if (type === 'click') { playNode(150, 'sine', 0.5, 0.5); }
+                else if (type === 'load') { playNode(600, 'square', 0.1, 0.1); } 
+                else if (type === 'tick') { 
+                    const osc = audioCtx.createOscillator(), g = audioCtx.createGain(), filter = audioCtx.createBiquadFilter();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.04);
+                    filter.type = 'lowpass'; filter.frequency.value = 400;
+                    g.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+                    osc.connect(filter); filter.connect(g); g.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + 0.04);
                 }
+                else if (type === 'error_pyn') { 
+                    // Новый глухой звук ошибки ("пынь")
+                    const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.15);
+                    g.gain.setValueAtTime(0.3, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                    osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+                }
+                else if (type === 'result') {
+                    if (resultType === 'positive') { playNode(880, 'sine', 0.2, 0.8); }
+                    else if (resultType === 'scam') { 
+                        const o = audioCtx.createOscillator(), gn = audioCtx.createGain(); o.type = 'sawtooth'; o.frequency.setValueAtTime(100, audioCtx.currentTime); gn.gain.setValueAtTime(0.3, audioCtx.currentTime); gn.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5); o.connect(gn); gn.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 1.5);
+                    }
+                    else if (resultType === 'negative') { playNode(220, 'sawtooth', 0.15, 0.3); }
+                    else if (resultType === 'gunshot') { 
+                        const bufferSize = audioCtx.sampleRate * 0.5; const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate); const data = buffer.getChannelData(0);
+                        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                        const noise = audioCtx.createBufferSource(); noise.buffer = buffer;
+                        const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 1000;
+                        const gn = audioCtx.createGain(); gn.gain.setValueAtTime(1, audioCtx.currentTime); gn.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                        noise.connect(filter); filter.connect(gn); gn.connect(audioCtx.destination); noise.start();
+                    }
+                    else if (resultType === 'safe_click') { playNode(1200, 'sine', 0.2, 0.3); setTimeout(() => playNode(1600, 'sine', 0.1, 0.5), 100); }
+                    else if (resultType === 'alco') { [0, 0.2, 0.45, 0.7].forEach((t, i) => { setTimeout(() => { const osc = audioCtx.createOscillator(), g = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(300 + (i*50), audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15); g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15); osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15); }, t * 1000); }); }
+                    else if (resultType === 'water') { [0, 0.2, 0.4].forEach((t) => { setTimeout(() => { const osc = audioCtx.createOscillator(), g = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.15); g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15); osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15); }, t * 1000); }); }
+                }
+            }
+            
+            function toggleSound() { 
+                GameState.sound = !GameState.sound; 
+                const btn = document.getElementById('soundBtn'); 
+                btn.classList.toggle('active-magic', !GameState.sound); 
+                btn.innerHTML = GameState.sound ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>'; 
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+            }
+            
+            function toggleCubeStyle() { 
+                GameState.isClassic = !GameState.isClassic;
                 
-                if (elapsed < duration) {
-                    requestAnimationFrame(step);
+                document.getElementById('cube').classList.toggle('classic-mode', GameState.isClassic);
+                document.getElementById('drumWrapper').classList.toggle('classic', GameState.isClassic);
+                document.body.classList.toggle('classic-mode-active', GameState.isClassic);
+                
+                if (GameState.mode === 'dice') DiceGame.updateModeDisplay();
+
+                updateStyleBtnIcon();
+                
+                document.getElementById('bgSelect').value = GameState.isClassic ? 'bg5' : 'bg1';
+                changeBackground();
+
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            }
+
+            function updateStyleBtnIcon() {
+                const btn = document.getElementById('cubeBtn');
+                if (GameState.mode === 'roulette') {
+                    btn.innerHTML = `<svg viewBox="0 0 200 200" style="height: 18px; width: auto;" fill="currentColor"><path fill-rule="evenodd" d="M 100,4 A 96,96 0 1,1 100,196 A 96,96 0 1,1 100,4 Z M 100,86 A 14,14 0 1,0 100,114 A 14,14 0 1,0 100,86 Z M 100,6 A 22,22 0 1,0 100,50 A 22,22 0 1,0 100,6 Z M 162.35,42 A 22,22 0 1,0 162.35,86 A 22,22 0 1,0 162.35,42 Z M 162.35,114 A 22,22 0 1,0 162.35,158 A 22,22 0 1,0 162.35,114 Z M 100,150 A 22,22 0 1,0 100,194 A 22,22 0 1,0 100,150 Z M 37.65,114 A 22,22 0 1,0 37.65,158 A 22,22 0 1,0 37.65,114 Z M 37.65,42 A 22,22 0 1,0 37.65,86 A 22,22 0 1,0 37.65,42 Z"></path></svg>`;
                 } else {
-                    drumRotation = targetAngle; 
-                    drumRotator.style.transform = `rotate(${drumRotation}deg)`; updateDrumNumbers();
-                    if (Math.abs(changeInAngle) > 1 && lastTickedHole !== nearestHole) {
-                         playSoundEffect('tick');
-                         if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-                         lastTickedHole = nearestHole;
-                    }
-                    if (callback) callback();
+                    btn.innerHTML = GameState.isClassic ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>';
                 }
+                btn.classList.toggle('active-magic', GameState.isClassic);
             }
-            requestAnimationFrame(step);
-        }
 
-        const drumRotator = document.getElementById('drumRotator');
-        drumWrapper.addEventListener('mousedown', handleDrumPointerDown); document.addEventListener('mousemove', handleDrumPointerMove, {passive: false}); document.addEventListener('mouseup', handleDrumPointerUp);
-        drumWrapper.addEventListener('touchstart', handleDrumPointerDown, {passive: false}); document.addEventListener('touchmove', handleDrumPointerMove, {passive: false}); document.addEventListener('touchmove', handleDrumPointerMove, {passive: false}); document.addEventListener('touchend', handleDrumPointerUp);
+            function fillBgOptions() { const sel = document.getElementById('bgSelect'); const cur = sel.value; sel.innerHTML = ''; for(let i=1; i<=5; i++) { const opt = document.createElement('option'); opt.value = 'bg' + i; opt.innerText = LANG_DATA[GameState.lang]['bg' + i]; if(opt.value === cur) opt.selected = true; sel.appendChild(opt); } }
+            function fillModeOptions() { const sel = document.getElementById('modeSelect'); const val = sel.value; sel.innerHTML = `<option value="dots">${LANG_DATA[GameState.lang].modeDots}</option><option value="numbers">${LANG_DATA[GameState.lang].modeNums}</option><option value="yesno">${LANG_DATA[GameState.lang].modeYN}</option><option value="trader">${LANG_DATA[GameState.lang].modeTrader}</option><option value="alco">${LANG_DATA[GameState.lang].modeAlco}</option>`; if(val && val !== 'roulette') sel.value = val; }
+            
+            function changeBackground() { 
+                const bgVal = document.getElementById('bgSelect').value || 'bg1';
+                const theme = bgThemes[bgVal]; 
+                document.body.style.background = theme.grad; 
+                document.getElementById('stars').className = 'stars-layer stars-active ' + bgVal + '-stars';
+            }
+            
+            function toggleSettings(show) { 
+                document.getElementById('settingsOverlay').style.display = show ? 'flex' : 'none'; 
+                document.getElementById('st-mode-row').style.display = GameState.mode === 'roulette' ? 'none' : 'flex'; 
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+            }
 
-        async function playSoundEffect(type, resultType = 'positive') {
-            if (!isSoundEnabled) return;
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') await audioCtx.resume();
+            function toggleRules(show) { 
+                if (show) {
+                    document.getElementById('rulesContentText').innerHTML = GameState.mode === 'roulette' ? RULES_HTML.roulette[GameState.lang] : RULES_HTML.dice[GameState.lang];
+                    document.getElementById('rulesOverlay').style.display = 'flex'; 
+                } else {
+                    document.getElementById('rulesOverlay').style.display = 'none'; 
+                }
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+            }
+            
+            function changeLanguage() { 
+                GameState.lang = document.getElementById('langSelect').value; const t = LANG_DATA[GameState.lang]; document.documentElement.lang = GameState.lang;
+                const titleEl = document.getElementById('ui-title'); titleEl.innerText = GameState.mode === 'roulette' ? t.titleRoulette : t.title;
+                document.getElementById('menu-card-title-dice').innerText = t.menuDice; document.getElementById('menu-card-title-roulette').innerText = t.menuRoulette; document.getElementById('mainMenuTitle').innerText = t.menuTitle;
+                document.getElementById('userQuestion').placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = GameState.mode === 'roulette' ? t.histSurvHead : t.histDiceHead;
+                document.getElementById('rules-title-h2').innerText = t.ruTitleRules; document.getElementById('ru-btn-close').innerText = t.stClose;
+                
+                const rollBtn = document.getElementById('rollBtn');
+                if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
+                if(!document.getElementById('res-content').classList.contains('visible')) document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle;
+                
+                fillModeOptions(); fillBgOptions(); DiceGame.updateModeDisplay();
+            }
 
-            const playNode = (freq, typeNode, gainVal, dur) => {
-                const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
-                osc.type = typeNode; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                g.gain.setValueAtTime(gainVal, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
-                osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + dur);
+            function toggleLanguage() {
+                GameState.lang = (GameState.lang === 'ru') ? 'en' : 'ru';
+                document.getElementById('langSelect').value = GameState.lang; 
+                changeLanguage();
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            }
+
+            function toggleDebug() { 
+                document.getElementById('debugPanel').style.display = document.getElementById('debugToggle').checked ? 'flex' : 'none'; 
+                if(GameState.mode === 'roulette') RouletteGame.reset(); 
+            } 
+
+            function createSparkle() { 
+                if (!document.getElementById('sparkleToggle').checked) return;
+                const stageId = GameState.mode === 'roulette' ? 'rouletteStage' : 'mainStage';
+                const s = document.createElement('div'); s.className = 'sparkle'; 
+                
+                if (GameState.mode === 'roulette') {
+                    s.style.top = '140%'; 
+                    s.style.zIndex = '5'; 
+                } else {
+                    s.style.top = '50%'; 
+                    s.style.zIndex = '10'; 
+                }
+
+                document.getElementById(stageId).appendChild(s); 
+                const angle = Math.random() * Math.PI * 2, dist = 120 + Math.random() * 100; 
+                s.style.background = Math.random() > 0.5 ? '#e0ffe0' : '#ffe0e0'; 
+                s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`); s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`); 
+                const dur = 3.0 + Math.random() * 2.0; s.style.animation = `sparkle-fly ${dur}s ease-out forwards`; 
+                setTimeout(() => s.remove(), dur * 1000); 
+            }
+
+            return {
+                init, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
+                showError, hideError, triggerButtonError, playSoundEffect, createSparkle, askOracle, updateModeDisplay: () => DiceGame.updateModeDisplay()
             };
+        })();
 
-            if (type === 'click') { playNode(150, 'sine', 0.5, 0.5); }
-            else if (type === 'load') { playNode(600, 'square', 0.1, 0.1); } 
-            else if (type === 'tick') { 
-                const osc = audioCtx.createOscillator(), g = audioCtx.createGain(), filter = audioCtx.createBiquadFilter();
-                osc.type = 'triangle'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.04);
-                filter.type = 'lowpass'; filter.frequency.value = 400;
-                g.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-                osc.connect(filter); filter.connect(g); g.connect(audioCtx.destination);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.04);
+        // ==============================================
+        // 🎲 ПЛАГИН 1: КОСТЬ СУДЬБЫ
+        // ==============================================
+        const DiceGame = (function() {
+            let currentFaces = [];
+            let isDragging = false, lastX = 0, lastY = 0, velX = 0, velY = 0, inertiaFrame, lastTapTime = 0, lastMoveTime = 0, lastTick = 0;
+            let rotX = -20, rotY = 20, rotZ = 0; 
+            const traderIcons = ['<i class="fas fa-rocket"></i>', '<i class="fas fa-arrow-trend-down"></i>', '<i class="fas fa-chart-line"></i>', '<i class="fas fa-chart-area" style="transform: scaleY(-1)"></i>', '<i class="fas fa-arrows-left-right"></i>', '<i class="fas fa-skull"></i>'];
+            const alcoIcons = ['<i class="fas fa-wine-glass-alt"></i>', '<i class="fas fa-beer-mug-empty"></i>', '<i class="fas fa-glass-martini-alt"></i>', '<i class="fas fa-whiskey-glass"></i>', '<i class="fas fa-vial"></i>', '<i class="fas fa-droplet"></i>'];
+
+            function init() {
+                const stage = document.getElementById('mainStage');
+                stage.addEventListener('mousedown', handlePointerDown); document.addEventListener('mousemove', handlePointerMove, {passive: false}); document.addEventListener('mouseup', handlePointerUp);
+                stage.addEventListener('touchstart', handlePointerDown, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchend', handlePointerUp);
             }
-            else if (type === 'result') {
-                if (resultType === 'positive') { playNode(880, 'sine', 0.2, 0.8); }
-                else if (resultType === 'scam') { 
-                    const o = audioCtx.createOscillator(), gn = audioCtx.createGain(); o.type = 'sawtooth'; o.frequency.setValueAtTime(100, audioCtx.currentTime); gn.gain.setValueAtTime(0.3, audioCtx.currentTime); gn.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5); o.connect(gn); gn.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 1.5);
-                }
-                else if (resultType === 'negative') { playNode(220, 'sawtooth', 0.15, 0.3); }
-                else if (resultType === 'gunshot') { 
-                    const bufferSize = audioCtx.sampleRate * 0.5; const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate); const data = buffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-                    const noise = audioCtx.createBufferSource(); noise.buffer = buffer;
-                    const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 1000;
-                    const gn = audioCtx.createGain(); gn.gain.setValueAtTime(1, audioCtx.currentTime); gn.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                    noise.connect(filter); filter.connect(gn); gn.connect(audioCtx.destination); noise.start();
-                }
-                else if (resultType === 'safe_click') { playNode(1200, 'sine', 0.2, 0.3); setTimeout(() => playNode(1600, 'sine', 0.1, 0.5), 100); }
-                else if (resultType === 'alco') { [0, 0.2, 0.45, 0.7].forEach((t, i) => { setTimeout(() => { const osc = audioCtx.createOscillator(), g = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(300 + (i*50), audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15); g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15); osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15); }, t * 1000); }); }
-                else if (resultType === 'water') { [0, 0.2, 0.4].forEach((t) => { setTimeout(() => { const osc = audioCtx.createOscillator(), g = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.15); g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15); osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15); }, t * 1000); }); }
+
+            function mount() {
+                document.getElementById('mainStage').style.display = 'flex';
+                document.getElementById('historyListDice').style.display = 'block';
+                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                updateModeDisplay();
             }
-        }
 
-        function loadBullet(el, idx) {
-            if (rollBtn.disabled || isDrumSpinning || isDraggingDrum || !isRouletteMode) return;
-            if (el.classList.contains('loaded')) return; 
-            
-            resetDrumSwipe(); 
-            hideError(); 
-            
-            el.classList.add('loaded');
-            const targetChamber = chamberMap[idx];
-            chamberState[targetChamber] = true;
-            document.getElementById(`ch-${targetChamber}`).classList.add('filled');
-            
-            loadedBullets++;
-            playSoundEffect('load');
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
+            function unmount() {
+                document.getElementById('mainStage').style.display = 'none';
+                document.getElementById('historyListDice').style.display = 'none';
+            }
 
-        function resetRoulette() {
-            loadedBullets = 0; drumRotation = 0; chamberState = [false, false, false, false, false, false];
-            survivalCount = 0;
-            document.getElementById('survivalCounter').classList.remove('visible');
-            drumRotator.style.transition = 'none'; drumRotator.style.transform = `rotate(0deg)`;
-            updateDrumNumbers();
-            document.querySelectorAll('.stash-bullet').forEach(b => b.classList.remove('loaded'));
-            document.querySelectorAll('.chamber-slot').forEach(c => {
-                c.classList.remove('filled');
-                c.classList.remove('fired'); 
-                c.classList.remove('heart-pulse');
-                c.classList.remove('skull-aura');
-            });
-        }
+            function updateModeDisplay() {
+                const sel = document.getElementById('modeSelect'); 
+                const disp = document.getElementById('current-mode-display');
+                document.body.classList.toggle('yesno-mode-active', sel.value === 'yesno');
+                if (sel && disp && sel.options[sel.selectedIndex]) { disp.innerText = sel.options[sel.selectedIndex].text; }
+                updateFaces(); 
+                App.hideError();
+            }
 
-        function spinDrumRandomly() {
-            if (rollBtn.disabled || isDrumSpinning || isDraggingDrum || !isRouletteMode) return; 
-            isDrumSpinning = true;
-            
-            hideError();
-            
-            rollBtn.disabled = true; rollBtn.classList.add('gold-text-active');
-            miniDrumBtn.disabled = true; miniDrumBtn.classList.add('gold-text-active');
-            
-            ansContent.classList.remove('visible'); 
-            ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle;
-            ansStatus.classList.add('visible');
-            
-            resetDrumSwipe(); 
-            document.getElementById('survivalCounter').classList.remove('visible');
-            
-            const spinDur = 2500; 
-            const extraSpins = 720;
-            const currentSnap = Math.round(drumRotation / 60) * 60;
-            const finalTargetRot = currentSnap + extraSpins + Math.floor(Math.random() * 6) * 60; 
+            function updateFaces() {
+                const mode = document.getElementById('modeSelect').value, t = LANG_DATA[GameState.lang];
+                currentFaces = []; const ynOrder = GameState.lang === 'ru' ? ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] : ["NO", "YES", "NO", "YES", "NO", "YES"];
+                for(let i=1; i<=6; i++) {
+                    const face = document.getElementById(`face${i}`);
+                    if (!face) continue;
+                    face.style.textShadow = ""; face.style.color = GameState.isClassic ? "#000" : "#fff";
+                    if(mode === 'yesno') { face.innerHTML = ynOrder[i-1]; face.style.fontSize = "32px"; currentFaces.push(ynOrder[i-1]); }
+                    else if(mode === 'trader') { face.innerHTML = t.traderFaces[i-1]; face.style.fontSize = "22px"; currentFaces.push(t.traderFaces[i-1]); }
+                    else if(mode === 'alco') { face.innerHTML = t.alcoFaces[i-1]; face.style.fontSize = i===3 ? "16px" : "20px"; currentFaces.push(t.alcoFaces[i-1]); }
+                    else if(mode === 'numbers') { face.innerHTML = i; face.style.fontSize = "55px"; currentFaces.push(i); }
+                    else if(mode === 'dots') {
+                        const dp = { 1:[4], 2:[0,8], 3:[0,4,8], 4:[0,2,6,8], 5:[0,2,4,6,8], 6:[0,2,3,5,6,8] };
+                        let d = '<div class="dot-container">'; for(let j=0; j<9; j++) d += dp[i].includes(j) ? '<div class="dot"></div>' : '<div></div>';
+                        face.innerHTML = d + '</div>'; currentFaces.push(i);
+                    }
+                }
+            }
 
-            playSoundEffect('click'); 
-            
-            animateDrum(finalTargetRot, spinDur, () => {
-                isDrumSpinning = false;
-                rollBtn.disabled = false; rollBtn.classList.remove('gold-text-active');
-                miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
+            function handlePointerDown(e) {
+                const rollBtn = document.getElementById('rollBtn');
+                if (rollBtn.disabled || GameState.mode === 'roulette') return; 
+                const now = Date.now();
+                if (now - lastTapTime < 400) { if (!rollBtn.disabled) App.askOracle(); return; }
+                lastTapTime = now; isDragging = true; cancelAnimationFrame(inertiaFrame); document.getElementById('cube').style.transition = 'none'; 
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                lastX = clientX; lastY = clientY; velX = 0; velY = 0; lastTick = rotX + rotY;
+            }
+
+            function handlePointerMove(e) {
+                if (!isDragging) return; e.preventDefault(); 
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const deltaX = clientX - lastX; const deltaY = clientY - lastY;
+                let radX = rotX * Math.PI / 180;
+                rotY += deltaX * Math.cos(radX) * 0.5; rotZ -= deltaX * Math.sin(radX) * 0.5; rotX -= deltaY * 0.5;
+                document.getElementById('cube').style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
                 
-                if(survivalCount > 0) {
-                    const counterEl = document.getElementById('survivalCounter');
-                    counterEl.innerText = '+' + survivalCount;
-                    counterEl.classList.add('visible');
+                let currentTotalRot = rotX + rotY;
+                if (Math.abs(currentTotalRot - lastTick) >= 40) {
+                    if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
+                    lastTick = currentTotalRot;
                 }
-            });
-        }
-
-        userInput.addEventListener('input', hideError);
-        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') userInput.blur(); });
-
-        function updateCubeFaces() {
-            if (isRouletteMode) return; 
-            const mode = document.getElementById('modeSelect').value, t = translations[currentLang];
-            currentFaces = []; const ynOrder = currentLang === 'ru' ? ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] : ["NO", "YES", "NO", "YES", "NO", "YES"];
-            
-            for(let i=1; i<=6; i++) {
-                const face = document.getElementById(`face${i}`);
-                if (!face) continue;
-                face.style.textShadow = ""; face.style.color = isClassicCube ? "#000" : "#fff";
-                if(mode === 'yesno') { face.innerHTML = ynOrder[i-1]; face.style.fontSize = "32px"; currentFaces.push(ynOrder[i-1]); }
-                else if(mode === 'trader') { face.innerHTML = t.traderFaces[i-1]; face.style.fontSize = "22px"; currentFaces.push(t.traderFaces[i-1]); }
-                else if(mode === 'alco') { face.innerHTML = t.alcoFaces[i-1]; face.style.fontSize = i===3 ? "16px" : "20px"; currentFaces.push(t.alcoFaces[i-1]); }
-                else if(mode === 'numbers') { face.innerHTML = i; face.style.fontSize = "55px"; currentFaces.push(i); }
-                else if(mode === 'dots') {
-                    const dp = { 1:[4], 2:[0,8], 3:[0,4,8], 4:[0,2,6,8], 5:[0,2,4,6,8], 6:[0,2,3,5,6,8] };
-                    let d = '<div class="dot-container">'; for(let j=0; j<9; j++) d += dp[i].includes(j) ? '<div class="dot"></div>' : '<div></div>';
-                    face.innerHTML = d + '</div>'; currentFaces.push(i);
-                }
+                velX = deltaX; velY = deltaY; lastMoveTime = Date.now(); lastX = clientX; lastY = clientY;
             }
-        }
 
-        async function askOracle(forcedIdx = null) {
-            if (rollBtn.disabled || isDrumSpinning) return;
-            
-            const q = userInput.value.trim(), t = translations[currentLang], dMode = document.getElementById('modeSelect').value;
-            
-            if (isRouletteMode && loadedBullets === 0 && forcedIdx === null) {
-                showError(t.errBullet); 
-                return;
+            function handlePointerUp() {
+                if (!isDragging) return; isDragging = false;
+                if (Date.now() - lastMoveTime > 100) { velX = 0; velY = 0; }
+                applyInertia(); 
             }
-            if (!isRouletteMode && !isQuestionHidden && !q && forcedIdx === null) {
-                showError(t.error); 
-                return;
+
+            function applyInertia() {
+                if (Math.abs(velX) < 0.05 && Math.abs(velY) < 0.05) return;
+                let radX = rotX * Math.PI / 180;
+                rotY += velX * Math.cos(radX) * 0.5; rotZ -= velX * Math.sin(radX) * 0.5; rotX -= velY * 0.5;
+                document.getElementById('cube').style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
+                velX *= 0.98; velY *= 0.98; inertiaFrame = requestAnimationFrame(applyInertia);
             }
-            
-            hideError();
-            
-            isDraggingCube = false; velocityCubeX = 0; velocityCubeY = 0;
-            cancelAnimationFrame(inertiaFrameCube);
-            cube.style.transition = 'none'; void cube.offsetWidth;
-            
-            if (isRouletteMode) resetDrumSwipe(); 
-            
-            if (audioCtx && audioCtx.state === 'suspended') await audioCtx.resume();
-            playSoundEffect('click'); 
 
-            rollBtn.disabled = true; rollBtn.innerText = t.waiting; rollBtn.classList.add('gold-text-active');
-            miniDrumBtn.disabled = true; miniDrumBtn.classList.add('gold-text-active');
-            
-            ansContent.classList.remove('visible'); ansStatus.classList.remove('visible');
-            if (!isRouletteMode) updateCubeFaces();
-            
-            const rollDuration = isRouletteMode ? 4000 : (6000 + Math.random() * 2000);
-            const rIdx = forcedIdx !== null ? forcedIdx : Math.floor(Math.random() * 6);
-            let isGunshotResult = false;
-            let topChamberIdx = 0;
-
-            if (isRouletteMode) {
-                isDrumSpinning = true; 
-                const spinDur = 3800; 
-                const extraSpins = 1440; 
-                const currentSnap = Math.round(drumRotation / 60) * 60;
-                let finalTargetRot;
+            async function play(forcedIdx = null) {
+                const q = document.getElementById('userQuestion').value.trim();
+                const t = LANG_DATA[GameState.lang];
                 
-                if (forcedIdx !== null) {
-                    topChamberIdx = debugToChamberMap[forcedIdx];
-                    let baseTargetAngle = (-topChamberIdx * 60);
-                    let normalizedBaseTargetAngle = (baseTargetAngle % 360); if (normalizedBaseTargetAngle < 0) normalizedBaseTargetAngle += 360;
-                    let currentSnapMod360 = (currentSnap % 360); if (currentSnapMod360 < 0) currentSnapMod360 += 360;
-                    let angleDiffToTargetNormalized = normalizedBaseTargetAngle - currentSnapMod360;
-                    if (angleDiffToTargetNormalized > 180) angleDiffToTargetNormalized -= 360;
-                    else if (angleDiffToTargetNormalized <= -180) angleDiffToTargetNormalized += 360;
-                    finalTargetRot = currentSnap + extraSpins + angleDiffToTargetNormalized;
-                    isGunshotResult = chamberState[topChamberIdx];
-                } else {
-                    const randomSteps = Math.floor(Math.random() * 6);
-                    finalTargetRot = currentSnap + extraSpins + (randomSteps * 60);
-                    const steps = Math.round(finalTargetRot / 60);
-                    let normalizedSteps = steps % 6; if(normalizedSteps < 0) normalizedSteps += 6;
-                    topChamberIdx = (6 - normalizedSteps) % 6; 
-                    isGunshotResult = chamberState[topChamberIdx];
+                if (!GameState.isQuestionHidden && !q && forcedIdx === null) {
+                    App.triggerButtonError();
+                    App.showError(t.error); 
+                    return;
                 }
+                
+                App.hideError();
+                isDragging = false; velX = 0; velY = 0;
+                cancelAnimationFrame(inertiaFrame);
+                document.getElementById('cube').style.transition = 'none'; void document.getElementById('cube').offsetWidth;
+                
+                const originalQuestion = q; 
+                if (!GameState.isQuestionHidden) document.getElementById('userQuestion').value = ''; 
 
-                animateDrum(finalTargetRot, spinDur, () => {
-                    showResults();
-                });
-            } else {
+                App.playSoundEffect('click'); 
+
+                const rollBtn = document.getElementById('rollBtn');
+                rollBtn.disabled = true; rollBtn.innerText = t.waiting; rollBtn.classList.add('gold-text-active');
+                
+                document.getElementById('res-content').classList.remove('visible'); 
+                document.getElementById('res-status').classList.remove('visible');
+                updateFaces();
+                
+                const rollDuration = 6000 + Math.random() * 2000;
+                const rIdx = forcedIdx !== null ? forcedIdx : Math.floor(Math.random() * 6);
+
                 const targetRots = [{x:0,y:0},{x:90,y:0},{x:0,y:90},{x:0,y:-90},{x:-90,y:0},{x:0,y:180}];
                 const offX = (Math.random() * 40 - 20), offY = (Math.random() * 40 - 20);
-                const spins = 3600; const baseRotX = Math.round(currentRotX / 360) * 360; const baseRotY = Math.round(currentRotY / 360) * 360; const baseRotZ = Math.round(currentRotZ / 360) * 360; 
-                currentRotX = baseRotX + spins + targetRots[rIdx].x + offX; currentRotY = baseRotY + spins + targetRots[rIdx].y + offY; currentRotZ = baseRotZ; 
+                const spins = 3600; const baseRotX = Math.round(rotX / 360) * 360; const baseRotY = Math.round(rotY / 360) * 360; const baseRotZ = Math.round(rotZ / 360) * 360; 
+                rotX = baseRotX + spins + targetRots[rIdx].x + offX; rotY = baseRotY + spins + targetRots[rIdx].y + offY; rotZ = baseRotZ; 
                 
-                const throwUpDur = 400; 
-                const fallDur = rollDuration - throwUpDur - 1000; 
-                
+                const throwUpDur = 400; const fallDur = rollDuration - throwUpDur - 1000; 
+                const cubeScene = document.getElementById('cubeScene');
+                const cube = document.getElementById('cube');
+
                 cubeScene.style.transition = `transform ${throwUpDur / 1000}s cubic-bezier(0.2, 0.8, 0.2, 1)`;
                 cubeScene.style.transform = "scale(1.8)"; 
                 
@@ -1100,7 +914,7 @@
                 }, throwUpDur);
 
                 cube.style.transition = `transform ${rollDuration / 1000}s cubic-bezier(0.15, 0, 0.15, 1)`;
-                cube.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) rotateZ(${currentRotZ}deg)`;
+                cube.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
                 
                 if (tg.HapticFeedback) {
                     const startHapticTime = Date.now();
@@ -1112,193 +926,393 @@
                     }; rollHaptics();
                 }
                 
-                setTimeout(showResults, rollDuration);
+                setTimeout(() => {
+                    for(let i=0;i<150;i++) App.createSparkle();
+                }, rollDuration - 1000);
+
+                setTimeout(() => finalizeRoll(rIdx, originalQuestion, t), rollDuration);
             }
 
-            const originalQuestion = q; if (!isQuestionHidden) userInput.value = ''; 
-            if (document.getElementById('sparkleToggle').checked) { for(let i=0;i<150;i++) createSparkle(); }
+            function finalizeRoll(rIdx, originalQuestion, t) {
+                const dMode = document.getElementById('modeSelect').value;
 
-            function showResults() {
                 let isSuccess = (rIdx % 2 !== 0), uiColor = isSuccess ? "#ccffcc" : "#ff6666", snd = 'positive';
                 let resT = "", resD = "", subI = "", histDispTxt = "", mTag = "";
 
-                resSub.classList.remove('heart-pulse', 'skull-aura');
+                document.getElementById('res-sub').classList.remove('heart-pulse', 'skull-aura');
+                const selHistory = document.getElementById('modeSelect');
+                const curModeText = selHistory.options[selHistory.selectedIndex].text;
+                let histModeStrengthHistory = `[${curModeText}]`;
 
-                if (isRouletteMode) {
-                    isDrumSpinning = false; 
-                    if (isGunshotResult) { 
-                        document.getElementById(`ch-${topChamberIdx}`).classList.add('fired');
-                        resSub.classList.add('skull-aura'); 
-                        uiColor = "#ff0000"; snd = 'gunshot'; subI = '<i class="fas fa-skull-crossbones"></i>'; 
-                        document.body.classList.add('flash-red'); setTimeout(()=>document.body.classList.remove('flash-red'), 500); 
-                        
-                        if (tg.HapticFeedback) { 
-                            tg.HapticFeedback.notificationOccurred('error'); 
-                            setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 50); 
-                            setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 150); 
-                            setTimeout(() => tg.HapticFeedback.impactOccurred('rigid'), 300); 
-                        } 
-                        survivalCount = 0; document.getElementById('survivalCounter').classList.remove('visible');
-                        histDispTxt = t.shotMsg;
-                    } else { 
-                        resSub.classList.add('heart-pulse'); 
-                        uiColor = "#ccffcc"; snd = 'safe_click'; subI = '<i class="fas fa-heart"></i>'; 
-                        
-                        if (tg.HapticFeedback) { 
-                            tg.HapticFeedback.notificationOccurred('success'); 
-                            setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 140);
-                            setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 420);
-                        } 
-                        survivalCount++; const counterEl = document.getElementById('survivalCounter'); counterEl.innerText = '+' + survivalCount; counterEl.classList.remove('visible'); void counterEl.offsetWidth; counterEl.classList.add('visible');
-                        histDispTxt = t.clickMsg;
-                    }
-                    mTag = "";
-                } else {
-                    const selHistory = document.getElementById('modeSelect');
-                    const curModeText = selHistory.options[selHistory.selectedIndex].text;
-                    let histModeStrengthHistory = `[${curModeText}]`;
-
-                    if (dMode === 'trader') { 
-                        uiColor = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? "#ccffcc" : "#ff6666"; 
-                        if (rIdx === 4) uiColor = "#ffffff"; 
-                        if (rIdx === 5) { uiColor = "#ff0000"; snd = 'scam'; } else snd = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? 'positive' : 'negative'; 
-                        subI = traderIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.traderFaces[rIdx]; 
-                    } 
-                    else if (dMode === 'alco') { 
-                        uiColor = ["#ff5e62", "#ffbd69", "#d4fc79", "#f9f586", "#96fbc4", "#a29bfe"][rIdx]; snd = (rIdx === 5) ? 'water' : 'alco'; subI = alcoIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.alcoFaces[rIdx]; 
-                    } 
-                    else if (dMode === 'yesno') { 
-                        snd = isSuccess ? 'positive' : 'negative'; subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; resT = resData[currentLang][rIdx].t; resD = resData[currentLang][rIdx].s; histDispTxt = currentFaces[rIdx]; 
-                        histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${resData[currentLang][rIdx].s}</span>]`; 
-                    } else { 
-                        snd = isSuccess ? 'positive' : 'negative'; resT = resData[currentLang][rIdx].t; resD = resData[currentLang][rIdx].s; 
-                        histDispTxt = `${resData[currentLang][rIdx].t} (<span style="color:${uiColor};">${resData[currentLang][rIdx].s}</span>)`; 
-                        histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${currentFaces[rIdx]}</span>]`; 
-                    }
-                    
-                    mTag = ` <span style="color:#aaa; font-size:9px;">${histModeStrengthHistory}</span>`;
-                    
-                    const f = document.getElementById(`face${rIdx + 1}`); f.style.color = uiColor; f.style.textShadow = `0 0 20px ${uiColor}`;
-                    if (tg.HapticFeedback) { if (snd === 'scam') { tg.HapticFeedback.notificationOccurred('error'); } else if (snd === 'water') { [0,200,400].forEach(delay=>setTimeout(()=>tg.HapticFeedback.impactOccurred('medium'),delay)); } else { tg.HapticFeedback.impactOccurred('light'); } }
+                if (dMode === 'trader') { 
+                    uiColor = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? "#ccffcc" : "#ff6666"; 
+                    if (rIdx === 4) uiColor = "#ffffff"; 
+                    if (rIdx === 5) { uiColor = "#ff0000"; snd = 'scam'; } else snd = (rIdx === 0 || rIdx === 2 || rIdx === 4) ? 'positive' : 'negative'; 
+                    subI = traderIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.traderFaces[rIdx]; 
+                } 
+                else if (dMode === 'alco') { 
+                    uiColor = ["#ff5e62", "#ffbd69", "#d4fc79", "#f9f586", "#96fbc4", "#a29bfe"][rIdx]; snd = (rIdx === 5) ? 'water' : 'alco'; subI = alcoIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.alcoFaces[rIdx]; 
+                } 
+                else if (dMode === 'yesno') { 
+                    snd = isSuccess ? 'positive' : 'negative'; subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; resT = resData[GameState.lang][rIdx].t; resD = resData[GameState.lang][rIdx].s; histDispTxt = currentFaces[rIdx]; 
+                    histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${resData[GameState.lang][rIdx].s}</span>]`; 
+                } else { 
+                    snd = isSuccess ? 'positive' : 'negative'; resT = resData[GameState.lang][rIdx].t; resD = resData[GameState.lang][rIdx].s; 
+                    histDispTxt = `${resData[GameState.lang][rIdx].t} (<span style="color:${uiColor};">${resData[GameState.lang][rIdx].s}</span>)`; 
+                    histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${currentFaces[rIdx]}</span>]`; 
                 }
+                
+                mTag = ` <span style="color:#aaa; font-size:9px;">${histModeStrengthHistory}</span>`;
+                
+                const f = document.getElementById(`face${rIdx + 1}`); f.style.color = uiColor; f.style.textShadow = `0 0 20px ${uiColor}`;
+                if (tg.HapticFeedback) { if (snd === 'scam') { tg.HapticFeedback.notificationOccurred('error'); } else if (snd === 'water') { [0,200,400].forEach(delay=>setTimeout(()=>tg.HapticFeedback.impactOccurred('medium'),delay)); } else { tg.HapticFeedback.impactOccurred('light'); } }
 
-                resMain.innerHTML = resT; resSub.innerHTML = subI; resDesc.innerHTML = resD;
-                resSub.style.color = uiColor; resSub.style.textShadow = `0 0 25px ${uiColor}`;
-                ansContent.style.color = uiColor; ansContent.style.textShadow = `0 0 15px ${uiColor}`;
-                void ansContent.offsetWidth; ansContent.classList.add('visible');
-                playSoundEffect('result', snd);
+                document.getElementById('res-main').innerHTML = resT; document.getElementById('res-sub').innerHTML = subI; document.getElementById('res-desc').innerHTML = resD;
+                document.getElementById('res-sub').style.color = uiColor; document.getElementById('res-sub').style.textShadow = `0 0 25px ${uiColor}`;
+                document.getElementById('res-content').style.color = uiColor; document.getElementById('res-content').style.textShadow = `0 0 15px ${uiColor}`;
+                void document.getElementById('res-content').offsetWidth; document.getElementById('res-content').classList.add('visible');
+                App.playSoundEffect('result', snd);
 
                 const item = document.createElement('div'); item.className = 'history-item';
                 const qMark = `<span style="color:#fff; font-weight:bold; text-shadow: 0 0 8px #fff, 0 0 15px var(--magic-color);">?</span>`;
-                item.innerHTML = `${qMark} ${isQuestionHidden?'---':originalQuestion}${mTag}<br><span style="color:${uiColor};">➔ ${subI} ${histDispTxt}</span>`;
+                item.innerHTML = `${qMark} ${GameState.isQuestionHidden?'---':originalQuestion}${mTag}<br><span style="color:${uiColor};">➔ ${subI} ${histDispTxt}</span>`;
                 
-                if (isRouletteMode) {
-                    document.getElementById('historyListRoulette').prepend(item);
+                document.getElementById('historyListDice').prepend(item);
+                
+                const rollBtn = document.getElementById('rollBtn');
+                rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
+                
+                setTimeout(() => { if(!rollBtn.disabled) { document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; document.getElementById('res-status').classList.add('visible'); } }, 3000);
+            }
+
+            return { init, mount, unmount, play, updateModeDisplay, isDragging: () => isDragging };
+        })();
+
+        // ==============================================
+        // 💀 ПЛАГИН 2: РОКОВАЯ ПУЛЯ
+        // ==============================================
+        const RouletteGame = (function() {
+            const chamberMap = [4, 5, 0, 1, 2];
+            const debugToChamberMap = [4, 5, 0, 1, 2, 3]; 
+
+            let isDragging = false, centerX = 0, centerY = 0, lastAngle = 0, vel = 0, inertiaFrame, lastTapTime = 0, lastMoveTime = 0, lastTick = 0, lastTickPlayTime = 0, lastTickedHole = 0;
+            let loadedBullets = 0, drumRotation = 0, chamberState = [false, false, false, false, false, false], isSpinningDrum = false, survivalCount = 0; 
+
+            function init() {
+                const wrapper = document.getElementById('drumWrapper');
+                wrapper.addEventListener('mousedown', handlePointerDown); document.addEventListener('mousemove', handlePointerMove, {passive: false}); document.addEventListener('mouseup', handlePointerUp);
+                wrapper.addEventListener('touchstart', handlePointerDown, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchend', handlePointerUp);
+            }
+
+            function mount() {
+                document.getElementById('rouletteStage').style.display = 'flex';
+                document.getElementById('bulletStash').style.display = 'flex';
+                document.getElementById('rouletteStatusBtn').style.display = 'flex';
+                document.getElementById('historyListRoulette').style.display = 'block';
+                document.body.classList.add('roulette-mode-active');
+                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                reset();
+            }
+
+            function unmount() {
+                document.getElementById('rouletteStage').style.display = 'none';
+                document.getElementById('bulletStash').style.display = 'none';
+                document.getElementById('rouletteStatusBtn').style.display = 'none';
+                document.getElementById('historyListRoulette').style.display = 'none';
+                document.body.classList.remove('roulette-mode-active');
+            }
+
+            function updateNumbers() {
+                document.querySelectorAll('.hole-num').forEach(num => { num.style.transform = `rotate(${-drumRotation}deg)`; });
+            }
+
+            function handlePointerDown(e) {
+                if (document.getElementById('rollBtn').disabled || isSpinningDrum || GameState.mode !== 'roulette') return; 
+                const now = Date.now();
+                if (now - lastTapTime < 300) { if (!document.getElementById('rollBtn').disabled) App.askOracle(); return; }
+                lastTapTime = now; isDragging = true; cancelAnimationFrame(inertiaFrame); 
+                
+                document.getElementById('drumRotator').style.transition = 'none'; 
+                document.querySelectorAll('.hole-num').forEach(n => n.style.transition = 'none');
+                
+                const rect = document.getElementById('drumRotator').getBoundingClientRect();
+                centerX = rect.left + rect.width / 2; centerY = rect.top + rect.height / 2;
+                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                lastAngle = Math.atan2(clientY - centerY, clientX - centerX) * 180 / Math.PI;
+                vel = 0; lastTick = Math.floor((drumRotation + 30) / 60);
+            }
+
+            function handlePointerMove(e) {
+                if (!isDragging) return; e.preventDefault(); 
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                
+                let currentAngle = Math.atan2(clientY - centerY, clientX - centerX) * 180 / Math.PI;
+                let deltaAngle = currentAngle - lastAngle;
+                
+                if (deltaAngle > 180) deltaAngle -= 360; if (deltaAngle < -180) deltaAngle += 360;
+                
+                drumRotation += deltaAngle; document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`; updateNumbers();
+                
+                let nearestHole = Math.round(drumRotation / 60) * 60;
+                if (Math.abs(drumRotation - nearestHole) < 15) {
+                    if (lastTickedHole !== nearestHole) {
+                        const now = Date.now();
+                        if (now - lastTickPlayTime > 60) { App.playSoundEffect('tick'); if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged(); lastTickPlayTime = now; }
+                        lastTickedHole = nearestHole;
+                    }
+                }
+                vel = deltaAngle; lastMoveTime = Date.now(); lastAngle = currentAngle;
+            }
+
+            function handlePointerUp() {
+                if (!isDragging) return; isDragging = false;
+                if (Date.now() - lastMoveTime > 100) { vel = 0; }
+                applyInertia(); 
+            }
+
+            function applyInertia() {
+                if (Math.abs(vel) < 0.7) { 
+                    const targetRot = Math.round(drumRotation / 60) * 60; 
+                    if (Math.abs(drumRotation - targetRot) > 0.5) {
+                        animateDrum(targetRot, 400, () => { if (isSpinningDrum) isSpinningDrum = false; });
+                    } else {
+                        drumRotation = targetRot; document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`; updateNumbers();
+                        if (isSpinningDrum) isSpinningDrum = false; 
+                    }
+                    return; 
+                }
+                
+                drumRotation += vel; document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`; updateNumbers();
+                
+                let nearestHole = Math.round(drumRotation / 60) * 60;
+                if (Math.abs(drumRotation - nearestHole) < 15) {
+                    if (lastTickedHole !== nearestHole) {
+                        const now = Date.now();
+                        if (now - lastTickPlayTime > 60) { App.playSoundEffect('tick'); if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged(); lastTickPlayTime = now; }
+                        lastTickedHole = nearestHole;
+                    }
+                }
+                vel *= 0.988; inertiaFrame = requestAnimationFrame(applyInertia);
+            }
+
+            function resetSwipe() {
+                isDragging = false; cancelAnimationFrame(inertiaFrame);
+                let targetRot = Math.round(drumRotation / 60) * 60; 
+                if(Math.abs(drumRotation - targetRot) > 0.1) animateDrum(targetRot, 200); 
+            }
+
+            function animateDrum(targetAngle, duration, callback) {
+                const startAngle = drumRotation; const changeInAngle = targetAngle - startAngle; const startTime = performance.now();
+                document.getElementById('drumRotator').style.transition = 'none'; document.querySelectorAll('.hole-num').forEach(n => n.style.transition = 'none');
+                
+                function step(currentTime) {
+                    let elapsed = currentTime - startTime; if (elapsed > duration) elapsed = duration;
+                    let progress = elapsed / duration; let easeProgress = 1 - Math.pow(1 - progress, 3.5); 
+                    
+                    drumRotation = startAngle + changeInAngle * easeProgress;
+                    document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`;
+                    updateNumbers();
+                    
+                    let nearestHole = Math.round(drumRotation / 60) * 60;
+                    if (Math.abs(drumRotation - nearestHole) < 15) {
+                        if (lastTickedHole !== nearestHole) {
+                            if (elapsed > 250 && (Date.now() - lastTickPlayTime > 60)) { App.playSoundEffect('tick'); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); lastTickPlayTime = Date.now(); }
+                            lastTickedHole = nearestHole;
+                        }
+                    }
+                    
+                    if (elapsed < duration) { requestAnimationFrame(step); } 
+                    else {
+                        drumRotation = targetAngle; document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`; updateNumbers();
+                        if (Math.abs(changeInAngle) > 1 && lastTickedHole !== nearestHole) { App.playSoundEffect('tick'); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); lastTickedHole = nearestHole; }
+                        if (callback) callback();
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            function loadBullet(el, idx) {
+                if (document.getElementById('rollBtn').disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return;
+                if (el.classList.contains('loaded')) return; 
+                
+                resetSwipe(); 
+                App.hideError(); 
+                
+                el.classList.add('loaded');
+                const targetChamber = chamberMap[idx];
+                chamberState[targetChamber] = true;
+                document.getElementById(`ch-${targetChamber}`).classList.add('filled');
+                
+                loadedBullets++;
+                App.playSoundEffect('load');
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+            }
+
+            function reset() {
+                loadedBullets = 0; drumRotation = 0; chamberState = [false, false, false, false, false, false]; survivalCount = 0;
+                document.getElementById('survivalCounter').classList.remove('visible');
+                document.getElementById('drumRotator').style.transition = 'none'; document.getElementById('drumRotator').style.transform = `rotate(0deg)`; updateNumbers();
+                document.querySelectorAll('.stash-bullet').forEach(b => b.classList.remove('loaded'));
+                document.querySelectorAll('.chamber-slot').forEach(c => { c.classList.remove('filled'); c.classList.remove('fired'); c.classList.remove('heart-pulse'); c.classList.remove('skull-aura'); });
+            }
+
+            function spinRandomly() {
+                if (document.getElementById('rollBtn').disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return; 
+                isSpinningDrum = true; App.hideError();
+                
+                const rollBtn = document.getElementById('rollBtn'), miniBtn = document.getElementById('rouletteStatusBtn');
+                rollBtn.disabled = true; rollBtn.classList.add('gold-text-active'); miniBtn.disabled = true; miniBtn.classList.add('gold-text-active');
+                
+                document.getElementById('res-content').classList.remove('visible'); 
+                document.getElementById('res-status').innerText = GameState.isQuestionHidden ? LANG_DATA[GameState.lang].idleNoQ : LANG_DATA[GameState.lang].idle;
+                document.getElementById('res-status').classList.add('visible');
+                
+                resetSwipe(); document.getElementById('survivalCounter').classList.remove('visible');
+                
+                const spinDur = 2500; const extraSpins = 720; const currentSnap = Math.round(drumRotation / 60) * 60;
+                const finalTargetRot = currentSnap + extraSpins + Math.floor(Math.random() * 6) * 60; 
+
+                App.playSoundEffect('click'); 
+                
+                animateDrum(finalTargetRot, spinDur, () => {
+                    isSpinningDrum = false;
+                    rollBtn.disabled = false; rollBtn.classList.remove('gold-text-active');
+                    miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
+                    
+                    if(survivalCount > 0) {
+                        const counterEl = document.getElementById('survivalCounter');
+                        counterEl.innerText = '+' + survivalCount;
+                        counterEl.classList.add('visible');
+                    }
+                });
+            }
+
+            async function play(forcedIdx = null) {
+                const q = document.getElementById('userQuestion').value.trim();
+                const t = LANG_DATA[GameState.lang];
+                
+                if (loadedBullets === 0 && forcedIdx === null) { 
+                    App.triggerButtonError();
+                    App.showError(t.errBullet); 
+                    return; 
+                }
+                if (!GameState.isQuestionHidden && !q && forcedIdx === null) { 
+                    App.triggerButtonError();
+                    App.showError(t.error); 
+                    return; 
+                }
+                
+                App.hideError(); resetSwipe(); 
+                
+                const originalQuestion = q; 
+                if (!GameState.isQuestionHidden) document.getElementById('userQuestion').value = ''; 
+
+                App.playSoundEffect('click'); 
+
+                const rollBtn = document.getElementById('rollBtn'), miniBtn = document.getElementById('rouletteStatusBtn');
+                rollBtn.disabled = true; rollBtn.innerText = t.waiting; rollBtn.classList.add('gold-text-active');
+                miniBtn.disabled = true; miniBtn.classList.add('gold-text-active');
+                
+                document.getElementById('res-content').classList.remove('visible'); document.getElementById('res-status').classList.remove('visible');
+                
+                isSpinningDrum = true; 
+                const spinDur = 3800; const extraSpins = 1440; const currentSnap = Math.round(drumRotation / 60) * 60;
+                let finalTargetRot; let topChamberIdx = 0; let isGunshotResult = false;
+                
+                if (forcedIdx !== null) {
+                    topChamberIdx = debugToChamberMap[forcedIdx];
+                    let baseTargetAngle = (-topChamberIdx * 60);
+                    let normalizedBaseTargetAngle = (baseTargetAngle % 360); if (normalizedBaseTargetAngle < 0) normalizedBaseTargetAngle += 360;
+                    let currentSnapMod360 = (currentSnap % 360); if (currentSnapMod360 < 0) currentSnapMod360 += 360;
+                    let angleDiffToTargetNormalized = normalizedBaseTargetAngle - currentSnapMod360;
+                    if (angleDiffToTargetNormalized > 180) angleDiffToTargetNormalized -= 360; else if (angleDiffToTargetNormalized <= -180) angleDiffToTargetNormalized += 360;
+                    finalTargetRot = currentSnap + extraSpins + angleDiffToTargetNormalized;
+                    isGunshotResult = chamberState[topChamberIdx];
                 } else {
-                    document.getElementById('historyListDice').prepend(item);
+                    const randomSteps = Math.floor(Math.random() * 6);
+                    finalTargetRot = currentSnap + extraSpins + (randomSteps * 60);
+                    const steps = Math.round(finalTargetRot / 60);
+                    let normalizedSteps = steps % 6; if(normalizedSteps < 0) normalizedSteps += 6;
+                    topChamberIdx = (6 - normalizedSteps) % 6; 
+                    isGunshotResult = chamberState[topChamberIdx];
                 }
 
-                if (isRouletteMode && isGunshotResult) {
+                animateDrum(finalTargetRot, spinDur, () => { finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t, rollBtn, miniBtn); });
+            }
+
+            function finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t, rollBtn, miniBtn) {
+                let uiColor = "", snd = "", subI = "", histDispTxt = "";
+                const resSub = document.getElementById('res-sub');
+                resSub.classList.remove('heart-pulse', 'skull-aura');
+                isSpinningDrum = false; 
+
+                if (isGunshotResult) { 
+                    document.getElementById(`ch-${topChamberIdx}`).classList.add('fired');
+                    resSub.classList.add('skull-aura'); 
+                    uiColor = "#ff0000"; snd = 'gunshot'; subI = '<i class="fas fa-skull-crossbones"></i>'; 
+                    document.body.classList.add('flash-red'); setTimeout(()=>document.body.classList.remove('flash-red'), 500); 
+                    
+                    if (tg.HapticFeedback) { 
+                        tg.HapticFeedback.notificationOccurred('error'); 
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 50); 
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 150); 
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('rigid'), 300); 
+                    } 
+                    survivalCount = 0; document.getElementById('survivalCounter').classList.remove('visible');
+                    histDispTxt = t.shotMsg;
+                } else { 
+                    resSub.classList.add('heart-pulse'); 
+                    uiColor = "#ccffcc"; snd = 'safe_click'; subI = '<i class="fas fa-heart"></i>'; 
+                    
+                    if (tg.HapticFeedback) { 
+                        tg.HapticFeedback.notificationOccurred('success'); 
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 140);
+                        setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 420);
+                    } 
+                    survivalCount++; const counterEl = document.getElementById('survivalCounter'); counterEl.innerText = '+' + survivalCount; counterEl.classList.remove('visible'); void counterEl.offsetWidth; counterEl.classList.add('visible');
+                    histDispTxt = t.clickMsg;
+                }
+
+                document.getElementById('res-main').innerHTML = ""; document.getElementById('res-sub').innerHTML = subI; document.getElementById('res-desc').innerHTML = "";
+                document.getElementById('res-sub').style.color = uiColor; document.getElementById('res-sub').style.textShadow = `0 0 25px ${uiColor}`;
+                document.getElementById('res-content').style.color = uiColor; document.getElementById('res-content').style.textShadow = `0 0 15px ${uiColor}`;
+                void document.getElementById('res-content').offsetWidth; document.getElementById('res-content').classList.add('visible');
+                App.playSoundEffect('result', snd);
+
+                const item = document.createElement('div'); item.className = 'history-item';
+                const qMark = `<span style="color:#fff; font-weight:bold; text-shadow: 0 0 8px #fff, 0 0 15px var(--magic-color);">?</span>`;
+                item.innerHTML = `${qMark} ${GameState.isQuestionHidden?'---':originalQuestion}<br><span style="color:${uiColor};">➔ ${subI} ${histDispTxt}</span>`;
+                
+                document.getElementById('historyListRoulette').prepend(item);
+
+                if (isGunshotResult) {
                     setTimeout(() => {
-                        resetRoulette();
+                        reset();
                         rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
-                        miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
-                        ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; 
-                        ansStatus.classList.add('visible');
+                        miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
+                        document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
+                        document.getElementById('res-status').classList.add('visible');
                     }, 3000);
                 } else {
                     rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
-                    miniDrumBtn.disabled = false; miniDrumBtn.classList.remove('gold-text-active');
+                    miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
                     
-                    const idleTimeout = (isRouletteMode) ? 4000 : 3000; 
                     setTimeout(() => { 
                         if(!rollBtn.disabled) { 
-                            ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; 
-                            ansStatus.classList.add('visible'); 
+                            document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
+                            document.getElementById('res-status').classList.add('visible'); 
                         } 
-                    }, idleTimeout);
+                    }, 4000);
                 }
             }
-        }
 
-        function createSparkle() { const s = document.createElement('div'); s.className = 'sparkle'; mainStage.appendChild(s); const angle = Math.random() * Math.PI * 2, dist = 120 + Math.random() * 100; s.style.background = Math.random() > 0.5 ? '#e0ffe0' : '#ffe0e0'; s.style.setProperty('--fly-x', `${Math.cos(angle)*dist}px`); s.style.setProperty('--fly-y', `${Math.sin(angle)*dist}px`); const dur = 3.0 + Math.random() * 2.0; s.style.animation = `sparkle-fly ${dur}s ease-out forwards`; setTimeout(() => s.remove(), dur * 1000); }
-        function toggleDebug() { const d=document.getElementById('debugPanel'); d.style.display = document.getElementById('debugToggle').checked ? 'flex' : 'none'; if(isRouletteMode) resetRoulette(); } 
-        
-        function toggleQuestionField() { 
-            isQuestionHidden = !isQuestionHidden; 
-            document.getElementById('inputWrapper').classList.toggle('hidden', isQuestionHidden); 
-            const btn = document.getElementById('toggleQuestionBtn'); 
-            btn.classList.toggle('active-magic', isQuestionHidden); 
-            btn.innerHTML = isQuestionHidden ? '<i class="fas fa-comment-slash"></i>' : '<i class="fas fa-question-circle"></i>'; 
-            hideError(); 
-            ansContent.classList.remove('visible'); ansStatus.classList.remove('visible'); 
-            document.getElementById('res-status').innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle;
-            setTimeout(() => ansStatus.classList.add('visible'), 50); 
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
-        
-        function toggleSound() { isSoundEnabled = !isSoundEnabled; const btn = document.getElementById('soundBtn'); btn.classList.toggle('active-magic', !isSoundEnabled); btn.innerHTML = isSoundEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>'; if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
-        
-        function updateModeDisplay() {
-            if (isRouletteMode) return;
-            const sel = document.getElementById('modeSelect'); const disp = document.getElementById('current-mode-display');
-            
-            document.body.classList.toggle('yesno-mode-active', sel.value === 'yesno');
-            
-            if (sel && disp && sel.options[sel.selectedIndex]) { disp.innerText = sel.options[sel.selectedIndex].text; }
-            updateCubeFaces(); hideError(); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
+            return { init, mount, unmount, play, loadBullet, spinRandomly, reset, isDragging: () => isDragging, isSpinning: () => isSpinningDrum };
+        })();
 
-        function toggleCubeStyle() { 
-            isClassicCube = !isClassicCube; 
-            cube.classList.toggle('classic-mode', isClassicCube); drumWrapper.classList.toggle('classic', isClassicCube); document.body.classList.toggle('classic-mode-active', isClassicCube);
-            const btn = document.getElementById('cubeBtn'); btn.classList.toggle('active-magic', isClassicCube); btn.innerHTML = isClassicCube ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>'; 
-            updateStyleBtnIcon();
-            updateCubeFaces(); if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
-        }
+        // ЗАПУСК ЯДРА
+        App.init();
 
-        function updateStyleBtnIcon() {
-            const btn = document.getElementById('cubeBtn');
-            if (isRouletteMode) {
-                btn.innerHTML = `<svg viewBox="0 0 200 200" style="height: 18px; width: auto;" fill="currentColor"><path fill-rule="evenodd" d="M 100,4 A 96,96 0 1,1 100,196 A 96,96 0 1,1 100,4 Z M 100,86 A 14,14 0 1,0 100,114 A 14,14 0 1,0 100,86 Z M 100,6 A 22,22 0 1,0 100,50 A 22,22 0 1,0 100,6 Z M 162.35,42 A 22,22 0 1,0 162.35,86 A 22,22 0 1,0 162.35,42 Z M 162.35,114 A 22,22 0 1,0 162.35,158 A 22,22 0 1,0 162.35,114 Z M 100,150 A 22,22 0 1,0 100,194 A 22,22 0 1,0 100,150 Z M 37.65,114 A 22,22 0 1,0 37.65,158 A 22,22 0 1,0 37.65,114 Z M 37.65,42 A 22,22 0 1,0 37.65,86 A 22,22 0 1,0 37.65,42 Z"></path></svg>`;
-            } else {
-                btn.innerHTML = isClassicCube ? '<i class="fas fa-cube"></i>' : '<i class="fas fa-dice-d6"></i>';
-            }
-        }
-
-        function fillBgOptions() { const sel = document.getElementById('bgSelect'); const cur = sel.value; sel.innerHTML = ''; for(let i=1; i<=5; i++) { const opt = document.createElement('option'); opt.value = 'bg' + i; opt.innerText = translations[currentLang]['bg' + i]; if(opt.value === cur) opt.selected = true; sel.appendChild(opt); } }
-        function fillModeOptions() { const sel = document.getElementById('modeSelect'); const val = sel.value; sel.innerHTML = `<option value="dots">${translations[currentLang].modeDots}</option><option value="numbers">${translations[currentLang].modeNums}</option><option value="yesno">${translations[currentLang].modeYN}</option><option value="trader">${translations[currentLang].modeTrader}</option><option value="alco">${translations[currentLang].modeAlco}</option>`; if(val && val !== 'roulette') sel.value = val; }
-        function changeBackground() { const theme = bgThemes[document.getElementById('bgSelect').value || 'bg1']; document.body.style.background = theme.grad; }
-        
-        function toggleSettings(show) { 
-            document.getElementById('settingsOverlay').style.display = show ? 'flex' : 'none'; 
-            document.getElementById('st-mode-row').style.display = isRouletteMode ? 'none' : 'flex'; 
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
-        }
-
-        function toggleRules(show) { 
-            if (show) {
-                rulesContentText.innerHTML = isRouletteMode ? translations[currentLang].rulesTextRoulette : translations[currentLang].rulesTextDice;
-                document.getElementById('rulesOverlay').style.display = 'flex'; 
-            } else {
-                document.getElementById('rulesOverlay').style.display = 'none'; 
-            }
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
-        }
-        
-        function changeLanguage() { 
-            currentLang = document.getElementById('langSelect').value; const t = translations[currentLang]; document.documentElement.lang = currentLang;
-            const titleEl = document.getElementById('ui-title'); titleEl.innerText = isRouletteMode ? t.titleRoulette : t.title;
-            document.getElementById('menu-card-title-dice').innerText = t.menuDice; document.getElementById('menu-card-title-roulette').innerText = t.menuRoulette; document.getElementById('mainMenuTitle').innerText = t.menuTitle;
-            userInput.placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = isRouletteMode ? t.histSurvHead : t.histDiceHead;
-            document.getElementById('rules-title-h2').innerText = t.ruTitleRules; document.getElementById('ru-btn-close').innerText = t.stClose;
-            if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
-            if(!ansContent.classList.contains('visible')) ansStatus.innerText = isQuestionHidden ? t.idleNoQ : t.idle;
-            fillModeOptions(); fillBgOptions(); updateModeDisplay();
-        }
-        
-        changeLanguage(); changeBackground(); 
-        ansStatus.innerText = isQuestionHidden ? translations[currentLang].idleNoQ : translations[currentLang].idle; ansStatus.classList.add('visible');
     </script>
 </body>
 </html>
