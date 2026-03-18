@@ -14,26 +14,49 @@
             --angry-red: #ff6666;
             --sun-gold: #fff9ae;
             --glass: rgba(255, 255, 255, 0.1);
+            --bg-text: #111b27;
+        }
+
+        body.classic-mode-active {
+            --bg-text: #ffffff;
         }
 
         body {
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; margin: 0; padding: 5px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 5px;
             background: radial-gradient(circle at center, #111b27 0%, #030508 100%);
-            background-attachment: fixed; color: white; font-family: 'Segoe UI', sans-serif;
-            text-align: center; overflow-y: auto; position: relative; overflow-x: hidden;
+            background-attachment: fixed; 
+            color: white; 
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center; 
+            overflow-y: auto; 
+            position: relative; 
+            overflow-x: hidden;
             transition: background 1s ease;
         }
 
         .flash-red { animation: gunshot-flash 0.5s ease-out !important; }
-        @keyframes gunshot-flash { 0% { background: #ffffff; } 10% { background: #ff0000; } 100% { background: radial-gradient(circle at center, #111b27 0%, #030508 100%); } }
+        @keyframes gunshot-flash { 
+            0% { background: #ffffff; } 
+            10% { background: #ff0000; } 
+            100% { background: radial-gradient(circle at center, #111b27 0%, #030508 100%); } 
+        }
 
         .history::-webkit-scrollbar { width: 4px; }
         .history::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         .history::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
 
         /* === [ CSS: ФОН И УМНЫЕ ЗВЕЗДЫ ] === */
-        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none; opacity: 0; transition: opacity 1s ease, background-image 1s ease; z-index: -100; background-repeat: repeat; background-size: 200px 200px; }
+        .stars-layer { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: transparent; pointer-events: none; opacity: 0; 
+            transition: opacity 1s ease, background-image 1s ease; 
+            z-index: -100; background-repeat: repeat; background-size: 200px 200px; 
+        }
         .stars-active { opacity: 1; }
         
         .bg1-stars { background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #fff, rgba(0,0,0,0)); }
@@ -43,10 +66,29 @@
         .bg5-stars { background-image: radial-gradient(1px 1px at 20px 30px, #ffcccc, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #ff5555, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ff9999, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #ffaaaa, rgba(0,0,0,0)); }
 
         /* === [ CSS: ГЛАВНОЕ МЕНЮ (СТАРТОВЫЙ ЭКРАН) ] === */
-        #mainMenuOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; transition: opacity 0.8s ease; }
-        .menu-title-main { font-size: 38px; color: var(--angry-red); text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: opacity 0.5s ease; }
-        .cards-container { display: flex; gap: 20px; width: 90%; max-width: 380px; justify-content: center; transition: opacity 0.5s ease; }
-        .game-card { flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); border-radius: 20px; padding: 25px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+        #mainMenuOverlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 400; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            background: transparent; transition: opacity 0.8s ease; 
+        }
+        .menu-title-main { 
+            font-size: 38px; color: var(--angry-red); 
+            text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; 
+            font-weight: bold; text-transform: uppercase; letter-spacing: 2px; 
+            transition: opacity 0.5s ease; 
+        }
+        .cards-container { 
+            display: flex; gap: 20px; width: 90%; max-width: 380px; 
+            justify-content: center; transition: opacity 0.5s ease; 
+        }
+        .game-card { 
+            flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); 
+            border-radius: 20px; padding: 25px 10px; cursor: pointer; 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); 
+            position: relative; transition: transform 0.2s, box-shadow 0.2s; 
+        }
         .game-card#card-roulette { border-color: var(--angry-red); box-shadow: 0 0 15px rgba(255, 102, 102, 0.2); }
         .game-card:active { transform: scale(0.95); }
         .card-icon { font-size: 55px; color: white; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; height: 60px; pointer-events: none; }
@@ -56,8 +98,15 @@
         .card-discarded { animation: discard-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; }
         .title-fade-out { opacity: 0 !important; }
 
-        @keyframes select-card { 0% { transform: scale(1); opacity: 1; } 30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); } 100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); } }
-        @keyframes discard-card { 0% { transform: scale(1); opacity: 1; filter: blur(0px); } 100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); } }
+        @keyframes select-card { 
+            0% { transform: scale(1); opacity: 1; } 
+            30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); } 
+            100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); } 
+        }
+        @keyframes discard-card { 
+            0% { transform: scale(1); opacity: 1; filter: blur(0px); } 
+            100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); } 
+        }
 
         /* === [ CSS: МЕНЮ: ЭЛЕМЕНТЫ (ЯЗЫК, TG, ВЕРСИЯ) ] === */
         .menu-top-bar { position: absolute; top: 10px; right: 10px; display: flex; gap: 10px; z-index: 410; }
@@ -65,8 +114,10 @@
         .menu-icon-btn:hover { color: var(--magic-color); opacity: 1; }
         .menu-footer-row { position: absolute; bottom: 10px; left: 0; width: 100%; display: flex; justify-content: center; z-index: 410; }
         .menu-subtitle-row { display: flex; justify-content: space-between; width: 90%; max-width: 380px; margin-top: -2px; padding: 0 2px; box-sizing: border-box; }
-        .menu-subtitle-row a, .menu-version { font-size: 10px; color: rgba(162, 155, 254, 0.6); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
+        .menu-subtitle-row a { font-size: 10px; color: rgba(162, 155, 254, 0.6); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; }
         .menu-subtitle-row a:hover { color: var(--magic-color); }
+
+        .version { position: fixed; bottom: 5px; right: 8px; font-size: 10px; color: rgba(255, 255, 255, 0.15); pointer-events: none; z-index: 500; font-weight: bold; }
 
         /* === [ CSS: ИНТЕРФЕЙС ИГРЫ (ОБЕРТКА) ] === */
         #gameUI { display: flex; flex-direction: column; align-items: center; width: 100%; flex-grow: 1; opacity: 0; pointer-events: none; transition: opacity 1s ease; }
@@ -99,13 +150,13 @@
         .error-pulse-active { animation: error-vibe 0.8s infinite ease-in-out; }
         @keyframes error-vibe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        #answer-box { min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; font-weight: bold; position: relative; z-index: 100; overflow: visible; width: 100%; }
+        #answer-box { min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; font-weight: bold; position: relative; z-index: 100; overflow: visible; width: 100%; pointer-events: none; }
         #res-content { opacity: 0; transform: translateY(10px) scale(0.9); transition: opacity 0.5s ease, transform 0.5s ease, text-shadow 0.5s ease; width: 100%; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
         #res-content.visible { opacity: 1 !important; transform: translateY(0) scale(1); }
         
-        .answer-main { display: block; line-height: 1.1; font-size: 32px; text-transform: uppercase; margin-bottom: 2px; text-align: center; } 
-        .answer-sub { font-size: 46px; margin: 0; display: flex; align-items: center; justify-content: center; transition: 0.3s; position: relative; }
-        .answer-desc { display: block; font-size: 16px; margin-top: 2px; font-weight: normal; text-align: center;}
+        .answer-main { display: block; line-height: 1.1; font-size: 32px; text-transform: uppercase; margin-bottom: 2px; text-align: center; pointer-events: auto; } 
+        .answer-sub { font-size: 46px; margin: 0; display: flex; align-items: center; justify-content: center; transition: 0.3s; position: relative; pointer-events: auto; }
+        .answer-desc { display: block; font-size: 16px; margin-top: 2px; font-weight: normal; text-align: center; pointer-events: auto; }
 
         .roulette-mode-active .answer-main, .roulette-mode-active .answer-desc { display: none !important; }
         .roulette-mode-active .answer-sub { font-size: 70px; margin-top: 10px; } 
@@ -138,7 +189,7 @@
         .dot { background: currentColor; border-radius: 50%; width: 18px; height: 18px; align-self: center; justify-self: center; }
 
         /* === [ ПЛАГИН 2 (БАРАБАН) ] === */
-        #rouletteStage { display: none; position: relative; width: 100%; height: 240px; justify-content: center; align-items: center; z-index: 50; margin: 2px 0 5px 0; perspective: 1000px; touch-action: none; transition: opacity 0.4s, height 0.3s ease; }
+        #rouletteStage { display: none; position: relative; width: 100%; height: 240px; justify-content: center; align-items: center; z-index: 1000; margin: 2px 0 5px 0; perspective: 1000px; touch-action: none; transition: opacity 0.4s, height 0.3s ease; }
         
         .drum-wrapper { width: 180px; height: 180px; position: relative; color: var(--magic-color); filter: drop-shadow(0 0 15px var(--magic-color)); transition: color 0.8s ease, filter 0.8s ease; transform-style: preserve-3d; z-index: 20; }
         .drum-wrapper.classic { color: #ffffff; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
@@ -164,9 +215,44 @@
         .drum-wrapper.classic .chamber-slot.fired .bullet-inner { fill: var(--angry-red); } 
         .hole-num { pointer-events: none; transform-origin: center center; transition: none; }
 
-        #bulletStash { display: none; justify-content: center; gap: 24px; margin: 0 0 12px 0; height: 48px; transition: opacity 0.4s; }
-        .stash-bullet { width: 24px; height: 48px; cursor: pointer; color: var(--sun-gold); transition: color 0.8s ease, transform 0.2s, opacity 0.3s; filter: drop-shadow(0 0 5px var(--sun-gold)); }
-        body.classic-mode-active .stash-bullet { color: var(--angry-red); filter: drop-shadow(0 0 6px var(--angry-red)); }
+        /* === [ СИСТЕМА АЧИВОК ] === */
+        .achievements-board { 
+            position: absolute; right: 5px; top: -10px; 
+            width: 70px; height: 298px; 
+            display: grid; 
+            grid-template-columns: 32px 32px; 
+            grid-template-rows: repeat(8, 32px); 
+            gap: 6px; 
+            grid-auto-flow: column; 
+            direction: rtl; 
+            z-index: 150; 
+            pointer-events: none; 
+        }
+        
+        .ach-slot { width: 32px; height: 32px; background: transparent; border: none; box-sizing: border-box; pointer-events: auto; direction: ltr; }
+        
+        .ach-icon { width: 100%; height: 100%; background: radial-gradient(circle, rgba(40,40,60,1) 0%, rgba(10,10,20,1) 100%); border: 1px solid var(--ach-color, var(--angry-red)); border-radius: 4px; color: var(--ach-color, var(--angry-red)); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5); transition: transform 0.2s; box-sizing: border-box; }
+        
+        .ach-icon svg, .ach-icon i { width: 70%; height: 70%; display: flex; justify-content: center; align-items: center; filter: drop-shadow(0 0 2px var(--ach-color)); }
+        .ach-icon i { font-size: 18px; } /* Размер для FontAwesome иконок внутри ачивок */
+
+        .ach-icon.unlocked { animation: ach-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes ach-pop { 0% { transform: scale(0) rotate(45deg); opacity: 0; filter: drop-shadow(0 0 20px white); } 100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 2px var(--ach-color)); } }
+        
+        .ach-icon.legend-aura { animation: legend-pulse 2s infinite ease-in-out; }
+        @keyframes legend-pulse { 
+            0%, 100% { box-shadow: 0 0 2px rgba(162, 155, 254, 0.2); } 
+            50% { box-shadow: 0 0 10px rgba(162, 155, 254, 0.5), 0 0 15px rgba(255, 255, 255, 0.2); } 
+        }
+
+        .ach-tooltip { position: absolute; right: 75px; background: rgba(5, 8, 15, 0.95); border: 1px solid var(--ach-color, var(--angry-red)); padding: 8px 10px; border-radius: 8px; color: white; font-size: 11px; width: 130px; pointer-events: none; opacity: 0; transform: translateX(10px); transition: 0.3s ease; z-index: 9999 !important; box-shadow: 0 0 15px var(--ach-color-alpha, rgba(255,102,102,0.3)); text-align: left; }
+        .ach-tooltip.show { opacity: 1; transform: translateX(0); pointer-events: auto; }
+        .ach-title { font-weight: bold; color: var(--ach-color, var(--angry-red)); margin-bottom: 3px; display: block; text-transform: uppercase; font-size: 10px; }
+        .ach-desc { color: #ccc; font-size: 10px; line-height: 1.2; display: block; }
+
+        #bulletStash { display: none; justify-content: center; gap: 10px; margin: 0 0 15px 0; height: 70px; transition: opacity 0.4s; }
+        .stash-bullet { width: 38px; height: 70px; cursor: pointer; color: var(--sun-gold); transition: color 0.8s ease, transform 0.2s, opacity 0.3s; filter: drop-shadow(0 0 8px var(--sun-gold)); }
+        body.classic-mode-active .stash-bullet { color: var(--angry-red); filter: drop-shadow(0 0 8px var(--angry-red)); }
         .stash-bullet:active { transform: scale(0.8); }
         .stash-bullet.loaded { opacity: 0; pointer-events: none; transform: translateY(-20px) scale(0.5); }
 
@@ -178,7 +264,6 @@
         .btn-roll:disabled, .btn-mini-roll:disabled { background: #4a457e !important; animation: pulse-btn 1.5s infinite ease-in-out !important; color: rgba(255, 255, 255, 0.5) !important; pointer-events: none; }
         .gold-text-active { animation: text-gold-pulse 1.5s infinite ease-in-out !important; color: #ffffff !important; }
         
-        /* КЛАСС ДЛЯ ОШИБКИ КНОПКИ ("ПЫНЬ") */
         .text-error-flash { color: var(--angry-red) !important; text-shadow: 0 0 12px var(--angry-red) !important; }
 
         @keyframes pulse-btn { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
@@ -197,7 +282,7 @@
         .history-item { padding: 10px 0; font-size: 12px; position: relative; line-height: 1.4; border-bottom: 1px solid rgba(162, 155, 254, 0.1); }
 
         /* === [ ОКНА НАСТРОЕК И ПРАВИЛ ] === */
-        .settings-overlay, .rules-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .settings-overlay, .rules-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 10000; }
         .settings-overlay { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); }
         .rules-overlay { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
         .settings-modal { background: rgba(5, 8, 15, 0.95); border: 1px solid rgba(162, 155, 254, 0.3); padding: 25px; border-radius: 30px; width: 85%; max-width: 320px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); }
@@ -215,13 +300,11 @@
         .rules-content::-webkit-scrollbar { width: 4px; }
         .rules-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         .rules-content::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
-
-        .version { position: fixed; bottom: 5px; right: 8px; font-size: 10px; color: rgba(255, 255, 255, 0.15); pointer-events: none; z-index: 200; }
     </style>
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active bg1-stars"></div>
-    <div class="version">v0.8.6.2</div>
+    <div class="version">v0.8.7.5</div>
 
     <div id="mainMenuOverlay">
         <div class="menu-top-bar">
@@ -245,7 +328,6 @@
         <div class="menu-footer-row">
             <div class="menu-subtitle-row">
                 <a href="https://t.me/Antis_Corpus">t.me/Antis_Corpus</a>
-                <span class="menu-version">v0.8.6.2</span>
             </div>
         </div>
     </div>
@@ -272,7 +354,9 @@
             </div>
         </div>
 
-        <div class="input-section" id="inputWrapper"><input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off"></div>
+        <div class="input-section" id="inputWrapper">
+            <input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off">
+        </div>
         <div id="error-msg">Сперва задай вопрос оракулу!</div>
 
         <div class="stage" id="mainStage">
@@ -287,6 +371,10 @@
         <div id="rouletteStage">
             <div class="target-marker"><i class="fas fa-caret-down"></i></div>
             <div class="survival-counter" id="survivalCounter"></div>
+            
+            <div class="achievements-board" id="achievementsBoard"></div>
+            <div class="ach-tooltip" id="achTooltip"></div>
+
             <div class="drum-wrapper" id="drumWrapper">
                 <div class="drum-rotator" id="drumRotator">
                     <svg class="drum-svg" viewBox="0 0 200 200" style="overflow: visible;">
@@ -334,20 +422,25 @@
         </div>
 
         <div id="bulletStash">
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 0)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">1</text>
+            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 0)">
+                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">1</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 1)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">2</text>
+            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 1)">
+                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">2</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 2)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">3</text>
+            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 2)">
+                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">3</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 3)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">4</text>
+            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 3)">
+                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">4</text>
             </svg>
-            <svg viewBox="0 0 20 50" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 4)">
-                <path d="M0,20 C0,5 10,0 10,0 C10,0 20,5 20,20 L20,50 L0,50 Z" fill="currentColor"/><text x="10" y="40" font-size="14" text-anchor="middle" fill="#000" font-weight="bold" style="pointer-events:none;">5</text>
+            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 4)">
+                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">5</text>
             </svg>
         </div>
 
@@ -379,7 +472,12 @@
         </div>
 
         <div class="debug-panel" id="debugPanel">
-            <button class="debug-btn" onclick="App.askOracle(0)">1</button><button class="debug-btn" onclick="App.askOracle(1)">2</button><button class="debug-btn" onclick="App.askOracle(2)">3</button><button class="debug-btn" onclick="App.askOracle(3)">4</button><button class="debug-btn" onclick="App.askOracle(4)">5</button><button class="debug-btn" onclick="App.askOracle(5)">6</button>
+            <button class="debug-btn" onclick="App.askOracle(0)">1</button>
+            <button class="debug-btn" onclick="App.askOracle(1)">2</button>
+            <button class="debug-btn" onclick="App.askOracle(2)">3</button>
+            <button class="debug-btn" onclick="App.askOracle(3)">4</button>
+            <button class="debug-btn" onclick="App.askOracle(4)">5</button>
+            <button class="debug-btn" onclick="App.askOracle(5)">6</button>
         </div>
 
         <div class="history-header" id="st-hist-head">История предсказаний</div>
@@ -387,13 +485,15 @@
             <div id="historyListDice"></div>
             <div id="historyListRoulette" style="display: none;"></div>
         </div>
-    </div> <div class="settings-overlay" id="settingsOverlay">
+    </div> 
+    
+    <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal" id="settingsModalInside">
             <h2 id="st-title-h2" style="margin-top:0; color:var(--magic-color)">Настройки</h2>
             <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="App.updateModeDisplay()"></select></div>
             <div class="setting-item"><span id="st-label-bg">Фон</span><select class="st-select" id="bgSelect" onchange="App.changeBackground()"></select></div>
-            <div class="setting-item"><span id="st-label-sparkles">Магические искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked><span class="slider"></span></label></div>
-            <div class="setting-item"><span id="st-label-debug">Отладка</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="App.toggleDebug()"><span class="slider"></span></label></div>
+            <div class="setting-item"><span id="st-label-sparkles">Магические искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked onchange="App.handleSparkleToggle()"><span class="slider"></span></label></div>
+            <div class="setting-item" id="st-debug-row" style="display: none;"><span id="st-label-debug">Пули судьбы</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="App.toggleDebug()"><span class="slider"></span></label></div>
             <div class="setting-item"><span id="st-label-lang">Язык</span><select class="st-select" id="langSelect" onchange="App.changeLanguage()"><option value="ru">Русский</option><option value="en">English</option></select></div>
             <button class="close-btn" id="st-btn-close" onclick="App.toggleSettings(false)">Закрыть</button>
         </div>
@@ -408,21 +508,22 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp; tg.expand();
+        const tg = window.Telegram.WebApp; 
+        tg.expand();
 
-        // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
         const GameState = {
             lang: (tg.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase().startsWith('ru') ? 'ru' : 'en',
             sound: true,
             isQuestionHidden: false,
             isClassic: false,
             mode: 'dice', 
-            errorTimeout: null
+            errorTimeout: null,
+            debugEnabled: false 
         };
 
         const LANG_DATA = {
-            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", ruTitleRules: "Правила Игры", menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Отладка", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний", clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] },
-            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", ruTitleRules: "Game Rules", menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Debug", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", histSurvHead: "Survival Log", histDiceHead: "Prediction History", clickMsg: "LUCK", shotMsg: "SHOT", yn: ["NO", "YES", "NO", "YES", "NO", "YES"] }
+            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", ruTitleRules: "Правила Игры", menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Пули судьбы", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний", clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] },
+            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", ruTitleRules: "Game Rules", menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Bullets of Fate", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", histSurvHead: "Survival Log", histDiceHead: "Prediction History", clickMsg: "LUCK", shotMsg: "SHOT", yn: ["NO", "YES", "NO", "YES", "NO", "YES"] }
         };
 
         const RULES_HTML = {
@@ -444,9 +545,256 @@
         let audioCtx = null;
 
         // ==============================================
+        // 🏆 СИСТЕМА ДОСТИЖЕНИЙ (ACHIEVEMENTS ENGINE)
+        // ==============================================
+        const Achievements = (function() {
+            let unlocked = {}; 
+            let displayedOrder = []; 
+            let achievementQueue = [];
+            let isProcessingQueue = false;
+            
+            const seriesDefinition = {
+                'ser5b': ['surv_1', 'surv_2', 'surv_3', 'surv_4', 'surv_5'],
+                'ser1b': ['dancer_1', 'dancer_2'], 
+                'ser135': ['nimble_guy', 'intangible'], 
+                'ser_death': ['death_3', 'death_5', 'death_10'] 
+            };
+            
+            const list = {
+                'first_surv': { 
+                    id: 'first_surv',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor"><path d="M 15 15 L 40 45 L 60 45 L 85 15 L 70 15 L 50 35 L 30 15 Z" /><circle cx="50" cy="65" r="25" fill="none" stroke="currentColor" stroke-width="8"/><text x="50" y="78" font-size="34" font-weight="900" font-family="Arial" text-anchor="middle">1</text></svg>', 
+                    title: { ru: "Медаль за отвагу", en: "Medal of Valor" },
+                    desc: { ru: "Ну что, поигрался со смертью и хватит. На тебе медальку, иди домой повесь на стену.", en: "Enough playing with death. Grab your little tin medal and run to mommy, hang it on the wall." },
+                    color: "#cd7f32", alpha: "rgba(205,127,50,0.3)"
+                },
+                'first_blood': {
+                    id: 'first_blood',
+                    // ИСПРАВЛЕНО: Вернули классический череп
+                    icon: '<i class="fas fa-skull-crossbones"></i>',
+                    title: { ru: "Премия Дарвина", en: "Darwin Award" },
+                    desc: { ru: "Застрелиться с самого первого неудачного выстрела за всю игру.", en: "Shoot yourself on the very first ever try of the game." },
+                    color: "var(--angry-red)", alpha: "rgba(255,102,102,0.3)"
+                },
+                
+                // --- СЕРИЯ ВЫЖИВАНИЯ: 5 ПУЛЬ ---
+                'surv_1': {
+                    id: 'surv_1',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd"><path d="M20 10 H80 Q85 10 85 15 V45 H15 V15 Q15 10 20 10 Z"/><path d="M15 52 H85 V75 L50 95 L15 75 Z M50 65 A8 8 0 1 0 50 81 A8 8 0 1 0 50 65 Z"/></svg>',
+                    title: { ru: "Рядовой Удача", en: "Private Luck" },
+                    desc: { ru: "Зарядить 5 патронов и выжить 1 раунд. Рисковый парень!", en: "Load 5 bullets and survive 1 round. Risky!" },
+                    color: "#fcf6bd", alpha: "rgba(252,246,189,0.3)"
+                },
+                'surv_2': {
+                    id: 'surv_2',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd"><path d="M20 5 H80 Q85 5 85 10 V25 H15 V10 Q15 5 20 5 Z"/><path d="M15 32 H85 V47 H15 Z"/><path d="M15 54 H85 V75 L50 95 L15 75 Z M50 67 A7 7 0 1 0 50 81 A7 7 0 1 0 50 67 Z"/></svg>',
+                    title: { ru: "Сержант Фортуна", en: "Sergeant Fortune" },
+                    desc: { ru: "Трижды обмануть смерть с 5 пулями в барабане. Стальные нервы!", en: "Survive three times with 5 bullets. Nerves of steel!" },
+                    color: "#e9c46a", alpha: "rgba(233,196,106,0.3)"
+                },
+                'surv_3': {
+                    id: 'surv_3',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd"><path d="M20 5 H80 Q85 5 85 10 V20 H15 V10 Q15 5 20 5 Z"/><path d="M15 27 H85 V38 H15 Z"/><path d="M15 45 H85 V56 H15 Z"/><path d="M15 63 H85 V80 L50 95 L15 80 Z M50 71 A6 6 0 1 0 50 83 A6 6 0 1 0 50 71 Z"/></svg>',
+                    title: { ru: "Генерал Бессмертия", en: "General Immortal" },
+                    desc: { ru: "Пять выживаний подряд при 5 пулях! Ты вообще человек?", en: "5 survivals in a row with 5 bullets! Are you human?" },
+                    color: "#f4a261", alpha: "rgba(244,162,97,0.3)"
+                },
+                'surv_4': { 
+                    id: 'surv_4',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor"><path d="M20 10 H80 V40 H20 Z"/><circle cx="50" cy="55" r="8" fill="#111b27"/><circle cx="35" cy="55" r="8" fill="#111b27"/><circle cx="65" cy="55" r="8" fill="#111b27"/><path d="M15 65 H85 V80 L50 95 L15 80 Z" fill="currentColor"/></svg>', 
+                    title: { ru: "Неуязвимый", en: "Invulnerable" },
+                    desc: { ru: "Выжить 10 раз подряд с 5 патронами. Смерть в панике бежит от тебя!", en: "Survive 10 times in a row with 5 bullets. Death runs in panic from you!" },
+                    color: "#e0ffe0", alpha: "rgba(224,255,224,0.3)"
+                },
+                'surv_5': { 
+                    id: 'surv_5',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor"><rect x="15" y="10" width="70" height="30" rx="4"/><path d="M25 40 Q50 65 75 40" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="50" cy="65" r="10"/><path d="M15 75 H85 V85 L50 98 L15 85 Z" fill="currentColor"/></svg>', 
+                    title: { ru: "ЛЕГЕНДА!", en: "LEGEND!" },
+                    desc: { ru: "ВЫЖИТЬ 20 РАЗ ПОДРЯД С 5 ПАТРОНАМИ! Ты больше не человек, ты — ЛЕГЕНДА, о которой шепотом рассказывают во вселенной.", en: "SURVIVE 20 TIMES IN A ROW WITH 5 BULLETS! You are no longer human, you are a LEGEND, whispered about in the universe." },
+                    color: "#a29bfe", alpha: "rgba(162,155,254,0.3)"
+                },
+                
+                // --- СЕРИЯ СЛОТОВ 1, 3, 5 ---
+                'nimble_guy': {
+                    id: 'nimble_guy',
+                    icon: '<svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="8"/><path d="M50 20 L50 35 M50 80 L50 65 M20 50 L35 50 M80 50 L65 50" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><circle cx="50" cy="50" r="8"/></svg>',
+                    title: { ru: "Вёрткий тип", en: "Nimble Guy" },
+                    desc: { ru: "Зарядить пули в 1, 3, 5 слоты и выжить 5 раз подряд. Неуловимый!", en: "Load bullets in 1, 3, 5 slots and survive 5 times in a row. Elusive!" },
+                    color: "#00f5d4", alpha: "rgba(0,245,212,0.3)"
+                },
+                'intangible': { 
+                    id: 'intangible',
+                    icon: '<svg viewBox="0 0 576 512" fill="currentColor"><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 92.9-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.8-35.7-46.1-87.7-92.9-131.1C433.5 68.8 368.8 32 288 32zM128 256a160 160 0 1 1 320 0 160 160 0 1 1 -320 0zm160-80a80 80 0 1 0 0 160 80 80 0 1 0 0-160z"/></svg>',
+                    title: { ru: "Неосязаемый", en: "Intangible" },
+                    desc: { ru: "10 выживаний с 1, 3, 5 слотами! Ты видишь код Матрицы?", en: "10 survivals with 1, 3, 5 slots! Do you see the Matrix code?" },
+                    color: "#f368e0", alpha: "rgba(243,104,224,0.3)"
+                },
+
+                // --- СЕРИЯ ВЫЖИВАНИЯ: 1 ПУЛЯ ---
+                'dancer_1': { 
+                    id: 'dancer_1',
+                    icon: '<svg viewBox="0 0 100 180" fill="currentColor"><path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z"/></svg>', 
+                    title: { ru: "Тяжело в учении...", en: "Hard in Training..." },
+                    desc: { ru: "5 раз подряд с 1 патроном. Скучно, да? Но зато безопасно. (Почти)", en: "5 times in a row with 1 bullet. Boring, right? But safe. (Almost)" },
+                    color: "#cd7f32", alpha: "rgba(205,127,50,0.3)" 
+                },
+                'dancer_2': { 
+                    id: 'dancer_2',
+                    icon: '<svg viewBox="0 0 100 180" fill="currentColor"><path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z"/></svg>', 
+                    title: { ru: "Танцующий с пулей", en: "Bullet Dancer" },
+                    desc: { ru: "Выжить 10 раз подряд с 1 патроном в барабане. Идеальная интуиция!", en: "Survive 10 times in a row with 1 bullet. Perfect intuition!" },
+                    color: "#48cae4", alpha: "rgba(72,202,228,0.3)"
+                },
+
+                // --- СЕРИЯ СМЕРТЕЙ ---
+                'death_3': { 
+                    id: 'death_3',
+                    // ИСПРАВЛЕНО: Вернули классический череп
+                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    title: { ru: "Решето", en: "Sieve" },
+                    desc: { ru: "Три пули в лоб подряд. У тебя там магнит или барабан заело?", en: "Three bullets to the head in a row. Do you have a magnet in there?" },
+                    color: "#ff9999", alpha: "rgba(255,153,153,0.3)" 
+                },
+                'death_5': { 
+                    id: 'death_5',
+                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    title: { ru: "Любимчик Жнеца", en: "Reaper's Pet" },
+                    desc: { ru: "Пять раз! Кажется, барабан крутишь не ты, а сама Смерть.", en: "Five times! Seems like Death is spinning the drum, not you." },
+                    color: "#dc143c", alpha: "rgba(220,20,60,0.3)" 
+                },
+                'death_10': { 
+                    id: 'death_10',
+                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    title: { ru: "Проклятый", en: "Cursed" },
+                    desc: { ru: "10 смертей подряд. Шанс этого меньше, чем выиграть в лотерею. Но ты выиграл пулю. Десять раз.", en: "10 deaths in a row. You won a bullet instead of lottery. Ten times." },
+                    color: "#8b008b", alpha: "rgba(139,0,139,0.3)" 
+                }
+            };
+
+            function init() { 
+                unlocked = {}; 
+                displayedOrder = []; 
+                achievementQueue = [];
+                isProcessingQueue = false;
+                render(); 
+            }
+
+            function queueUnlock(id) {
+                if (unlocked[id]) return;
+                unlocked[id] = true; 
+                
+                achievementQueue.push(id);
+                if (!isProcessingQueue) {
+                    processQueue();
+                }
+            }
+
+            function processQueue() {
+                if (achievementQueue.length === 0) {
+                    isProcessingQueue = false;
+                    return;
+                }
+                
+                isProcessingQueue = true;
+                const id = achievementQueue.shift();
+                
+                let seriesId = null;
+                for (const sId in seriesDefinition) {
+                    if (seriesDefinition[sId].includes(id)) {
+                        seriesId = sId;
+                        break;
+                    }
+                }
+
+                if (seriesId) {
+                    let lastIdx = -1;
+                    const sIds = seriesDefinition[seriesId];
+                    for (let i = displayedOrder.length - 1; i >= 0; i--) {
+                        if (sIds.includes(displayedOrder[i])) {
+                            lastIdx = i;
+                            break;
+                        }
+                    }
+                    if (lastIdx !== -1) {
+                        displayedOrder.splice(lastIdx + 1, 0, id);
+                    } else {
+                        displayedOrder.push(id);
+                    }
+                } else {
+                    displayedOrder.push(id);
+                }
+                
+                render();
+                App.playSoundEffect('achievement');
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                
+                setTimeout(() => {
+                    const el = document.getElementById('ach-' + id);
+                    if (el) showTooltip(id, el, null);
+                }, 50);
+
+                setTimeout(() => {
+                    processQueue();
+                }, 5000);
+            }
+
+            function render() {
+                const board = document.getElementById('achievementsBoard');
+                if (!board) return;
+                board.innerHTML = ''; 
+
+                displayedOrder.forEach(id => {
+                    const ach = list[id];
+                    const slot = document.createElement('div');
+                    slot.className = 'ach-slot';
+                    
+                    let classes = 'ach-icon unlocked';
+                    if (id === 'surv_5') classes += ' legend-aura';
+                    
+                    slot.innerHTML = `<div id="ach-${id}" class="${classes}" style="--ach-color: ${ach.color}" onclick="Achievements.showTooltip('${id}', this, event)">${ach.icon}</div>`;
+                    board.appendChild(slot);
+                });
+            }
+
+            let activeTooltipId = null;
+            function showTooltip(id, el, e) {
+                if (e) e.stopPropagation();
+                const tt = document.getElementById('achTooltip');
+                
+                if (tt.classList.contains('show') && activeTooltipId === id && e) {
+                    tt.classList.remove('show');
+                    activeTooltipId = null;
+                    return;
+                }
+                
+                const ach = list[id];
+                const lang = GameState.lang;
+                tt.style.setProperty('--ach-color', ach.color);
+                tt.style.setProperty('--ach-color-alpha', ach.alpha);
+                tt.innerHTML = `<span class="ach-title">${ach.title[lang]}</span><span class="ach-desc">${ach.desc[lang]}</span>`;
+                
+                const elRect = el.getBoundingClientRect();
+                const stageRect = document.getElementById('rouletteStage').getBoundingClientRect();
+                
+                let topPos = elRect.top - stageRect.top;
+                if (topPos < 0) topPos = 0;
+                tt.style.top = topPos + 'px';
+                
+                tt.classList.add('show');
+                activeTooltipId = id;
+            }
+
+            return { init, unlock: queueUnlock, showTooltip, has: (id) => !!unlocked[id] };
+        })();
+
+
+        // ==============================================
         // ⚙️ МОДУЛЬ ЯДРА (CORE APP)
         // ==============================================
         const App = (function() {
+            let debugClicks = 0;
+            let toggleTimer = null;
+
             function init() {
                 document.documentElement.lang = GameState.lang; 
                 document.getElementById('langSelect').value = GameState.lang; 
@@ -458,6 +806,13 @@
                 uInput.addEventListener('input', hideError);
                 uInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') uInput.blur(); });
 
+                document.addEventListener('click', (e) => {
+                    const tt = document.getElementById('achTooltip');
+                    if (tt && tt.classList.contains('show') && !e.target.closest('.ach-icon')) {
+                        tt.classList.remove('show');
+                    }
+                });
+
                 fillModeOptions(); 
                 fillBgOptions(); 
                 changeLanguage(); 
@@ -465,6 +820,40 @@
 
                 DiceGame.init();
                 RouletteGame.init();
+                Achievements.init();
+            }
+
+            function handleSparkleToggle() {
+                clearTimeout(toggleTimer);
+                toggleTimer = setTimeout(() => { debugClicks = 0; }, 1500);
+
+                const isChecked = document.getElementById('sparkleToggle').checked;
+
+                if (!isChecked) {
+                    if (GameState.debugEnabled) {
+                        GameState.debugEnabled = false;
+                        document.getElementById('st-debug-row').style.display = 'none';
+                        document.getElementById('debugPanel').style.display = 'none';
+                        document.getElementById('debugToggle').checked = false;
+                        if(GameState.mode === 'roulette') RouletteGame.reset();
+                    }
+                    debugClicks++;
+                } else {
+                    debugClicks++;
+                    if (debugClicks >= 6 && !GameState.debugEnabled) {
+                        GameState.debugEnabled = true;
+                        document.getElementById('st-debug-row').style.display = 'flex';
+                        document.getElementById('debugToggle').checked = true;
+                        
+                        if (document.getElementById('gameUI').classList.contains('game-ui-visible')) {
+                            document.getElementById('debugPanel').style.display = 'flex';
+                        }
+                        
+                        playSoundEffect('achievement');
+                        if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                        debugClicks = 0;
+                    }
+                }
             }
 
             function setQuestionState(hide) {
@@ -487,7 +876,6 @@
             }
 
             function selectGameMode(mode) {
-                // Звук и тактильный отклик при выборе карточки (The Feedback Update)
                 playSoundEffect('tick');
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
 
@@ -629,12 +1017,15 @@
                     osc.start(); osc.stop(audioCtx.currentTime + 0.04);
                 }
                 else if (type === 'error_pyn') { 
-                    // Новый глухой звук ошибки ("пынь")
                     const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
                     osc.type = 'triangle'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
                     osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.15);
                     g.gain.setValueAtTime(0.3, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
                     osc.connect(g); g.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+                }
+                else if (type === 'achievement') { 
+                    playNode(987.77, 'square', 0.1, 0.1); 
+                    setTimeout(() => playNode(1318.51, 'square', 0.1, 0.3), 100); 
                 }
                 else if (type === 'result') {
                     if (resultType === 'positive') { playNode(880, 'sine', 0.2, 0.8); }
@@ -704,6 +1095,7 @@
             function toggleSettings(show) { 
                 document.getElementById('settingsOverlay').style.display = show ? 'flex' : 'none'; 
                 document.getElementById('st-mode-row').style.display = GameState.mode === 'roulette' ? 'none' : 'flex'; 
+                document.getElementById('st-debug-row').style.display = GameState.debugEnabled ? 'flex' : 'none';
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
             }
 
@@ -739,7 +1131,8 @@
             }
 
             function toggleDebug() { 
-                document.getElementById('debugPanel').style.display = document.getElementById('debugToggle').checked ? 'flex' : 'none'; 
+                GameState.debugEnabled = document.getElementById('debugToggle').checked;
+                document.getElementById('debugPanel').style.display = GameState.debugEnabled ? 'flex' : 'none'; 
                 if(GameState.mode === 'roulette') RouletteGame.reset(); 
             } 
 
@@ -765,7 +1158,7 @@
             }
 
             return {
-                init, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
+                init, handleSparkleToggle, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
                 showError, hideError, triggerButtonError, playSoundEffect, createSparkle, askOracle, updateModeDisplay: () => DiceGame.updateModeDisplay()
             };
         })();
@@ -789,7 +1182,7 @@
             function mount() {
                 document.getElementById('mainStage').style.display = 'flex';
                 document.getElementById('historyListDice').style.display = 'block';
-                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                if (GameState.debugEnabled) document.getElementById('debugPanel').style.display = 'flex';
                 updateModeDisplay();
             }
 
@@ -954,7 +1347,11 @@
                     uiColor = ["#ff5e62", "#ffbd69", "#d4fc79", "#f9f586", "#96fbc4", "#a29bfe"][rIdx]; snd = (rIdx === 5) ? 'water' : 'alco'; subI = alcoIcons[rIdx]; resT = ""; resD = ""; histDispTxt = t.alcoFaces[rIdx]; 
                 } 
                 else if (dMode === 'yesno') { 
-                    snd = isSuccess ? 'positive' : 'negative'; subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; resT = resData[GameState.lang][rIdx].t; resD = resData[GameState.lang][rIdx].s; histDispTxt = currentFaces[rIdx]; 
+                    snd = isSuccess ? 'positive' : 'negative'; subI = isSuccess ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; resT = resData[GameState.lang][rIdx].t; resD = resData[GameState.lang][rIdx].s; 
+                    
+                    const ynOrder = GameState.lang === 'ru' ? ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] : ["NO", "YES", "NO", "YES", "NO", "YES"];
+                    histDispTxt = ynOrder[rIdx]; 
+                    
                     histModeStrengthHistory += ` [<span style="color:#ffffff; font-weight:bold;">${resData[GameState.lang][rIdx].s}</span>]`; 
                 } else { 
                     snd = isSuccess ? 'positive' : 'negative'; resT = resData[GameState.lang][rIdx].t; resD = resData[GameState.lang][rIdx].s; 
@@ -996,7 +1393,14 @@
             const debugToChamberMap = [4, 5, 0, 1, 2, 3]; 
 
             let isDragging = false, centerX = 0, centerY = 0, lastAngle = 0, vel = 0, inertiaFrame, lastTapTime = 0, lastMoveTime = 0, lastTick = 0, lastTickPlayTime = 0, lastTickedHole = 0;
-            let loadedBullets = 0, drumRotation = 0, chamberState = [false, false, false, false, false, false], isSpinningDrum = false, survivalCount = 0; 
+            let loadedBullets = 0, drumRotation = 0, chamberState = [false, false, false, false, false, false], stashState = [false, false, false, false, false], isSpinningDrum = false, survivalCount = 0; 
+            
+            let streak5Bullets = 0;
+            let streakSlots135 = 0;
+            let streak1Bullet = 0;
+            let deathStreak = 0; 
+
+            let totalPlaysThisSession = 0;
 
             function init() {
                 const wrapper = document.getElementById('drumWrapper');
@@ -1010,7 +1414,9 @@
                 document.getElementById('rouletteStatusBtn').style.display = 'flex';
                 document.getElementById('historyListRoulette').style.display = 'block';
                 document.body.classList.add('roulette-mode-active');
-                if (document.getElementById('debugToggle').checked) document.getElementById('debugPanel').style.display = 'flex';
+                if (GameState.debugEnabled) document.getElementById('debugPanel').style.display = 'flex';
+                
+                deathStreak = 0; 
                 reset();
             }
 
@@ -1027,9 +1433,10 @@
             }
 
             function handlePointerDown(e) {
-                if (document.getElementById('rollBtn').disabled || isSpinningDrum || GameState.mode !== 'roulette') return; 
+                const rollBtn = document.getElementById('rollBtn');
+                if (rollBtn.disabled || isSpinningDrum || GameState.mode !== 'roulette') return; 
                 const now = Date.now();
-                if (now - lastTapTime < 300) { if (!document.getElementById('rollBtn').disabled) App.askOracle(); return; }
+                if (now - lastTapTime < 300) { if (!rollBtn.disabled) App.askOracle(); return; }
                 lastTapTime = now; isDragging = true; cancelAnimationFrame(inertiaFrame); 
                 
                 document.getElementById('drumRotator').style.transition = 'none'; 
@@ -1133,7 +1540,8 @@
             }
 
             function loadBullet(el, idx) {
-                if (document.getElementById('rollBtn').disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return;
+                const rollBtn = document.getElementById('rollBtn');
+                if (rollBtn.disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return;
                 if (el.classList.contains('loaded')) return; 
                 
                 resetSwipe(); 
@@ -1142,6 +1550,7 @@
                 el.classList.add('loaded');
                 const targetChamber = chamberMap[idx];
                 chamberState[targetChamber] = true;
+                stashState[idx] = true;
                 document.getElementById(`ch-${targetChamber}`).classList.add('filled');
                 
                 loadedBullets++;
@@ -1150,7 +1559,8 @@
             }
 
             function reset() {
-                loadedBullets = 0; drumRotation = 0; chamberState = [false, false, false, false, false, false]; survivalCount = 0;
+                loadedBullets = 0; drumRotation = 0; chamberState = [false, false, false, false, false, false]; stashState = [false, false, false, false, false]; survivalCount = 0;
+                streak5Bullets = 0; streakSlots135 = 0; streak1Bullet = 0; 
                 document.getElementById('survivalCounter').classList.remove('visible');
                 document.getElementById('drumRotator').style.transition = 'none'; document.getElementById('drumRotator').style.transform = `rotate(0deg)`; updateNumbers();
                 document.querySelectorAll('.stash-bullet').forEach(b => b.classList.remove('loaded'));
@@ -1158,10 +1568,12 @@
             }
 
             function spinRandomly() {
-                if (document.getElementById('rollBtn').disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return; 
+                const rollBtn = document.getElementById('rollBtn');
+                const miniBtn = document.getElementById('rouletteStatusBtn');
+                if (rollBtn.disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return; 
+                
                 isSpinningDrum = true; App.hideError();
                 
-                const rollBtn = document.getElementById('rollBtn'), miniBtn = document.getElementById('rouletteStatusBtn');
                 rollBtn.disabled = true; rollBtn.classList.add('gold-text-active'); miniBtn.disabled = true; miniBtn.classList.add('gold-text-active');
                 
                 document.getElementById('res-content').classList.remove('visible'); 
@@ -1242,15 +1654,30 @@
             }
 
             function finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t, rollBtn, miniBtn) {
+                totalPlaysThisSession++;
+
                 let uiColor = "", snd = "", subI = "", histDispTxt = "";
                 const resSub = document.getElementById('res-sub');
                 resSub.classList.remove('heart-pulse', 'skull-aura');
                 isSpinningDrum = false; 
 
                 if (isGunshotResult) { 
+                    deathStreak++; 
+                    
+                    if (totalPlaysThisSession === 1 && loadedBullets >= 1 && !Achievements.has('first_blood')) {
+                        Achievements.unlock('first_blood');
+                    }
+                    
+                    if (deathStreak === 3 && !Achievements.has('death_3')) Achievements.unlock('death_3');
+                    if (deathStreak === 5 && !Achievements.has('death_5')) Achievements.unlock('death_5');
+                    if (deathStreak === 10 && !Achievements.has('death_10')) Achievements.unlock('death_10');
+
                     document.getElementById(`ch-${topChamberIdx}`).classList.add('fired');
                     resSub.classList.add('skull-aura'); 
+                    
+                    // ИСПРАВЛЕНИЕ: Восстановлен чистый черепок для истории и экрана результата
                     uiColor = "#ff0000"; snd = 'gunshot'; subI = '<i class="fas fa-skull-crossbones"></i>'; 
+                    
                     document.body.classList.add('flash-red'); setTimeout(()=>document.body.classList.remove('flash-red'), 500); 
                     
                     if (tg.HapticFeedback) { 
@@ -1259,9 +1686,36 @@
                         setTimeout(() => tg.HapticFeedback.impactOccurred('heavy'), 150); 
                         setTimeout(() => tg.HapticFeedback.impactOccurred('rigid'), 300); 
                     } 
-                    survivalCount = 0; document.getElementById('survivalCounter').classList.remove('visible');
+                    survivalCount = 0; streak5Bullets = 0; streakSlots135 = 0; streak1Bullet = 0; document.getElementById('survivalCounter').classList.remove('visible');
                     histDispTxt = t.shotMsg;
                 } else { 
+                    survivalCount++; 
+                    deathStreak = 0; 
+                    
+                    if (survivalCount === 1 && !Achievements.has('first_surv')) { Achievements.unlock('first_surv'); }
+
+                    if (loadedBullets === 5) {
+                        streak5Bullets++;
+                        if (streak5Bullets === 1 && !Achievements.has('surv_1')) Achievements.unlock('surv_1');
+                        if (streak5Bullets === 3 && !Achievements.has('surv_2')) Achievements.unlock('surv_2');
+                        if (streak5Bullets === 5 && !Achievements.has('surv_3')) Achievements.unlock('surv_3');
+                        if (streak5Bullets === 10 && !Achievements.has('surv_4')) Achievements.unlock('surv_4');
+                        if (streak5Bullets === 20 && !Achievements.has('surv_5')) Achievements.unlock('surv_5');
+                    } else { streak5Bullets = 0; }
+
+                    const is135 = (loadedBullets === 3 && stashState[0] && stashState[2] && stashState[4]);
+                    if (is135) {
+                        streakSlots135++;
+                        if (streakSlots135 === 5 && !Achievements.has('nimble_guy')) Achievements.unlock('nimble_guy');
+                        if (streakSlots135 === 10 && !Achievements.has('intangible')) Achievements.unlock('intangible');
+                    } else { streakSlots135 = 0; }
+
+                    if (loadedBullets === 1) {
+                        streak1Bullet++;
+                        if (streak1Bullet === 5 && !Achievements.has('dancer_1')) Achievements.unlock('dancer_1');
+                        if (streak1Bullet === 10 && !Achievements.has('dancer_2')) Achievements.unlock('dancer_2');
+                    } else { streak1Bullet = 0; }
+                    
                     resSub.classList.add('heart-pulse'); 
                     uiColor = "#ccffcc"; snd = 'safe_click'; subI = '<i class="fas fa-heart"></i>'; 
                     
@@ -1270,7 +1724,7 @@
                         setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 140);
                         setTimeout(() => tg.HapticFeedback.impactOccurred('medium'), 420);
                     } 
-                    survivalCount++; const counterEl = document.getElementById('survivalCounter'); counterEl.innerText = '+' + survivalCount; counterEl.classList.remove('visible'); void counterEl.offsetWidth; counterEl.classList.add('visible');
+                    const counterEl = document.getElementById('survivalCounter'); counterEl.innerText = '+' + survivalCount; counterEl.classList.remove('visible'); void counterEl.offsetWidth; counterEl.classList.add('visible');
                     histDispTxt = t.clickMsg;
                 }
 
