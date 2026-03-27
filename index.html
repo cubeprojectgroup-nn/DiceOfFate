@@ -22,41 +22,23 @@
         }
 
         body {
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 5px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; margin: 0; padding: 5px;
             background: radial-gradient(circle at center, #111b27 0%, #030508 100%);
-            background-attachment: fixed; 
-            color: white; 
-            font-family: 'Segoe UI', sans-serif;
-            text-align: center; 
-            overflow-y: auto; 
-            position: relative; 
-            overflow-x: hidden;
+            background-attachment: fixed; color: white; font-family: 'Segoe UI', sans-serif;
+            text-align: center; overflow-y: auto; position: relative; overflow-x: hidden;
             transition: background 1s ease;
         }
 
         .flash-red { animation: gunshot-flash 0.5s ease-out !important; }
-        @keyframes gunshot-flash { 
-            0% { background: #ffffff; } 
-            10% { background: #ff0000; } 
-            100% { background: radial-gradient(circle at center, #111b27 0%, #030508 100%); } 
-        }
+        @keyframes gunshot-flash { 0% { background: #ffffff; } 10% { background: #ff0000; } 100% { background: radial-gradient(circle at center, #111b27 0%, #030508 100%); } }
 
         .history::-webkit-scrollbar { width: 4px; }
         .history::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
         .history::-webkit-scrollbar-thumb { background: rgba(162, 155, 254, 0.3); border-radius: 10px; }
 
         /* === [ CSS: ФОН И УМНЫЕ ЗВЕЗДЫ ] === */
-        .stars-layer { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: transparent; pointer-events: none; opacity: 0; 
-            transition: opacity 1s ease, background-image 1s ease; 
-            z-index: -100; background-repeat: repeat; background-size: 200px 200px; 
-        }
+        .stars-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; pointer-events: none; opacity: 0; transition: opacity 1s ease, background-image 1s ease; z-index: -100; background-repeat: repeat; background-size: 200px 200px; }
         .stars-active { opacity: 1; }
         
         .bg1-stars { background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #fff, rgba(0,0,0,0)); }
@@ -65,30 +47,11 @@
         .bg4-stars { background-image: radial-gradient(1px 1px at 20px 30px, #cce6ff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #55aaff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #99ccff, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #aaccff, rgba(0,0,0,0)); }
         .bg5-stars { background-image: radial-gradient(1px 1px at 20px 30px, #ffcccc, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 40px 70px, #ff5555, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ff9999, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 90px 40px, #ffaaaa, rgba(0,0,0,0)); }
 
-        /* === [ CSS: ГЛАВНОЕ МЕНЮ (СТАРТОВЫЙ ЭКРАН) ] === */
-        #mainMenuOverlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: 400; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; 
-            background: transparent; transition: opacity 0.8s ease; 
-        }
-        .menu-title-main { 
-            font-size: 38px; color: var(--angry-red); 
-            text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; 
-            font-weight: bold; text-transform: uppercase; letter-spacing: 2px; 
-            transition: opacity 0.5s ease; 
-        }
-        .cards-container { 
-            display: flex; gap: 20px; width: 90%; max-width: 380px; 
-            justify-content: center; transition: opacity 0.5s ease; 
-        }
-        .game-card { 
-            flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); 
-            border-radius: 20px; padding: 25px 10px; cursor: pointer; 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); 
-            position: relative; transition: transform 0.2s, box-shadow 0.2s; 
-        }
+        /* === [ CSS: ГЛАВНОЕ МЕНЮ И ПРОФИЛИ ] === */
+        #mainMenuOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; transition: opacity 0.8s ease; }
+        .menu-title-main { font-size: 38px; color: var(--angry-red); text-shadow: 0 0 15px var(--angry-red); margin-bottom: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: opacity 0.5s ease; }
+        .cards-container { display: flex; gap: 20px; width: 90%; max-width: 380px; justify-content: center; transition: opacity 0.5s ease; }
+        .game-card { flex: 1; background: rgba(5, 8, 15, 0.8); border: 2px solid var(--magic-color); border-radius: 20px; padding: 25px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(162, 155, 254, 0.2); position: relative; transition: transform 0.2s, box-shadow 0.2s; }
         .game-card#card-roulette { border-color: var(--angry-red); box-shadow: 0 0 15px rgba(255, 102, 102, 0.2); }
         .game-card:active { transform: scale(0.95); }
         .card-icon { font-size: 55px; color: white; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; height: 60px; pointer-events: none; }
@@ -98,14 +61,26 @@
         .card-discarded { animation: discard-card 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none; }
         .title-fade-out { opacity: 0 !important; }
 
-        @keyframes select-card { 
-            0% { transform: scale(1); opacity: 1; } 
-            30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); } 
-            100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); } 
-        }
-        @keyframes discard-card { 
-            0% { transform: scale(1); opacity: 1; filter: blur(0px); } 
-            100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); } 
+        @keyframes select-card { 0% { transform: scale(1); opacity: 1; } 30% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 40px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.1); } 100% { transform: scale(1.4); opacity: 0; box-shadow: 0 0 80px #ffffff; border-color: #ffffff; background: rgba(255,255,255,0.2); } }
+        @keyframes discard-card { 0% { transform: scale(1); opacity: 1; filter: blur(0px); } 100% { transform: scale(0.7) translateY(20px); opacity: 0; filter: blur(8px); } }
+
+        /* ПРОФИЛИ СЛОТЫ */
+        .profiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 90%; max-width: 380px; margin-top: 25px; transition: opacity 0.5s ease; }
+        .profile-wrapper { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; }
+        .profile-btn { width: 100%; background: rgba(5, 8, 15, 0.8); border: 2px solid rgba(162, 155, 254, 0.3); border-radius: 8px; color: white; padding: 12px 5px; font-size: 12px; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-weight: bold; }
+        .profile-btn.active-slot { border-color: var(--friendly-green); box-shadow: 0 0 10px rgba(204,255,204,0.3); color: var(--friendly-green); transform: scale(1.05); }
+        .profile-btn.new-slot { opacity: 0.5; border-style: dashed; }
+        .profile-btn.new-slot.active-slot { opacity: 1; }
+        
+        .delete-profile-btn { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: var(--angry-red); color: white; border: 1px solid #fff; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 5px rgba(255,102,102,0.8); z-index: 10; font-size: 11px; opacity: 0; transform: scale(0.8); transition: 0.3s; pointer-events: none; }
+        .profile-btn.active-slot ~ .delete-profile-btn { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+        #deleteProfileConfirm { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: rgba(5, 8, 15, 0.95); border: 1px solid var(--angry-red); 
+            border-radius: 8px; box-shadow: 0 0 25px rgba(255,102,102,0.6); 
+            z-index: 10000; flex-direction: column; align-items: center; 
+            width: 180px; padding: 15px; pointer-events: auto; 
         }
 
         /* === [ CSS: МЕНЮ: ЭЛЕМЕНТЫ (ЯЗЫК, TG, ВЕРСИЯ) ] === */
@@ -174,7 +149,6 @@
         
         body.roulette-mode-active #rouletteStage { height: 180px; margin-top: 25px; margin-bottom: 0px; } 
         body.roulette-mode-active #res-status { margin-top: 2px; margin-bottom: 10px; }
-        body.roulette-mode-active #bulletStash { margin-bottom: 15px; }
 
         /* === [ ПЛАГИН 1 (КУБ) ] === */
         .stage { position: relative; width: 100%; height: 240px; display: flex; justify-content: center; align-items: center; perspective: 1200px; z-index: 50; margin: 2px 0 5px 0; touch-action: none; transition: opacity 0.4s; }
@@ -200,7 +174,7 @@
         .drum-svg, .bullets-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
         
         .target-marker { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); color: var(--angry-red); font-size: 28px; filter: drop-shadow(0 0 8px var(--angry-red)); z-index: 60; }
-        .survival-counter { position: absolute; top: 15px; left: calc(50% + 75px); color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
+        .survival-counter { position: absolute; top: 25px; right: 90px; left: auto; color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
         .survival-counter.visible { opacity: 1; animation: pop-in 0.3s ease-out; }
         
         .chamber-slot { opacity: 0; transition: opacity 0.3s ease, filter 0.3s ease; }
@@ -208,11 +182,11 @@
         .drum-wrapper:not(.classic) .chamber-slot.filled { filter: drop-shadow(0 0 10px #ffffff); }
         .drum-wrapper:not(.classic) .bullet-outer { fill: #ffffff; }
         .drum-wrapper:not(.classic) .bullet-inner { fill: #111b27; transition: fill 0.3s ease; } 
-        .drum-wrapper:not(.classic) .chamber-slot.fired .bullet-inner { fill: #ffffff; } 
+        .drum-wrapper:not(.classic) .chamber-slot.fired .bullet-inner { fill: var(--angry-red) !important; } 
         .drum-wrapper.classic .chamber-slot.filled { filter: drop-shadow(0 0 8px var(--angry-red)); }
         .drum-wrapper.classic .bullet-outer { fill: var(--angry-red); }
         .drum-wrapper.classic .bullet-inner { fill: #ffffff; transition: fill 0.3s ease; }
-        .drum-wrapper.classic .chamber-slot.fired .bullet-inner { fill: var(--angry-red); } 
+        .drum-wrapper.classic .chamber-slot.fired .bullet-inner { fill: var(--angry-red) !important; } 
         .hole-num { pointer-events: none; transform-origin: center center; transition: none; }
 
         /* === [ СИСТЕМА АЧИВОК ] === */
@@ -232,9 +206,8 @@
         .ach-slot { width: 32px; height: 32px; background: transparent; border: none; box-sizing: border-box; pointer-events: auto; direction: ltr; }
         
         .ach-icon { width: 100%; height: 100%; background: radial-gradient(circle, rgba(40,40,60,1) 0%, rgba(10,10,20,1) 100%); border: 1px solid var(--ach-color, var(--angry-red)); border-radius: 4px; color: var(--ach-color, var(--angry-red)); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.5); transition: transform 0.2s; box-sizing: border-box; }
-        
         .ach-icon svg, .ach-icon i { width: 70%; height: 70%; display: flex; justify-content: center; align-items: center; filter: drop-shadow(0 0 2px var(--ach-color)); }
-        .ach-icon i { font-size: 18px; } /* Размер для FontAwesome иконок внутри ачивок */
+        .ach-icon i { font-size: 18px; } 
 
         .ach-icon.unlocked { animation: ach-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes ach-pop { 0% { transform: scale(0) rotate(45deg); opacity: 0; filter: drop-shadow(0 0 20px white); } 100% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 2px var(--ach-color)); } }
@@ -250,7 +223,19 @@
         .ach-title { font-weight: bold; color: var(--ach-color, var(--angry-red)); margin-bottom: 3px; display: block; text-transform: uppercase; font-size: 10px; }
         .ach-desc { color: #ccc; font-size: 10px; line-height: 1.2; display: block; }
 
-        #bulletStash { display: none; justify-content: center; gap: 10px; margin: 0 0 15px 0; height: 70px; transition: opacity 0.4s; }
+        /* ИНТЕРФЕЙС ПУЛЬ И ГЛОБАЛЬНЫХ СЧЕТЧИКОВ */
+        #bulletStash { display: none; align-items: center; justify-content: center; gap: 15px; margin: 0 0 15px 0; height: 70px; transition: opacity 0.4s; width: 100%; max-width: 350px; }
+        .bullets-container { display: flex; justify-content: center; gap: 10px; }
+        
+        .global-counter { 
+            display: flex; align-items: center; justify-content: center; gap: 4px; 
+            font-size: 24px; font-weight: bold; opacity: 0; transition: opacity 0.5s; width: 45px;
+        }
+        .global-counter.visible { opacity: 1; }
+        .global-counter.friendly { color: var(--friendly-green); text-shadow: 0 0 10px var(--friendly-green); }
+        .global-counter.angry { color: var(--angry-red); text-shadow: 0 0 10px var(--angry-red); }
+        .global-counter span { font-size: 18px; }
+
         .stash-bullet { width: 38px; height: 70px; cursor: pointer; color: var(--sun-gold); transition: color 0.8s ease, transform 0.2s, opacity 0.3s; filter: drop-shadow(0 0 8px var(--sun-gold)); }
         body.classic-mode-active .stash-bullet { color: var(--angry-red); filter: drop-shadow(0 0 8px var(--angry-red)); }
         .stash-bullet:active { transform: scale(0.8); }
@@ -304,7 +289,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active bg1-stars"></div>
-    <div class="version">v0.8.7.5</div>
+    <div class="version">v0.8.8.3</div>
 
     <div id="mainMenuOverlay">
         <div class="menu-top-bar">
@@ -325,10 +310,21 @@
                 <div class="card-title" id="menu-card-title-roulette">Роковая Пуля</div>
             </div>
         </div>
+        
+        <div class="profiles-grid" id="profilesGrid" style="display: none;"></div>
+
         <div class="menu-footer-row">
             <div class="menu-subtitle-row">
                 <a href="https://t.me/Antis_Corpus">t.me/Antis_Corpus</a>
             </div>
+        </div>
+    </div>
+
+    <div id="deleteProfileConfirm" style="display: none;">
+        <span style="margin-bottom:8px; text-align:center; font-weight: bold; color: var(--angry-red); text-transform: uppercase; font-size: 10px;">Удалить сохранение?</span>
+        <div style="display:flex; gap:10px;">
+            <button onclick="App.confirmDeleteProfile(true)" style="background:var(--angry-red); border:none; border-radius:4px; color:#fff; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">Да</button>
+            <button onclick="App.confirmDeleteProfile(false)" style="background:rgba(255,255,255,0.2); border:none; border-radius:4px; color:#fff; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">Нет</button>
         </div>
     </div>
 
@@ -354,9 +350,7 @@
             </div>
         </div>
 
-        <div class="input-section" id="inputWrapper">
-            <input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off">
-        </div>
+        <div class="input-section" id="inputWrapper"><input type="text" id="userQuestion" placeholder="Введи вопрос судьбе..." autocomplete="off"></div>
         <div id="error-msg">Сперва задай вопрос оракулу!</div>
 
         <div class="stage" id="mainStage">
@@ -370,6 +364,7 @@
 
         <div id="rouletteStage">
             <div class="target-marker"><i class="fas fa-caret-down"></i></div>
+            
             <div class="survival-counter" id="survivalCounter"></div>
             
             <div class="achievements-board" id="achievementsBoard"></div>
@@ -422,26 +417,30 @@
         </div>
 
         <div id="bulletStash">
-            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 0)">
-                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
-                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">1</text>
-            </svg>
-            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 1)">
-                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
-                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">2</text>
-            </svg>
-            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 2)">
-                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
-                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">3</text>
-            </svg>
-            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 3)">
-                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
-                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">4</text>
-            </svg>
-            <svg viewBox="0 0 100 180" class="stash-bullet" onclick="RouletteGame.loadBullet(this, 4)">
-                <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
-                <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">5</text>
-            </svg>
+            <div id="globalSurvCounter" class="global-counter friendly"><i class="fas fa-heart"></i><span id="globalSurvNum"></span></div>
+            <div class="bullets-container">
+                <svg viewBox="0 0 100 180" class="stash-bullet" id="stash-0" onclick="RouletteGame.loadBullet(this, 0)">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                    <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">1</text>
+                </svg>
+                <svg viewBox="0 0 100 180" class="stash-bullet" id="stash-1" onclick="RouletteGame.loadBullet(this, 1)">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                    <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">2</text>
+                </svg>
+                <svg viewBox="0 0 100 180" class="stash-bullet" id="stash-2" onclick="RouletteGame.loadBullet(this, 2)">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                    <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">3</text>
+                </svg>
+                <svg viewBox="0 0 100 180" class="stash-bullet" id="stash-3" onclick="RouletteGame.loadBullet(this, 3)">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                    <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">4</text>
+                </svg>
+                <svg viewBox="0 0 100 180" class="stash-bullet" id="stash-4" onclick="RouletteGame.loadBullet(this, 4)">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z" fill="currentColor"/>
+                    <text x="50" y="130" font-size="45" font-weight="900" text-anchor="middle" fill="var(--bg-text)" style="pointer-events:none; font-family: 'Segoe UI', sans-serif;">5</text>
+                </svg>
+            </div>
+            <div id="globalDeathCounter" class="global-counter angry"><i class="fas fa-skull-crossbones"></i><span id="globalDeathNum"></span></div>
         </div>
 
         <div class="action-row">
@@ -469,6 +468,11 @@
                 </svg>
             </button>
             <button class="btn-roll" id="rollBtn" onclick="App.askOracle()">Испытать судьбу</button>
+            <button id="randomLoadBtn" class="btn-mini-roll" onclick="RouletteGame.loadRandomBullets()">
+                <svg viewBox="0 0 100 180" style="width: 16px; height: auto;" fill="currentColor">
+                    <path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z"/>
+                </svg>
+            </button>
         </div>
 
         <div class="debug-panel" id="debugPanel">
@@ -493,7 +497,7 @@
             <div class="setting-item" id="st-mode-row"><span id="st-label-mode">Грани кости</span><select class="st-select" id="modeSelect" onchange="App.updateModeDisplay()"></select></div>
             <div class="setting-item"><span id="st-label-bg">Фон</span><select class="st-select" id="bgSelect" onchange="App.changeBackground()"></select></div>
             <div class="setting-item"><span id="st-label-sparkles">Магические искры</span><label class="switch"><input type="checkbox" id="sparkleToggle" checked onchange="App.handleSparkleToggle()"><span class="slider"></span></label></div>
-            <div class="setting-item" id="st-debug-row" style="display: none;"><span id="st-label-debug">Пули судьбы</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="App.toggleDebug()"><span class="slider"></span></label></div>
+            <div class="setting-item" id="st-debug-row" style="display: none;"><span id="st-label-debug">Сила Оракула</span><label class="switch"><input type="checkbox" id="debugToggle" onchange="App.toggleDebug()"><span class="slider"></span></label></div>
             <div class="setting-item"><span id="st-label-lang">Язык</span><select class="st-select" id="langSelect" onchange="App.changeLanguage()"><option value="ru">Русский</option><option value="en">English</option></select></div>
             <button class="close-btn" id="st-btn-close" onclick="App.toggleSettings(false)">Закрыть</button>
         </div>
@@ -518,12 +522,15 @@
             isClassic: false,
             mode: 'dice', 
             errorTimeout: null,
-            debugEnabled: false 
+            debugEnabled: false,
+            profiles: [],
+            activeProfileIdx: -1,
+            profileToDelete: -1
         };
 
         const LANG_DATA = {
-            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", ruTitleRules: "Правила Игры", menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Пули судьбы", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний", clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"] },
-            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", ruTitleRules: "Game Rules", menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Bullets of Fate", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", histSurvHead: "Survival Log", histDiceHead: "Prediction History", clickMsg: "LUCK", shotMsg: "SHOT", yn: ["NO", "YES", "NO", "YES", "NO", "YES"] }
+            ru: { title: "Кость Судьбы", titleRoulette: "РОКОВАЯ ПУЛЯ", placeholder: "Введи вопрос судьбе...", error: "Сперва задай вопрос оракулу!", errBullet: "Заряди хоть один патрон!", idle: "Оракул ожидает вопроса...", idleNoQ: "Судьба ждет...", waiting: "Судьба решает...", rollBtn: "Испытать судьбу", stTitle: "Настройки", stClose: "Закрыть", ruTitleRules: "Правила Игры", menuTitle: "Игры Судьбы", menuDice: "Кость Судьбы", menuRoulette: "Роковая Пуля", bg1: "Глубокий Космос", bg2: "Изумрудный Лес", bg3: "Аметистовая Ночь", bg4: "Океанская Бездна", bg5: "Тень Оракула", traderFaces: ["ПАМП", "ДАМП", "ЛОНГ", "ШОРТ", "ФЛЭТ", "СКАМ"], alcoFaces: ["ВИНО", "ПИВО", "КОКТЕЙЛЬ", "КРЕПКОЕ", "НАСТОЙКА", "ВОДА"], stMode: "Грани кости", stBg: "Фон", stSparkles: "Магические искры", stDebug: "Сила Оракула", stLang: "Язык", stHist: "История предсказаний", modeDots: "Точки", modeNums: "Числа", modeYN: "Да/Нет", modeTrader: "Трейдер", modeAlco: "Алконавт", histSurvHead: "Хроника выживания", histDiceHead: "История предсказаний", clickMsg: "УДАЧА", shotMsg: "ВЫСТРЕЛ", yn: ["НЕТ", "ДА", "НЕТ", "ДА", "НЕТ", "ДА"], newPlayer: "Новый игрок" },
+            en: { title: "Dice of Fate", titleRoulette: "DESTINY SHOT", placeholder: "Ask your destiny...", error: "Ask the oracle first!", errBullet: "Load at least one bullet!", idle: "Oracle is waiting...", idleNoQ: "Fate is waiting...", waiting: "Fate is deciding...", rollBtn: "Try your fate", stTitle: "Settings", stClose: "Close", ruTitleRules: "Game Rules", menuTitle: "Games of Fate", menuDice: "Dice of Fate", menuRoulette: "Destiny Shot", bg1: "Deep Space", bg2: "Emerald Forest", bg3: "Amethyst Night", bg4: "Ocean Abyss", bg5: "Oracle Shadow", traderFaces: ["PUMP", "DUMP", "LONG", "SHORT", "FLAT", "SCAM"], alcoFaces: ["WINE", "BEER", "COCKTAIL", "SPIRITS", "TINCTURE", "WATER"], stMode: "Dice Faces", stBg: "Background", stSparkles: "Magic Sparkles", stDebug: "Oracle's Power", stLang: "Language", stHist: "Prediction History", modeDots: "Dots", modeNums: "Numbers", modeYN: "Yes/No", modeTrader: "Trader", modeAlco: "Alconaut", histSurvHead: "Survival Log", histDiceHead: "Prediction History", clickMsg: "LUCK", shotMsg: "SHOT", yn: ["NO", "YES", "NO", "YES", "NO", "YES"], newPlayer: "New Player" }
         };
 
         const RULES_HTML = {
@@ -532,8 +539,8 @@
                 en: `<div class="rules-content"><div style="color: var(--magic-color); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(162, 155, 254, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center;">🔮 Dice of Fate</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Ask the Oracle a question, roll the dice and let chance decide everything!</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🎲</span> <b>Dots:</b> Magic 6-sided oracle dice! High number = "stronger" response. Even number? That's a YES. Odd? No luck, it's a NO.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔢</span> <b>Numbers:</b> Same rules, but Oracle replaces dots with number magic!</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">⚖️</span> <b>Yes / No:</b> Stuck? Ask your question and get a clear answer from Universe.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">📈</span> <b>Trader:</b> Wolf of Wall Street. PUMP, DUMP, or hard SCAM? Test luck before trade.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🍹</span> <b>Alconaut:</b> Party savior. Beer, cocktail, or water? Let the Oracle dice decide!</li></ul></div>`
             },
             roulette: {
-                ru: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Роковая Пуля</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Режим для тех, кто любит пощекотать нервы. Русская рулетка в твоем кармане.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Зарядка:</b> Тапай по патронам внизу, чтобы зарядить в барабан от 1 до 5 пуль.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Вращение:</b> Нажми левую кнопку с иконкой барабана для сильной раскрутки или плавно крути барабан пальцем по экрану.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Стрик:</b> Жми «Испытать судьбу» и проверь свою удачу. Посмотрим, сколько ты сможешь протянуть, прежде чем отправишь себе пулю в лоб! 🪦</li></ul></div>`,
-                en: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Destiny Shot</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">A mode for those who like to tickle their nerves. Russian roulette in your pocket.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Loading:</b> Tap the cartridges at bottom to load 1-5 bullets in cylinder.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Spinning:</b> Press left button for strong spin, or smoothly spin cylinder with finger.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Streak:</b> Hit "Try fate" and check luck. Let's see how long you last before shot in head! 🪦</li></ul></div>`
+                ru: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Роковая Пуля</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">Режим для тех, кто любит пощекотать нервы. Русская рулетка в твоем кармане.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Зарядка:</b> Тапай по патронам внизу, чтобы зарядить в барабан от 1 до 5 пуль. Кнопка рядом добавит случайное число патронов.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Вращение:</b> Нажми левую кнопку с иконкой барабана для сильной раскрутки или плавно крути барабан пальцем по экрану.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Стрик:</b> Жми «Испытать судьбу» и проверь свою удачу. Посмотрим, сколько ты сможешь протянуть, прежде чем отправишь себе пулю в лоб! 🪦</li></ul></div>`,
+                en: `<div class="rules-content"><div style="color: var(--angry-red); font-weight: bold; font-size: 18px; border-bottom: 1px solid rgba(255, 102, 102, 0.3); padding-bottom: 8px; margin-bottom: 12px; text-align: center; margin-top: 5px;">💀 Destiny Shot</div><div style="margin-bottom: 12px; font-style: italic; color: #ccc;">A mode for those who like to tickle their nerves. Russian roulette in your pocket.</div><ul style="padding-left: 22px; margin-top: 0; margin-bottom: 0; list-style-type: none;"><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔫</span> <b>Loading:</b> Tap the cartridges at bottom to load 1-5 bullets in cylinder. Random button adds random bullets.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔄</span> <b>Spinning:</b> Press left button for strong spin, or smoothly spin cylinder with finger.</li><li style="margin-bottom: 8px;"><span style="margin-left: -22px; margin-right: 4px;">🔥</span> <b>Streak:</b> Hit "Try fate" and check luck. Let's see how long you last before shot in head! 🪦</li></ul></div>`
             }
         };
 
@@ -543,15 +550,18 @@
         const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)" }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)" }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)" }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)" }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)" } };
 
         let audioCtx = null;
+        const skullSvgEmbed = `<i class="fas fa-skull-crossbones"></i>`;
 
         // ==============================================
-        // 🏆 СИСТЕМА ДОСТИЖЕНИЙ (ACHIEVEMENTS ENGINE)
+        // 🏆 СИСТЕМА ДОСТИЖЕНИЙ
         // ==============================================
         const Achievements = (function() {
             let unlocked = {}; 
-            let displayedOrder = []; 
+            let order = []; 
+            let visibleIds = []; 
             let achievementQueue = [];
             let isProcessingQueue = false;
+            let hasFirstAchievementShown = false; 
             
             const seriesDefinition = {
                 'ser5b': ['surv_1', 'surv_2', 'surv_3', 'surv_4', 'surv_5'],
@@ -570,14 +580,12 @@
                 },
                 'first_blood': {
                     id: 'first_blood',
-                    // ИСПРАВЛЕНО: Вернули классический череп
-                    icon: '<i class="fas fa-skull-crossbones"></i>',
+                    icon: skullSvgEmbed,
                     title: { ru: "Премия Дарвина", en: "Darwin Award" },
-                    desc: { ru: "Застрелиться с самого первого неудачного выстрела за всю игру.", en: "Shoot yourself on the very first ever try of the game." },
+                    desc: { ru: "Застрелиться с самого первого неудачного выстрела за всю сессию.", en: "Shoot yourself on the very first ever try of the session." },
                     color: "var(--angry-red)", alpha: "rgba(255,102,102,0.3)"
                 },
                 
-                // --- СЕРИЯ ВЫЖИВАНИЯ: 5 ПУЛЬ ---
                 'surv_1': {
                     id: 'surv_1',
                     icon: '<svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd"><path d="M20 10 H80 Q85 10 85 15 V45 H15 V15 Q15 10 20 10 Z"/><path d="M15 52 H85 V75 L50 95 L15 75 Z M50 65 A8 8 0 1 0 50 81 A8 8 0 1 0 50 65 Z"/></svg>',
@@ -614,7 +622,6 @@
                     color: "#a29bfe", alpha: "rgba(162,155,254,0.3)"
                 },
                 
-                // --- СЕРИЯ СЛОТОВ 1, 3, 5 ---
                 'nimble_guy': {
                     id: 'nimble_guy',
                     icon: '<svg viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="8"/><path d="M50 20 L50 35 M50 80 L50 65 M20 50 L35 50 M80 50 L65 50" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><circle cx="50" cy="50" r="8"/></svg>',
@@ -630,7 +637,6 @@
                     color: "#f368e0", alpha: "rgba(243,104,224,0.3)"
                 },
 
-                // --- СЕРИЯ ВЫЖИВАНИЯ: 1 ПУЛЯ ---
                 'dancer_1': { 
                     id: 'dancer_1',
                     icon: '<svg viewBox="0 0 100 180" fill="currentColor"><path d="M 20,70 Q 50,-10 80,70 L 80,155 Q 80,170 50,170 Q 20,170 20,155 Z"/></svg>', 
@@ -646,25 +652,23 @@
                     color: "#48cae4", alpha: "rgba(72,202,228,0.3)"
                 },
 
-                // --- СЕРИЯ СМЕРТЕЙ ---
                 'death_3': { 
                     id: 'death_3',
-                    // ИСПРАВЛЕНО: Вернули классический череп
-                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    icon: skullSvgEmbed, 
                     title: { ru: "Решето", en: "Sieve" },
                     desc: { ru: "Три пули в лоб подряд. У тебя там магнит или барабан заело?", en: "Three bullets to the head in a row. Do you have a magnet in there?" },
                     color: "#ff9999", alpha: "rgba(255,153,153,0.3)" 
                 },
                 'death_5': { 
                     id: 'death_5',
-                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    icon: skullSvgEmbed, 
                     title: { ru: "Любимчик Жнеца", en: "Reaper's Pet" },
                     desc: { ru: "Пять раз! Кажется, барабан крутишь не ты, а сама Смерть.", en: "Five times! Seems like Death is spinning the drum, not you." },
                     color: "#dc143c", alpha: "rgba(220,20,60,0.3)" 
                 },
                 'death_10': { 
                     id: 'death_10',
-                    icon: '<i class="fas fa-skull-crossbones"></i>', 
+                    icon: skullSvgEmbed, 
                     title: { ru: "Проклятый", en: "Cursed" },
                     desc: { ru: "10 смертей подряд. Шанс этого меньше, чем выиграть в лотерею. Но ты выиграл пулю. Десять раз.", en: "10 deaths in a row. You won a bullet instead of lottery. Ten times." },
                     color: "#8b008b", alpha: "rgba(139,0,139,0.3)" 
@@ -673,30 +677,31 @@
 
             function init() { 
                 unlocked = {}; 
-                displayedOrder = []; 
+                order = [];
+                visibleIds = []; 
                 achievementQueue = [];
                 isProcessingQueue = false;
+                hasFirstAchievementShown = false;
                 render(); 
             }
+
+            function load(savedUnlocked, savedOrder) {
+                unlocked = savedUnlocked || {};
+                order = savedOrder || [];
+                
+                visibleIds = [...order];
+                achievementQueue = [];
+                isProcessingQueue = false;
+                hasFirstAchievementShown = Object.keys(unlocked).length > 0;
+                render();
+            }
+
+            function getUnlocked() { return unlocked; }
+            function getOrder() { return order; }
 
             function queueUnlock(id) {
                 if (unlocked[id]) return;
                 unlocked[id] = true; 
-                
-                achievementQueue.push(id);
-                if (!isProcessingQueue) {
-                    processQueue();
-                }
-            }
-
-            function processQueue() {
-                if (achievementQueue.length === 0) {
-                    isProcessingQueue = false;
-                    return;
-                }
-                
-                isProcessingQueue = true;
-                const id = achievementQueue.shift();
                 
                 let seriesId = null;
                 for (const sId in seriesDefinition) {
@@ -709,19 +714,45 @@
                 if (seriesId) {
                     let lastIdx = -1;
                     const sIds = seriesDefinition[seriesId];
-                    for (let i = displayedOrder.length - 1; i >= 0; i--) {
-                        if (sIds.includes(displayedOrder[i])) {
+                    for (let i = order.length - 1; i >= 0; i--) {
+                        if (sIds.includes(order[i])) {
                             lastIdx = i;
                             break;
                         }
                     }
                     if (lastIdx !== -1) {
-                        displayedOrder.splice(lastIdx + 1, 0, id);
+                        order.splice(lastIdx + 1, 0, id);
                     } else {
-                        displayedOrder.push(id);
+                        order.push(id);
                     }
                 } else {
-                    displayedOrder.push(id);
+                    order.push(id);
+                }
+
+                if (App && typeof App.requestProfileSave === 'function') {
+                    App.requestProfileSave();
+                }
+                
+                achievementQueue.push(id);
+                if (!isProcessingQueue) {
+                    isProcessingQueue = true;
+                    let delay = hasFirstAchievementShown ? 1000 : 3000;
+                    hasFirstAchievementShown = true;
+                    setTimeout(processQueue, delay);
+                }
+            }
+
+            function processQueue() {
+                if (achievementQueue.length === 0) {
+                    isProcessingQueue = false;
+                    return;
+                }
+                
+                const id = achievementQueue.shift();
+                
+                if (!visibleIds.includes(id)) {
+                    visibleIds.push(id);
+                    visibleIds.sort((a, b) => order.indexOf(a) - order.indexOf(b));
                 }
                 
                 render();
@@ -733,9 +764,13 @@
                     if (el) showTooltip(id, el, null);
                 }, 50);
 
-                setTimeout(() => {
-                    processQueue();
-                }, 5000);
+                if (achievementQueue.length > 0) {
+                    setTimeout(processQueue, 5000);
+                } else {
+                    setTimeout(() => { 
+                        isProcessingQueue = false; 
+                    }, 5000); 
+                }
             }
 
             function render() {
@@ -743,7 +778,7 @@
                 if (!board) return;
                 board.innerHTML = ''; 
 
-                displayedOrder.forEach(id => {
+                visibleIds.forEach(id => {
                     const ach = list[id];
                     const slot = document.createElement('div');
                     slot.className = 'ach-slot';
@@ -758,7 +793,12 @@
 
             let activeTooltipId = null;
             function showTooltip(id, el, e) {
-                if (e) e.stopPropagation();
+                if (e) {
+                    e.stopPropagation();
+                    App.playSoundEffect('tick');
+                    if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                }
+                
                 const tt = document.getElementById('achTooltip');
                 
                 if (tt.classList.contains('show') && activeTooltipId === id && e) {
@@ -784,9 +824,8 @@
                 activeTooltipId = id;
             }
 
-            return { init, unlock: queueUnlock, showTooltip, has: (id) => !!unlocked[id] };
+            return { init, load, getUnlocked, getOrder, unlock: queueUnlock, showTooltip, has: (id) => !!unlocked[id] };
         })();
-
 
         // ==============================================
         // ⚙️ МОДУЛЬ ЯДРА (CORE APP)
@@ -799,6 +838,16 @@
                 document.documentElement.lang = GameState.lang; 
                 document.getElementById('langSelect').value = GameState.lang; 
                 
+                try {
+                    GameState.profiles = JSON.parse(localStorage.getItem('gof_profiles')) || [];
+                } catch(e) { GameState.profiles = []; }
+                
+                if (GameState.profiles.length === 0) {
+                    GameState.activeProfileIdx = 0; 
+                } else {
+                    GameState.activeProfileIdx = -1; 
+                }
+
                 document.getElementById('settingsOverlay').addEventListener('click', function(e) { if (e.target === this) toggleSettings(false); });
                 document.getElementById('rulesOverlay').addEventListener('click', function(e) { if (e.target === this) toggleRules(false); });
                 
@@ -811,6 +860,10 @@
                     if (tt && tt.classList.contains('show') && !e.target.closest('.ach-icon')) {
                         tt.classList.remove('show');
                     }
+                    const delPopup = document.getElementById('deleteProfileConfirm');
+                    if (delPopup && delPopup.style.display === 'flex' && !e.target.closest('#deleteProfileConfirm') && !e.target.closest('.delete-profile-btn')) {
+                        delPopup.style.display = 'none';
+                    }
                 });
 
                 fillModeOptions(); 
@@ -821,6 +874,165 @@
                 DiceGame.init();
                 RouletteGame.init();
                 Achievements.init();
+
+                App.loadProfileData(GameState.activeProfileIdx);
+                renderProfiles();
+            }
+
+            function applySettings(s) {
+                if (!s) return;
+                GameState.sound = s.sound !== false;
+                const sBtn = document.getElementById('soundBtn'); 
+                sBtn.classList.toggle('active-magic', !GameState.sound); 
+                sBtn.innerHTML = GameState.sound ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>'; 
+
+                setQuestionState(s.isQuestionHidden === true);
+                
+                GameState.isClassic = s.isClassic === true;
+                document.getElementById('cube').classList.toggle('classic-mode', GameState.isClassic);
+                document.getElementById('drumWrapper').classList.toggle('classic', GameState.isClassic);
+                document.body.classList.toggle('classic-mode-active', GameState.isClassic);
+                updateStyleBtnIcon();
+
+                if (s.bgTheme) document.getElementById('bgSelect').value = s.bgTheme;
+                changeBackground(true);
+
+                if (s.sparkles !== undefined) document.getElementById('sparkleToggle').checked = s.sparkles;
+
+                if (s.diceMode) document.getElementById('modeSelect').value = s.diceMode;
+                if (s.lang) {
+                    document.getElementById('langSelect').value = s.lang;
+                    GameState.lang = s.lang;
+                }
+                changeLanguage(true);
+            }
+
+            function renderProfiles() {
+                const grid = document.getElementById('profilesGrid');
+                if (GameState.profiles.length === 0) {
+                    grid.style.display = 'none';
+                    return;
+                }
+                grid.style.display = 'grid';
+                grid.innerHTML = '';
+                
+                GameState.profiles.forEach((p, i) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'profile-wrapper';
+                    
+                    const btn = document.createElement('button');
+                    btn.className = 'profile-btn' + (GameState.activeProfileIdx === i ? ' active-slot' : '');
+                    btn.innerText = p.name;
+                    btn.onclick = () => App.selectProfile(i);
+                    wrapper.appendChild(btn);
+
+                    if (GameState.activeProfileIdx === i) {
+                        const delBtn = document.createElement('button');
+                        delBtn.className = 'delete-profile-btn';
+                        delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                        delBtn.onclick = (e) => App.showDeleteConfirm(e, i, delBtn);
+                        wrapper.appendChild(delBtn);
+                    }
+                    grid.appendChild(wrapper);
+                });
+
+                if (GameState.profiles.length < 6) {
+                    const newBtn = document.createElement('button');
+                    newBtn.className = 'profile-btn new-slot' + (GameState.activeProfileIdx === GameState.profiles.length ? ' active-slot' : '');
+                    newBtn.innerText = LANG_DATA[GameState.lang].newPlayer;
+                    newBtn.onclick = () => App.selectProfile(GameState.profiles.length);
+                    grid.appendChild(newBtn);
+                }
+            }
+
+            function selectProfile(idx) {
+                if (GameState.activeProfileIdx === idx) {
+                    GameState.activeProfileIdx = -1;
+                } else {
+                    GameState.activeProfileIdx = idx;
+                }
+                App.loadProfileData(GameState.activeProfileIdx);
+                renderProfiles();
+                playSoundEffect('tick');
+                if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
+            }
+
+            function showDeleteConfirm(e, idx, btnEl) {
+                e.stopPropagation();
+                GameState.profileToDelete = idx;
+                const popup = document.getElementById('deleteProfileConfirm');
+                popup.style.display = 'flex';
+            }
+
+            function confirmDeleteProfile(confirm) {
+                const popup = document.getElementById('deleteProfileConfirm');
+                popup.style.display = 'none';
+                if (confirm && GameState.profileToDelete !== -1) {
+                    GameState.profiles.splice(GameState.profileToDelete, 1);
+                    
+                    GameState.profiles.forEach((p, i) => {
+                        p.name = (GameState.lang === 'ru' ? 'Игрок ' : 'Player ') + (i + 1);
+                    });
+                    localStorage.setItem('gof_profiles', JSON.stringify(GameState.profiles));
+
+                    GameState.activeProfileIdx = -1;
+                    loadProfileData(-1);
+                    renderProfiles();
+                    playSoundEffect('error_pyn');
+                    if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+                }
+                GameState.profileToDelete = -1;
+            }
+
+            function loadProfileData(idx) {
+                if (idx !== -1 && GameState.profiles[idx]) {
+                    const p = GameState.profiles[idx];
+                    Achievements.load(p.unlocked, p.order);
+                    RouletteGame.loadStats(p.rStats);
+                    document.getElementById('historyListDice').innerHTML = p.historyDice || '';
+                    document.getElementById('historyListRoulette').innerHTML = p.historyRoulette || '';
+                    if (p.settings) applySettings(p.settings);
+                } else {
+                    Achievements.load({}, []);
+                    RouletteGame.loadStats(null);
+                    document.getElementById('historyListDice').innerHTML = '';
+                    document.getElementById('historyListRoulette').innerHTML = '';
+                }
+            }
+
+            function saveProfileData(unlocked, order, rStats, hDice, hRoul, settings) {
+                if (GameState.activeProfileIdx === -1) return; 
+                
+                if (!GameState.profiles[GameState.activeProfileIdx]) {
+                    GameState.profiles[GameState.activeProfileIdx] = {
+                        name: (GameState.lang === 'ru' ? 'Игрок ' : 'Player ') + (GameState.activeProfileIdx + 1)
+                    };
+                }
+                
+                const p = GameState.profiles[GameState.activeProfileIdx];
+                p.unlocked = unlocked; p.order = order; 
+                p.rStats = rStats; 
+                p.historyDice = hDice; p.historyRoulette = hRoul;
+                p.settings = settings;
+                
+                localStorage.setItem('gof_profiles', JSON.stringify(GameState.profiles));
+            }
+
+            function requestProfileSave() {
+                const hDice = document.getElementById('historyListDice').innerHTML;
+                const hRoul = document.getElementById('historyListRoulette').innerHTML;
+                
+                const settings = {
+                    lang: GameState.lang,
+                    sound: GameState.sound,
+                    isQuestionHidden: GameState.isQuestionHidden,
+                    isClassic: GameState.isClassic,
+                    diceMode: document.getElementById('modeSelect').value,
+                    bgTheme: document.getElementById('bgSelect').value,
+                    sparkles: document.getElementById('sparkleToggle').checked
+                };
+
+                saveProfileData(Achievements.getUnlocked(), Achievements.getOrder(), RouletteGame.getStats(), hDice, hRoul, settings);
             }
 
             function handleSparkleToggle() {
@@ -854,6 +1066,7 @@
                         debugClicks = 0;
                     }
                 }
+                requestProfileSave();
             }
 
             function setQuestionState(hide) {
@@ -873,6 +1086,7 @@
             function toggleQuestionField() { 
                 setQuestionState(!GameState.isQuestionHidden);
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                requestProfileSave();
             }
 
             function selectGameMode(mode) {
@@ -880,6 +1094,7 @@
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
 
                 document.querySelectorAll('.game-card').forEach(c => c.style.pointerEvents = 'none');
+                document.getElementById('profilesGrid').style.pointerEvents = 'none';
                 document.getElementById('mainMenuTitle').classList.add('title-fade-out');
 
                 if (mode === 'dice') {
@@ -923,8 +1138,7 @@
             }
 
             function toggleGameMode() {
-                const rollBtn = document.getElementById('rollBtn');
-                if (rollBtn.disabled || RouletteGame.isSpinning() || DiceGame.isDragging() || RouletteGame.isDragging()) return;
+                if (RouletteGame.isBusy() || DiceGame.isDragging() || RouletteGame.isDragging()) return;
                 
                 GameState.mode = (GameState.mode === 'dice') ? 'roulette' : 'dice';
                 hideError(); 
@@ -939,7 +1153,7 @@
 
                 const allDynamicEls = [
                     document.getElementById('mainStage'), document.getElementById('rouletteStage'), 
-                    document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), 
+                    document.getElementById('bulletStash'), document.getElementById('rouletteStatusBtn'), document.getElementById('randomLoadBtn'),
                     document.getElementById('historyBlock'), document.getElementById('debugPanel')
                 ];
 
@@ -1053,6 +1267,7 @@
                 btn.classList.toggle('active-magic', !GameState.sound); 
                 btn.innerHTML = GameState.sound ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>'; 
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
+                requestProfileSave();
             }
             
             function toggleCubeStyle() { 
@@ -1070,6 +1285,7 @@
                 changeBackground();
 
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                requestProfileSave();
             }
 
             function updateStyleBtnIcon() {
@@ -1085,11 +1301,12 @@
             function fillBgOptions() { const sel = document.getElementById('bgSelect'); const cur = sel.value; sel.innerHTML = ''; for(let i=1; i<=5; i++) { const opt = document.createElement('option'); opt.value = 'bg' + i; opt.innerText = LANG_DATA[GameState.lang]['bg' + i]; if(opt.value === cur) opt.selected = true; sel.appendChild(opt); } }
             function fillModeOptions() { const sel = document.getElementById('modeSelect'); const val = sel.value; sel.innerHTML = `<option value="dots">${LANG_DATA[GameState.lang].modeDots}</option><option value="numbers">${LANG_DATA[GameState.lang].modeNums}</option><option value="yesno">${LANG_DATA[GameState.lang].modeYN}</option><option value="trader">${LANG_DATA[GameState.lang].modeTrader}</option><option value="alco">${LANG_DATA[GameState.lang].modeAlco}</option>`; if(val && val !== 'roulette') sel.value = val; }
             
-            function changeBackground() { 
+            function changeBackground(noSave = false) { 
                 const bgVal = document.getElementById('bgSelect').value || 'bg1';
                 const theme = bgThemes[bgVal]; 
                 document.body.style.background = theme.grad; 
                 document.getElementById('stars').className = 'stars-layer stars-active ' + bgVal + '-stars';
+                if (!noSave) requestProfileSave();
             }
             
             function toggleSettings(show) { 
@@ -1109,18 +1326,23 @@
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
             }
             
-            function changeLanguage() { 
+            function changeLanguage(noSave = false) { 
                 GameState.lang = document.getElementById('langSelect').value; const t = LANG_DATA[GameState.lang]; document.documentElement.lang = GameState.lang;
                 const titleEl = document.getElementById('ui-title'); titleEl.innerText = GameState.mode === 'roulette' ? t.titleRoulette : t.title;
                 document.getElementById('menu-card-title-dice').innerText = t.menuDice; document.getElementById('menu-card-title-roulette').innerText = t.menuRoulette; document.getElementById('mainMenuTitle').innerText = t.menuTitle;
                 document.getElementById('userQuestion').placeholder = t.placeholder; document.getElementById('st-title-h2').innerText = t.stTitle; document.getElementById('st-btn-close').innerText = t.stClose; document.getElementById('st-label-mode').innerText = t.stMode; document.getElementById('st-label-bg').innerText = t.stBg; document.getElementById('st-label-sparkles').innerText = t.stSparkles; document.getElementById('st-label-debug').innerText = t.stDebug; document.getElementById('st-label-lang').innerText = t.stLang; document.getElementById('st-hist-head').innerText = GameState.mode === 'roulette' ? t.histSurvHead : t.histDiceHead;
                 document.getElementById('rules-title-h2').innerText = t.ruTitleRules; document.getElementById('ru-btn-close').innerText = t.stClose;
                 
+                const newPlayerBtns = document.querySelectorAll('.profile-btn.new-slot');
+                newPlayerBtns.forEach(b => b.innerText = t.newPlayer);
+
                 const rollBtn = document.getElementById('rollBtn');
-                if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
+                rollBtn.innerText = t.rollBtn; 
+                
                 if(!document.getElementById('res-content').classList.contains('visible')) document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle;
                 
                 fillModeOptions(); fillBgOptions(); DiceGame.updateModeDisplay();
+                if (!noSave) requestProfileSave();
             }
 
             function toggleLanguage() {
@@ -1158,8 +1380,8 @@
             }
 
             return {
-                init, handleSparkleToggle, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
-                showError, hideError, triggerButtonError, playSoundEffect, createSparkle, askOracle, updateModeDisplay: () => DiceGame.updateModeDisplay()
+                init, selectProfile, loadProfileData, requestProfileSave, showDeleteConfirm, confirmDeleteProfile, handleSparkleToggle, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
+                showError, hideError, triggerButtonError, playSoundEffect, createSparkle, askOracle, updateModeDisplay: () => { DiceGame.updateModeDisplay(); requestProfileSave(); }
             };
         })();
 
@@ -1176,7 +1398,7 @@
             function init() {
                 const stage = document.getElementById('mainStage');
                 stage.addEventListener('mousedown', handlePointerDown); document.addEventListener('mousemove', handlePointerMove, {passive: false}); document.addEventListener('mouseup', handlePointerUp);
-                stage.addEventListener('touchstart', handlePointerDown, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchend', handlePointerUp);
+                stage.addEventListener('touchstart', handlePointerDown, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchend', handlePointerUp);
             }
 
             function mount() {
@@ -1375,6 +1597,7 @@
                 item.innerHTML = `${qMark} ${GameState.isQuestionHidden?'---':originalQuestion}${mTag}<br><span style="color:${uiColor};">➔ ${subI} ${histDispTxt}</span>`;
                 
                 document.getElementById('historyListDice').prepend(item);
+                App.requestProfileSave(); 
                 
                 const rollBtn = document.getElementById('rollBtn');
                 rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
@@ -1399,8 +1622,12 @@
             let streakSlots135 = 0;
             let streak1Bullet = 0;
             let deathStreak = 0; 
+            let pendingDeathReset = false; // Теневой сброс при смерти
+            let isWaitingResult = false; // Блокировка переходов на 3 сек
 
             let totalPlaysThisSession = 0;
+            let totalSurvivalsThisSession = 0;
+            let totalDeathsThisSession = 0;
 
             function init() {
                 const wrapper = document.getElementById('drumWrapper');
@@ -1408,22 +1635,146 @@
                 wrapper.addEventListener('touchstart', handlePointerDown, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchmove', handlePointerMove, {passive: false}); document.addEventListener('touchend', handlePointerUp);
             }
 
+            function updateGlobalCounters() {
+                const survC = document.getElementById('globalSurvCounter');
+                const survN = document.getElementById('globalSurvNum');
+                const deathC = document.getElementById('globalDeathCounter');
+                const deathN = document.getElementById('globalDeathNum');
+
+                if (totalSurvivalsThisSession > 0) {
+                    survC.classList.add('visible');
+                    survN.innerText = totalSurvivalsThisSession > 1 ? totalSurvivalsThisSession : '';
+                } else {
+                    survC.classList.remove('visible');
+                }
+
+                if (totalDeathsThisSession > 0) {
+                    deathC.classList.add('visible');
+                    deathN.innerText = totalDeathsThisSession > 1 ? totalDeathsThisSession : '';
+                } else {
+                    deathC.classList.remove('visible');
+                }
+            }
+
+            function updateButtonStates() {
+                const rollBtn = document.getElementById('rollBtn');
+                const miniBtn = document.getElementById('rouletteStatusBtn');
+                const rndBtn = document.getElementById('randomLoadBtn');
+                
+                const isBusy = isSpinningDrum || isWaitingResult;
+                const isFull = loadedBullets === 5;
+
+                rollBtn.disabled = isBusy;
+                miniBtn.disabled = isBusy;
+                rndBtn.disabled = isBusy || isFull || isDragging;
+
+                if (isSpinningDrum) {
+                    rollBtn.classList.add('gold-text-active');
+                    miniBtn.classList.add('gold-text-active');
+                    rndBtn.classList.add('gold-text-active');
+                } else {
+                    rollBtn.classList.remove('gold-text-active');
+                    miniBtn.classList.remove('gold-text-active');
+                    rndBtn.classList.remove('gold-text-active');
+                }
+            }
+
+            function getStats() {
+                return { 
+                    survs: totalSurvivalsThisSession, 
+                    deaths: totalDeathsThisSession, 
+                    plays: totalPlaysThisSession,
+                    s5b: streak5Bullets,
+                    s1b: streak1Bullet,
+                    s135: streakSlots135,
+                    ds: deathStreak,
+                    curSurv: survivalCount,
+                    // Если игрок умер и ждет анимации - в сейв пишем уже пустой барабан
+                    cState: pendingDeathReset ? [false, false, false, false, false, false] : chamberState,
+                    sState: pendingDeathReset ? [false, false, false, false, false] : stashState,
+                    lBullets: pendingDeathReset ? 0 : loadedBullets
+                };
+            }
+
+            function loadStats(rStats) {
+                if (!rStats) {
+                    totalSurvivalsThisSession = 0; totalDeathsThisSession = 0; totalPlaysThisSession = 0;
+                    streak5Bullets = 0; streak1Bullet = 0; streakSlots135 = 0; deathStreak = 0;
+                    survivalCount = 0;
+                    chamberState = [false, false, false, false, false, false];
+                    stashState = [false, false, false, false, false];
+                    loadedBullets = 0;
+                } else {
+                    totalSurvivalsThisSession = rStats.survs || 0;
+                    totalDeathsThisSession = rStats.deaths || 0;
+                    totalPlaysThisSession = rStats.plays || 0;
+                    streak5Bullets = rStats.s5b || 0;
+                    streak1Bullet = rStats.s1b || 0;
+                    streakSlots135 = rStats.s135 || 0;
+                    deathStreak = rStats.ds || 0;
+                    survivalCount = rStats.curSurv || 0;
+                    chamberState = rStats.cState || [false, false, false, false, false, false];
+                    stashState = rStats.sState || [false, false, false, false, false];
+                    loadedBullets = rStats.lBullets || 0;
+                }
+                pendingDeathReset = false;
+                isWaitingResult = false;
+                updateGlobalCounters();
+                restoreDrumVisuals();
+            }
+
+            function restoreDrumVisuals() {
+                for (let i = 0; i < 5; i++) {
+                    const el = document.getElementById(`stash-${i}`);
+                    if (el) {
+                        if (stashState[i]) el.classList.add('loaded');
+                        else el.classList.remove('loaded');
+                    }
+                }
+                for (let i = 0; i < 6; i++) {
+                    const ch = document.getElementById(`ch-${i}`);
+                    if (ch) {
+                        if (chamberState[i]) ch.classList.add('filled');
+                        else ch.classList.remove('filled');
+                        ch.classList.remove('fired'); 
+                    }
+                }
+                
+                const counterEl = document.getElementById('survivalCounter');
+                if (survivalCount > 0) {
+                    counterEl.innerText = '+' + survivalCount;
+                    counterEl.classList.add('visible');
+                } else {
+                    counterEl.classList.remove('visible');
+                }
+
+                drumRotation = 0;
+                const drum = document.getElementById('drumRotator');
+                if(drum) {
+                    drum.style.transition = 'none';
+                    drum.style.transform = `rotate(0deg)`;
+                }
+                updateNumbers();
+                updateButtonStates();
+            }
+
             function mount() {
                 document.getElementById('rouletteStage').style.display = 'flex';
                 document.getElementById('bulletStash').style.display = 'flex';
                 document.getElementById('rouletteStatusBtn').style.display = 'flex';
+                document.getElementById('randomLoadBtn').style.display = 'flex';
                 document.getElementById('historyListRoulette').style.display = 'block';
                 document.body.classList.add('roulette-mode-active');
                 if (GameState.debugEnabled) document.getElementById('debugPanel').style.display = 'flex';
                 
-                deathStreak = 0; 
-                reset();
+                // loadStats takes care of UI updates
             }
 
             function unmount() {
                 document.getElementById('rouletteStage').style.display = 'none';
                 document.getElementById('bulletStash').style.display = 'none';
                 document.getElementById('rouletteStatusBtn').style.display = 'none';
+                document.getElementById('randomLoadBtn').style.display = 'none';
                 document.getElementById('historyListRoulette').style.display = 'none';
                 document.body.classList.remove('roulette-mode-active');
             }
@@ -1433,11 +1784,11 @@
             }
 
             function handlePointerDown(e) {
-                const rollBtn = document.getElementById('rollBtn');
-                if (rollBtn.disabled || isSpinningDrum || GameState.mode !== 'roulette') return; 
+                if (isSpinningDrum || isWaitingResult || GameState.mode !== 'roulette') return; 
                 const now = Date.now();
-                if (now - lastTapTime < 300) { if (!rollBtn.disabled) App.askOracle(); return; }
+                if (now - lastTapTime < 300) { if (!document.getElementById('rollBtn').disabled) App.askOracle(); return; }
                 lastTapTime = now; isDragging = true; cancelAnimationFrame(inertiaFrame); 
+                updateButtonStates(); 
                 
                 document.getElementById('drumRotator').style.transition = 'none'; 
                 document.querySelectorAll('.hole-num').forEach(n => n.style.transition = 'none');
@@ -1473,7 +1824,7 @@
             }
 
             function handlePointerUp() {
-                if (!isDragging) return; isDragging = false;
+                if (!isDragging) return; isDragging = false; updateButtonStates();
                 if (Date.now() - lastMoveTime > 100) { vel = 0; }
                 applyInertia(); 
             }
@@ -1482,10 +1833,10 @@
                 if (Math.abs(vel) < 0.7) { 
                     const targetRot = Math.round(drumRotation / 60) * 60; 
                     if (Math.abs(drumRotation - targetRot) > 0.5) {
-                        animateDrum(targetRot, 400, () => { if (isSpinningDrum) isSpinningDrum = false; });
+                        animateDrum(targetRot, 400, () => { if (isSpinningDrum) { isSpinningDrum = false; updateButtonStates(); } });
                     } else {
                         drumRotation = targetRot; document.getElementById('drumRotator').style.transform = `rotate(${drumRotation}deg)`; updateNumbers();
-                        if (isSpinningDrum) isSpinningDrum = false; 
+                        if (isSpinningDrum) { isSpinningDrum = false; updateButtonStates(); }
                     }
                     return; 
                 }
@@ -1504,7 +1855,7 @@
             }
 
             function resetSwipe() {
-                isDragging = false; cancelAnimationFrame(inertiaFrame);
+                isDragging = false; cancelAnimationFrame(inertiaFrame); updateButtonStates();
                 let targetRot = Math.round(drumRotation / 60) * 60; 
                 if(Math.abs(drumRotation - targetRot) > 0.1) animateDrum(targetRot, 200); 
             }
@@ -1540,8 +1891,7 @@
             }
 
             function loadBullet(el, idx) {
-                const rollBtn = document.getElementById('rollBtn');
-                if (rollBtn.disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return;
+                if (isSpinningDrum || isWaitingResult || isDragging || GameState.mode !== 'roulette') return;
                 if (el.classList.contains('loaded')) return; 
                 
                 resetSwipe(); 
@@ -1554,30 +1904,66 @@
                 document.getElementById(`ch-${targetChamber}`).classList.add('filled');
                 
                 loadedBullets++;
+                updateButtonStates();
                 App.playSoundEffect('load');
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                App.requestProfileSave(); 
+            }
+
+            function loadRandomBullets() {
+                if (isSpinningDrum || isWaitingResult || isDragging || GameState.mode !== 'roulette' || loadedBullets === 5) return;
+                
+                resetSwipe(); 
+                App.hideError(); 
+                
+                let emptySlots = [0, 1, 2, 3, 4].filter(i => !stashState[i]);
+                if (emptySlots.length === 0) return;
+                
+                const numToLoad = Math.floor(Math.random() * emptySlots.length) + 1;
+                
+                for (let i = emptySlots.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [emptySlots[i], emptySlots[j]] = [emptySlots[j], emptySlots[i]];
+                }
+                
+                for(let i=0; i<numToLoad; i++) {
+                    const idx = emptySlots[i];
+                    const el = document.getElementById(`stash-${idx}`);
+                    if(el) {
+                        el.classList.add('loaded');
+                        const targetChamber = chamberMap[idx];
+                        chamberState[targetChamber] = true;
+                        stashState[idx] = true;
+                        document.getElementById(`ch-${targetChamber}`).classList.add('filled');
+                        loadedBullets++;
+                    }
+                }
+                
+                updateButtonStates();
+                App.playSoundEffect('load');
+                if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+                App.requestProfileSave(); 
             }
 
             function reset() {
                 loadedBullets = 0; drumRotation = 0; chamberState = [false, false, false, false, false, false]; stashState = [false, false, false, false, false]; survivalCount = 0;
                 streak5Bullets = 0; streakSlots135 = 0; streak1Bullet = 0; 
+                pendingDeathReset = false;
                 document.getElementById('survivalCounter').classList.remove('visible');
                 document.getElementById('drumRotator').style.transition = 'none'; document.getElementById('drumRotator').style.transform = `rotate(0deg)`; updateNumbers();
                 document.querySelectorAll('.stash-bullet').forEach(b => b.classList.remove('loaded'));
-                document.querySelectorAll('.chamber-slot').forEach(c => { c.classList.remove('filled'); c.classList.remove('fired'); c.classList.remove('heart-pulse'); c.classList.remove('skull-aura'); });
+                document.querySelectorAll('.chamber-slot').forEach(c => { c.classList.remove('filled'); c.classList.remove('fired'); });
+                updateButtonStates();
             }
 
             function spinRandomly() {
-                const rollBtn = document.getElementById('rollBtn');
-                const miniBtn = document.getElementById('rouletteStatusBtn');
-                if (rollBtn.disabled || isSpinningDrum || isDragging || GameState.mode !== 'roulette') return; 
-                
+                if (isSpinningDrum || isWaitingResult || isDragging || GameState.mode !== 'roulette') return; 
                 isSpinningDrum = true; App.hideError();
+                updateButtonStates();
                 
-                rollBtn.disabled = true; rollBtn.classList.add('gold-text-active'); miniBtn.disabled = true; miniBtn.classList.add('gold-text-active');
-                
+                const t = LANG_DATA[GameState.lang];
                 document.getElementById('res-content').classList.remove('visible'); 
-                document.getElementById('res-status').innerText = GameState.isQuestionHidden ? LANG_DATA[GameState.lang].idleNoQ : LANG_DATA[GameState.lang].idle;
+                document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle;
                 document.getElementById('res-status').classList.add('visible');
                 
                 resetSwipe(); document.getElementById('survivalCounter').classList.remove('visible');
@@ -1589,8 +1975,7 @@
                 
                 animateDrum(finalTargetRot, spinDur, () => {
                     isSpinningDrum = false;
-                    rollBtn.disabled = false; rollBtn.classList.remove('gold-text-active');
-                    miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
+                    updateButtonStates();
                     
                     if(survivalCount > 0) {
                         const counterEl = document.getElementById('survivalCounter');
@@ -1622,13 +2007,12 @@
 
                 App.playSoundEffect('click'); 
 
-                const rollBtn = document.getElementById('rollBtn'), miniBtn = document.getElementById('rouletteStatusBtn');
-                rollBtn.disabled = true; rollBtn.innerText = t.waiting; rollBtn.classList.add('gold-text-active');
-                miniBtn.disabled = true; miniBtn.classList.add('gold-text-active');
+                isSpinningDrum = true; 
+                updateButtonStates();
+                document.getElementById('rollBtn').innerText = t.waiting; 
                 
                 document.getElementById('res-content').classList.remove('visible'); document.getElementById('res-status').classList.remove('visible');
                 
-                isSpinningDrum = true; 
                 const spinDur = 3800; const extraSpins = 1440; const currentSnap = Math.round(drumRotation / 60) * 60;
                 let finalTargetRot; let topChamberIdx = 0; let isGunshotResult = false;
                 
@@ -1650,20 +2034,24 @@
                     isGunshotResult = chamberState[topChamberIdx];
                 }
 
-                animateDrum(finalTargetRot, spinDur, () => { finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t, rollBtn, miniBtn); });
+                animateDrum(finalTargetRot, spinDur, () => { finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t); });
             }
 
-            function finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t, rollBtn, miniBtn) {
+            function finalizeRoll(topChamberIdx, isGunshotResult, originalQuestion, t) {
                 totalPlaysThisSession++;
 
                 let uiColor = "", snd = "", subI = "", histDispTxt = "";
                 const resSub = document.getElementById('res-sub');
                 resSub.classList.remove('heart-pulse', 'skull-aura');
                 isSpinningDrum = false; 
+                isWaitingResult = true;
+                updateButtonStates();
 
                 if (isGunshotResult) { 
                     deathStreak++; 
-                    
+                    totalDeathsThisSession++;
+                    updateGlobalCounters();
+
                     if (totalPlaysThisSession === 1 && loadedBullets >= 1 && !Achievements.has('first_blood')) {
                         Achievements.unlock('first_blood');
                     }
@@ -1675,7 +2063,6 @@
                     document.getElementById(`ch-${topChamberIdx}`).classList.add('fired');
                     resSub.classList.add('skull-aura'); 
                     
-                    // ИСПРАВЛЕНИЕ: Восстановлен чистый черепок для истории и экрана результата
                     uiColor = "#ff0000"; snd = 'gunshot'; subI = '<i class="fas fa-skull-crossbones"></i>'; 
                     
                     document.body.classList.add('flash-red'); setTimeout(()=>document.body.classList.remove('flash-red'), 500); 
@@ -1688,10 +2075,13 @@
                     } 
                     survivalCount = 0; streak5Bullets = 0; streakSlots135 = 0; streak1Bullet = 0; document.getElementById('survivalCounter').classList.remove('visible');
                     histDispTxt = t.shotMsg;
+                    pendingDeathReset = true; // Мгновенное теневое очищение
                 } else { 
                     survivalCount++; 
                     deathStreak = 0; 
-                    
+                    totalSurvivalsThisSession++;
+                    updateGlobalCounters();
+
                     if (survivalCount === 1 && !Achievements.has('first_surv')) { Achievements.unlock('first_surv'); }
 
                     if (loadedBullets === 5) {
@@ -1740,28 +2130,33 @@
                 
                 document.getElementById('historyListRoulette').prepend(item);
 
+                // Мгновенное сохранение прогресса до анимации
+                App.requestProfileSave(); 
+
+                const rollBtn = document.getElementById('rollBtn');
                 if (isGunshotResult) {
                     setTimeout(() => {
+                        pendingDeathReset = false;
                         reset();
-                        rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
-                        miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
+                        isWaitingResult = false;
+                        updateButtonStates();
+                        rollBtn.innerText = t.rollBtn; 
                         document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
                         document.getElementById('res-status').classList.add('visible');
+                        App.requestProfileSave(); // Финальное сохранение визуала
                     }, 3000);
                 } else {
-                    rollBtn.disabled = false; rollBtn.innerText = t.rollBtn; rollBtn.classList.remove('gold-text-active');
-                    miniBtn.disabled = false; miniBtn.classList.remove('gold-text-active');
-                    
                     setTimeout(() => { 
-                        if(!rollBtn.disabled) { 
-                            document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
-                            document.getElementById('res-status').classList.add('visible'); 
-                        } 
+                        isWaitingResult = false;
+                        updateButtonStates();
+                        rollBtn.innerText = t.rollBtn; 
+                        document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
+                        document.getElementById('res-status').classList.add('visible'); 
                     }, 4000);
                 }
             }
 
-            return { init, mount, unmount, play, loadBullet, spinRandomly, reset, isDragging: () => isDragging, isSpinning: () => isSpinningDrum };
+            return { init, mount, unmount, play, loadBullet, loadRandomBullets, spinRandomly, reset, getStats: getStats, loadStats: loadStats, isDragging: () => isDragging, isSpinning: () => isSpinningDrum, isBusy: () => isSpinningDrum || isWaitingResult };
         })();
 
         // ЗАПУСК ЯДРА
