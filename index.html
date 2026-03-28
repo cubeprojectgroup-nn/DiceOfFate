@@ -72,16 +72,20 @@
         .profile-btn.new-slot { opacity: 0.5; border-style: dashed; }
         .profile-btn.new-slot.active-slot { opacity: 1; }
         
-        .delete-profile-btn { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: var(--angry-red); color: white; border: 1px solid #fff; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 5px rgba(255,102,102,0.8); z-index: 10; font-size: 11px; opacity: 0; transform: scale(0.8); transition: 0.3s; pointer-events: none; }
-        .profile-btn.active-slot ~ .delete-profile-btn { opacity: 1; transform: scale(1); pointer-events: auto; }
+        /* ИСПРАВЛЕНИЕ: Кнопки редактирования и удаления профиля */
+        .edit-profile-btn { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: var(--magic-color); color: #000; border: 1px solid #fff; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 5px rgba(162, 155, 254, 0.8); z-index: 10; font-size: 11px; opacity: 0; transform: scale(0.8); transition: 0.3s; pointer-events: none; }
+        .delete-profile-btn { position: absolute; bottom: -8px; right: -8px; width: 24px; height: 24px; background: var(--angry-red); color: white; border: 1px solid #fff; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 5px rgba(255,102,102,0.8); z-index: 10; font-size: 11px; opacity: 0; transform: scale(0.8); transition: 0.3s; pointer-events: none; }
+        .profile-btn.active-slot ~ .edit-profile-btn, .profile-btn.active-slot ~ .delete-profile-btn { opacity: 1; transform: scale(1); pointer-events: auto; }
 
-        #deleteProfileConfirm { 
+        #deleteProfileConfirm, #renameProfileModal { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             background: rgba(5, 8, 15, 0.95); border: 1px solid var(--angry-red); 
             border-radius: 8px; box-shadow: 0 0 25px rgba(255,102,102,0.6); 
             z-index: 10000; flex-direction: column; align-items: center; 
             width: 180px; padding: 15px; pointer-events: auto; 
         }
+        
+        #renameProfileModal { border-color: var(--magic-color); box-shadow: 0 0 25px rgba(162, 155, 254, 0.6); width: 200px; }
 
         /* === [ CSS: МЕНЮ: ЭЛЕМЕНТЫ (ЯЗЫК, TG, ВЕРСИЯ) ] === */
         .menu-top-bar { position: absolute; top: 10px; right: 10px; display: flex; gap: 10px; z-index: 410; }
@@ -174,7 +178,9 @@
         .drum-svg, .bullets-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
         
         .target-marker { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); color: var(--angry-red); font-size: 28px; filter: drop-shadow(0 0 8px var(--angry-red)); z-index: 60; }
-        .survival-counter { position: absolute; top: 25px; right: 90px; left: auto; color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
+        
+        /* ИСПРАВЛЕНИЕ: Счетчик выживания сдвинут вверх и влево от ачивок */
+        .survival-counter { position: absolute; top: -20px; right: 75px; left: auto; color: var(--friendly-green); font-size: 28px; font-weight: bold; text-shadow: 0 0 10px var(--friendly-green); opacity: 0; transition: opacity 0.3s; z-index: 70; pointer-events: none; }
         .survival-counter.visible { opacity: 1; animation: pop-in 0.3s ease-out; }
         
         .chamber-slot { opacity: 0; transition: opacity 0.3s ease, filter 0.3s ease; }
@@ -289,7 +295,7 @@
 </head>
 <body>
     <div id="stars" class="stars-layer stars-active bg1-stars"></div>
-    <div class="version">v0.8.8.3</div>
+    <div class="version">v0.8.8.4</div>
 
     <div id="mainMenuOverlay">
         <div class="menu-top-bar">
@@ -325,6 +331,15 @@
         <div style="display:flex; gap:10px;">
             <button onclick="App.confirmDeleteProfile(true)" style="background:var(--angry-red); border:none; border-radius:4px; color:#fff; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">Да</button>
             <button onclick="App.confirmDeleteProfile(false)" style="background:rgba(255,255,255,0.2); border:none; border-radius:4px; color:#fff; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">Нет</button>
+        </div>
+    </div>
+
+    <div id="renameProfileModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(5, 8, 15, 0.95); border: 1px solid var(--magic-color); border-radius: 8px; box-shadow: 0 0 25px rgba(162, 155, 254, 0.6); z-index: 10000; flex-direction: column; align-items: center; width: 200px; padding: 15px; pointer-events: auto;">
+        <span style="margin-bottom:8px; text-align:center; font-weight: bold; color: var(--magic-color); text-transform: uppercase; font-size: 10px;">Имя профиля</span>
+        <input type="text" id="renameProfileInput" maxlength="10" style="width: 90%; padding: 8px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--magic-color); background: rgba(255,255,255,0.1); color: white; text-align: center; outline: none; font-weight: bold;">
+        <div style="display:flex; gap:10px;">
+            <button onclick="App.confirmRenameProfile(true)" style="background:var(--magic-color); border:none; border-radius:4px; color:#000; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">ОК</button>
+            <button onclick="App.confirmRenameProfile(false)" style="background:rgba(255,255,255,0.2); border:none; border-radius:4px; color:#fff; cursor:pointer; padding:5px 15px; font-weight:bold; font-size:12px;">Отмена</button>
         </div>
     </div>
 
@@ -525,7 +540,8 @@
             debugEnabled: false,
             profiles: [],
             activeProfileIdx: -1,
-            profileToDelete: -1
+            profileToDelete: -1,
+            profileToRename: -1
         };
 
         const LANG_DATA = {
@@ -550,6 +566,7 @@
         const bgThemes = { bg1: { grad: "radial-gradient(circle at center, #111b27 0%, #030508 100%)" }, bg2: { grad: "linear-gradient(to bottom, #143a24 0%, #051109 100%)" }, bg3: { grad: "radial-gradient(circle at center, #2a1b35 0%, #0f0914 100%)" }, bg4: { grad: "radial-gradient(circle at center, #1b2a35 0%, #091014 100%)" }, bg5: { grad: "radial-gradient(circle at center, #111111 0%, #000000 100%)" } };
 
         let audioCtx = null;
+        
         const skullSvgEmbed = `<i class="fas fa-skull-crossbones"></i>`;
 
         // ==============================================
@@ -864,6 +881,10 @@
                     if (delPopup && delPopup.style.display === 'flex' && !e.target.closest('#deleteProfileConfirm') && !e.target.closest('.delete-profile-btn')) {
                         delPopup.style.display = 'none';
                     }
+                    const renPopup = document.getElementById('renameProfileModal');
+                    if (renPopup && renPopup.style.display === 'flex' && !e.target.closest('#renameProfileModal') && !e.target.closest('.edit-profile-btn')) {
+                        renPopup.style.display = 'none';
+                    }
                 });
 
                 fillModeOptions(); 
@@ -927,10 +948,16 @@
                     wrapper.appendChild(btn);
 
                     if (GameState.activeProfileIdx === i) {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'edit-profile-btn';
+                        editBtn.innerHTML = '<i class="fas fa-pen"></i>';
+                        editBtn.onclick = (e) => App.showRenameModal(e, i);
+                        wrapper.appendChild(editBtn);
+
                         const delBtn = document.createElement('button');
                         delBtn.className = 'delete-profile-btn';
                         delBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                        delBtn.onclick = (e) => App.showDeleteConfirm(e, i, delBtn);
+                        delBtn.onclick = (e) => App.showDeleteConfirm(e, i);
                         wrapper.appendChild(delBtn);
                     }
                     grid.appendChild(wrapper);
@@ -957,7 +984,7 @@
                 if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
             }
 
-            function showDeleteConfirm(e, idx, btnEl) {
+            function showDeleteConfirm(e, idx) {
                 e.stopPropagation();
                 GameState.profileToDelete = idx;
                 const popup = document.getElementById('deleteProfileConfirm');
@@ -971,7 +998,10 @@
                     GameState.profiles.splice(GameState.profileToDelete, 1);
                     
                     GameState.profiles.forEach((p, i) => {
-                        p.name = (GameState.lang === 'ru' ? 'Игрок ' : 'Player ') + (i + 1);
+                        // Только сбрасываем стандартные имена, чтобы нумерация не ломалась
+                        if(p.name.startsWith('Игрок ') || p.name.startsWith('Player ')) {
+                            p.name = (GameState.lang === 'ru' ? 'Игрок ' : 'Player ') + (i + 1);
+                        }
                     });
                     localStorage.setItem('gof_profiles', JSON.stringify(GameState.profiles));
 
@@ -982,6 +1012,33 @@
                     if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
                 }
                 GameState.profileToDelete = -1;
+            }
+
+            function showRenameModal(e, idx) {
+                e.stopPropagation();
+                GameState.profileToRename = idx;
+                const popup = document.getElementById('renameProfileModal');
+                const input = document.getElementById('renameProfileInput');
+                input.value = GameState.profiles[idx].name;
+                popup.style.display = 'flex';
+                setTimeout(() => input.focus(), 50); 
+            }
+
+            function confirmRenameProfile(confirm) {
+                const popup = document.getElementById('renameProfileModal');
+                const input = document.getElementById('renameProfileInput');
+                popup.style.display = 'none';
+                if (confirm && GameState.profileToRename !== -1) {
+                    let newName = input.value.trim();
+                    if (newName.length > 0) {
+                        GameState.profiles[GameState.profileToRename].name = newName;
+                        localStorage.setItem('gof_profiles', JSON.stringify(GameState.profiles));
+                        renderProfiles();
+                        playSoundEffect('tick');
+                        if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+                    }
+                }
+                GameState.profileToRename = -1;
             }
 
             function loadProfileData(idx) {
@@ -1282,7 +1339,7 @@
                 updateStyleBtnIcon();
                 
                 document.getElementById('bgSelect').value = GameState.isClassic ? 'bg5' : 'bg1';
-                changeBackground();
+                changeBackground(true);
 
                 if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
                 requestProfileSave();
@@ -1337,7 +1394,7 @@
                 newPlayerBtns.forEach(b => b.innerText = t.newPlayer);
 
                 const rollBtn = document.getElementById('rollBtn');
-                rollBtn.innerText = t.rollBtn; 
+                if(!rollBtn.disabled) rollBtn.innerText = t.rollBtn; 
                 
                 if(!document.getElementById('res-content').classList.contains('visible')) document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle;
                 
@@ -1380,7 +1437,7 @@
             }
 
             return {
-                init, selectProfile, loadProfileData, requestProfileSave, showDeleteConfirm, confirmDeleteProfile, handleSparkleToggle, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
+                init, selectProfile, loadProfileData, requestProfileSave, showDeleteConfirm, confirmDeleteProfile, showRenameModal, confirmRenameProfile, handleSparkleToggle, selectGameMode, toggleGameMode, toggleQuestionField, toggleCubeStyle, toggleSound, toggleSettings, toggleRules, changeLanguage, changeBackground, toggleDebug, toggleLanguage,
                 showError, hideError, triggerButtonError, playSoundEffect, createSparkle, askOracle, updateModeDisplay: () => { DiceGame.updateModeDisplay(); requestProfileSave(); }
             };
         })();
@@ -1622,8 +1679,8 @@
             let streakSlots135 = 0;
             let streak1Bullet = 0;
             let deathStreak = 0; 
-            let pendingDeathReset = false; // Теневой сброс при смерти
-            let isWaitingResult = false; // Блокировка переходов на 3 сек
+            let pendingDeathReset = false; 
+            let isWaitingResult = false; 
 
             let totalPlaysThisSession = 0;
             let totalSurvivalsThisSession = 0;
@@ -1689,7 +1746,6 @@
                     s135: streakSlots135,
                     ds: deathStreak,
                     curSurv: survivalCount,
-                    // Если игрок умер и ждет анимации - в сейв пишем уже пустой барабан
                     cState: pendingDeathReset ? [false, false, false, false, false, false] : chamberState,
                     sState: pendingDeathReset ? [false, false, false, false, false] : stashState,
                     lBullets: pendingDeathReset ? 0 : loadedBullets
@@ -1766,8 +1822,6 @@
                 document.getElementById('historyListRoulette').style.display = 'block';
                 document.body.classList.add('roulette-mode-active');
                 if (GameState.debugEnabled) document.getElementById('debugPanel').style.display = 'flex';
-                
-                // loadStats takes care of UI updates
             }
 
             function unmount() {
@@ -1785,8 +1839,9 @@
 
             function handlePointerDown(e) {
                 if (isSpinningDrum || isWaitingResult || GameState.mode !== 'roulette') return; 
+                const rollBtn = document.getElementById('rollBtn');
                 const now = Date.now();
-                if (now - lastTapTime < 300) { if (!document.getElementById('rollBtn').disabled) App.askOracle(); return; }
+                if (now - lastTapTime < 300) { if (!rollBtn.disabled) App.askOracle(); return; }
                 lastTapTime = now; isDragging = true; cancelAnimationFrame(inertiaFrame); 
                 updateButtonStates(); 
                 
@@ -1952,7 +2007,7 @@
                 document.getElementById('survivalCounter').classList.remove('visible');
                 document.getElementById('drumRotator').style.transition = 'none'; document.getElementById('drumRotator').style.transform = `rotate(0deg)`; updateNumbers();
                 document.querySelectorAll('.stash-bullet').forEach(b => b.classList.remove('loaded'));
-                document.querySelectorAll('.chamber-slot').forEach(c => { c.classList.remove('filled'); c.classList.remove('fired'); });
+                document.querySelectorAll('.chamber-slot').forEach(c => { c.classList.remove('filled'); c.classList.remove('fired'); c.classList.remove('heart-pulse'); c.classList.remove('skull-aura'); });
                 updateButtonStates();
             }
 
@@ -2044,10 +2099,11 @@
                 const resSub = document.getElementById('res-sub');
                 resSub.classList.remove('heart-pulse', 'skull-aura');
                 isSpinningDrum = false; 
-                isWaitingResult = true;
-                updateButtonStates();
 
                 if (isGunshotResult) { 
+                    isWaitingResult = true; 
+                    updateButtonStates();
+
                     deathStreak++; 
                     totalDeathsThisSession++;
                     updateGlobalCounters();
@@ -2075,8 +2131,13 @@
                     } 
                     survivalCount = 0; streak5Bullets = 0; streakSlots135 = 0; streak1Bullet = 0; document.getElementById('survivalCounter').classList.remove('visible');
                     histDispTxt = t.shotMsg;
-                    pendingDeathReset = true; // Мгновенное теневое очищение
+                    pendingDeathReset = true; 
                 } else { 
+                    isWaitingResult = false; 
+                    updateButtonStates();
+                    const rollBtn = document.getElementById('rollBtn');
+                    rollBtn.innerText = t.rollBtn;
+
                     survivalCount++; 
                     deathStreak = 0; 
                     totalSurvivalsThisSession++;
@@ -2130,7 +2191,6 @@
                 
                 document.getElementById('historyListRoulette').prepend(item);
 
-                // Мгновенное сохранение прогресса до анимации
                 App.requestProfileSave(); 
 
                 const rollBtn = document.getElementById('rollBtn');
@@ -2143,16 +2203,15 @@
                         rollBtn.innerText = t.rollBtn; 
                         document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
                         document.getElementById('res-status').classList.add('visible');
-                        App.requestProfileSave(); // Финальное сохранение визуала
-                    }, 3000);
+                        App.requestProfileSave(); 
+                    }, 2000); 
                 } else {
                     setTimeout(() => { 
-                        isWaitingResult = false;
-                        updateButtonStates();
-                        rollBtn.innerText = t.rollBtn; 
-                        document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
-                        document.getElementById('res-status').classList.add('visible'); 
-                    }, 4000);
+                        if(!isWaitingResult && !isSpinningDrum) {
+                            document.getElementById('res-status').innerText = GameState.isQuestionHidden ? t.idleNoQ : t.idle; 
+                            document.getElementById('res-status').classList.add('visible'); 
+                        } 
+                    }, 3000);
                 }
             }
 
